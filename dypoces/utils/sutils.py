@@ -21,9 +21,16 @@ def read_csv_to_dict(path):
 
 def write_to_csv(path, header, *args):
     ensure_file_dir(path)
-    with open(path, "w", encoding="utf-8", newline="") as f:
+    if path.exists():
+        aw = "a"
+        wrt_header = False
+    else:
+        aw = "w"
+        wrt_header = True
+    with open(path, aw, encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(header)
+        if wrt_header:
+            writer.writerow(header)
         for values in args:
             writer.writerow(values)
 
