@@ -23,11 +23,10 @@ def point_catplot(title=None, **kwargs):
     sns.set(font_scale=2)
     # Kind of hardcoded mplrc.
     g = sns.catplot(
-        height=8,
+        height=10,
         aspect=0.8,
-        capsize=0.5,
-        errwidth=0.7,
-        size=10,
+        capsize=0.9,
+        errwidth=0.8,
         palette="hls",
         kind="point",
         **kwargs
@@ -51,11 +50,11 @@ def heatmap_facetgrid(
         )
         sns.heatmap(d, **kwargs)
 
-    g = sns.FacetGrid(data, col=col, row=row, height=8, aspect=0.8, size=10)
+    g = sns.FacetGrid(data, col=col, row=row, height=10, aspect=0.8)
     g.map_dataframe(
         draw_heatmap, x, y, hue, cbar=True, square=True, cbar_kws={"shrink": 0.5}
     )
-    g.fig.suptitle(title, y=0.9)
+    g.fig.suptitle(title, y=0.92)
     facecolor = g.fig.get_facecolor()
     for ax in g.axes.flat:
         # set aspect of all axis
@@ -63,7 +62,3 @@ def heatmap_facetgrid(
         # set background color of axis instance
         ax.set_facecolor(facecolor)
     return g
-
-
-if __name__ == "__main__":
-    pass
