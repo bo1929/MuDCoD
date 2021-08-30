@@ -26,6 +26,7 @@ CONVERGENCE_CRITERIA = 10 ** (-3)
 class PisCES(SpectralClustering):
     def __init__(self, verbose=False):
         super().__init__("pisces", verbose=verbose)
+        self.convergence_monitor = []
 
     def fit(self, adj, degree_correction=True):
         """
@@ -60,7 +61,7 @@ class PisCES(SpectralClustering):
             for t in range(self.time_horizon):
                 self.degree[t, :, :] = np.eye(self.n)
 
-    def predict(self, alpha=None, k_max=None, n_iter=30):
+    def predict(self, alpha=None, k_max=None, n_iter=30, monitor_convergence=False):
         """
         Parameters
         ----------
@@ -71,6 +72,9 @@ class PisCES(SpectralClustering):
             maximum number of communities, default is n/10.
         n_iter
             number of iteration of pisces, default is 30.
+        monitor_convergence
+            if True, method reports convergence based on ||U_{t} - U_{t-1}||
+            and |obj_t - obj_{t-1}> at each iteration.
 
         Returns
         -------
@@ -97,6 +101,8 @@ class PisCES(SpectralClustering):
         assert alpha.shape == (th, 2)
         assert k_max > 0
 
+        self.convergence_monitor = []
+
         if self.verbose:
             log(
                 f"PisCES-predict ~ alpha:{alpha[0,0]}, "
@@ -104,57 +110,74 @@ class PisCES(SpectralClustering):
             )
 
         k = np.zeros(th).astype(int) + k_max
-        obj = np.zeros(n_iter)
-        v_emb = np.zeros((th, n, k_max))
+        objective = np.zeros(n_iter)
+        v_col = np.zeros((th, n, k_max))
 
-        # Initialization of k, v_emb.
+        # Initialization of k, v_col.
         for t in range(th):
             adj_t = adj[t, :, :]
             k[t] = self.choose_k(adj_t, adj_t, degree[t, :, :], k_max)
-            _, v_emb[t, :, : k[t]] = eigs(adj_t, k=k[t], which="LM")
+            _, v_col[t, :, : k[t]] = eigs(adj_t, k=k[t], which="LM")
 
         for itr in range(n_iter):
-            v_emb_pv = deepcopy(v_emb)
+            diffU = 0
+            v_col_pv = deepcopy(v_col)
             for t in range(th):
                 if t == 0:
                     adj_t = adj[t, :, :]
-                    v_emb_ktn = v_emb_pv[t + 1, :, : k[t + 1]]
-                    s_t = adj_t + alpha[t, 1] * v_emb_ktn @ v_emb_ktn.T
+                    v_col_ktn = v_col_pv[t + 1, :, : k[t + 1]]
+                    s_t = adj_t + alpha[t, 1] * v_col_ktn @ v_col_ktn.T
                     k[t] = self.choose_k(s_t, adj_t, degree[t, :, :], k_max)
-                    _, v_emb[t, :, : k[t]] = eigs(adj_t, k=k[t], which="LM")
-                    eig_val = eigvals(v_emb[t, :, : k[t]].T @ v_emb_pv[t, :, : k[t]])
-                    obj[itr] = obj[itr] + (np.sum(np.abs(eig_val), axis=0))
+                    _, v_col[t, :, : k[t]] = eigs(adj_t, k=k[t], which="LM")
 
                 elif t == th - 1:
                     adj_t = adj[t, :, :]
-                    v_emb_ktp = v_emb_pv[t - 1, :, : k[t - 1]]
-                    s_t = adj_t + alpha[t, 0] * v_emb_ktp @ v_emb_ktp.T
+                    v_col_ktp = v_col_pv[t - 1, :, : k[t - 1]]
+                    s_t = adj_t + alpha[t, 0] * v_col_ktp @ v_col_ktp.T
                     k[t] = self.choose_k(s_t, adj_t, degree[t, :, :], k_max)
-                    _, v_emb[t, :, : k[t]] = eigs(s_t, k=k[t], which="LM")
-                    eig_val = eigvals(v_emb[t, :, : k[t]].T @ v_emb_pv[t, :, : k[t]])
-                    obj[itr] = obj[itr] + (np.sum(np.abs(eig_val), axis=0))
+                    _, v_col[t, :, : k[t]] = eigs(s_t, k=k[t], which="LM")
+                    eig_val = eigvals(v_col[t, :, : k[t]].T @ v_col_pv[t, :, : k[t]])
+                    objective[itr] = objective[itr] + (np.sum(np.abs(eig_val), axis=0))
 
                 else:
                     adj_t = adj[t, :, :]
-                    v_emb_ktp = v_emb_pv[t - 1, :, : k[t - 1]]
-                    v_emb_ktn = v_emb_pv[t + 1, :, : k[t + 1]]
+                    v_col_ktp = v_col_pv[t - 1, :, : k[t - 1]]
+                    v_col_ktn = v_col_pv[t + 1, :, : k[t + 1]]
                     s_t = (
                         adj_t
-                        + (alpha[t, 0] * v_emb_ktp @ v_emb_ktp.T)
-                        + (alpha[t, 1] * v_emb_ktn @ v_emb_ktn.T)
+                        + (alpha[t, 0] * v_col_ktp @ v_col_ktp.T)
+                        + (alpha[t, 1] * v_col_ktn @ v_col_ktn.T)
                     )
                     k[t] = self.choose_k(s_t, adj_t, degree[t, :, :], k_max)
-                    _, v_emb[t, :, : k[t]] = eigs(s_t, k=k[t], which="LM")
-                    eig_val = eigvals(v_emb[t, :, : k[t]].T @ v_emb_pv[t, :, : k[t]])
-                    obj[itr] = obj[itr] + np.sum(np.abs(eig_val), axis=0)
+                    _, v_col[t, :, : k[t]] = eigs(s_t, k=k[t], which="LM")
+
+                eig_val = eigvals(v_col[t, :, : k[t]].T @ v_col_pv[t, :, : k[t]])
+                objective[itr] = objective[itr] + np.sum(np.abs(eig_val), axis=0)
+
+                if monitor_convergence:
+                    diffU = diffU + (
+                        Similarity.hamming_distance(
+                            v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T,
+                            v_col_pv[t, :, : k[t]] @ v_col_pv[t, :, : k[t]].T,
+                            normalize=False,
+                        )
+                    )
 
             if self.verbose:
-                log(f"Value of objective funciton: {obj[itr]}, at iteration {itr+1}.")
+                log(
+                    f"Value of objective funciton: {objective[itr]}, at iteration {itr+1}."
+                )
 
-            if itr > 1 and abs(obj[itr] - obj[itr - 1]) < CONVERGENCE_CRITERIA:
-                break
+            if itr >= 1:
+                diff_obj = objective[itr] - objective[itr - 1]
 
-        if obj[itr] - obj[itr - 1] >= CONVERGENCE_CRITERIA:
+                if monitor_convergence:
+                    self.convergence_monitor.append((diff_obj, diffU))
+
+                if abs(diff_obj) < CONVERGENCE_CRITERIA:
+                    break
+
+        if objective[itr] - objective[itr - 1] >= CONVERGENCE_CRITERIA:
             warnings.warn("PisCES does not converge!", RuntimeWarning)
             if self.verbose:
                 log(f"PisCES does not not converge for alpha={alpha[0, 0]}.")
@@ -162,7 +185,7 @@ class PisCES(SpectralClustering):
         z_series = np.empty((th, n), dtype=int)
         for t in range(th):
             kmeans = KMeans(n_clusters=k[t])
-            z_series[t, :] = kmeans.fit_predict(v_emb[t, :, : k[t]])
+            z_series[t, :] = kmeans.fit_predict(v_col[t, :, : k[t]])
 
         return z_series
 
@@ -319,24 +342,27 @@ if __name__ == "__main__":
     # One easy cv example for PisCES.
     from dypoces.dcbm import DynamicDCBM
 
-    n = 200
-    th = 6
+    n = 500
+    th = 8
     model_dcbm = DynamicDCBM(
         n=n,
-        k=4,
-        p_in=(0.2, 0.3),
+        k=10,
+        p_in=(0.3, 0.3),
         p_out=0.1,
         time_horizon=th,
-        r_time=0,
+        r_time=0.1,
     )
     adj_series, z_series = model_dcbm.simulate_dynamic_dcbm()
 
     pisces = PisCES(verbose=True)
-    pisces.fit(adj_series[:, :, :], degree_correction=False)
-    modu, logllh = pisces.cross_validation(
-        n_splits=4,
-        alpha=0.1 * np.ones((adj_series.shape[0], 2)),
-        k_max=10,
-        n_iter=100,
-        n_jobs=1,
-    )
+
+    alpha = 0.1 * np.ones((adj_series.shape[0], 2))
+    k_max = 10
+    n_iter = 100
+
+    pisces.fit(adj_series[:, :, :], degree_correction=True)
+    pisces.predict(alpha=alpha, k_max=k_max, n_iter=n_iter, monitor_convergence=True)
+    print(pisces.convergence_monitor)
+    ## modu, logllh = pisces.cross_validation(
+    ##     alpha=alpha, k_max=k_max, n_iter=n_iter, n_splits=4, n_jobs=1
+    ## )

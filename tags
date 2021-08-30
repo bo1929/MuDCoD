@@ -4,11 +4,12 @@
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/bo/Files/projects/dypoces/	//
+!_TAG_PROC_CWD	/home/bo/work/dypoces/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	5.9.0	/b5cd9f4e/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210822.0/
+COMM_DIR	simulations/report.py	/^COMM_DIR = RESULT_DIR \/ "simulation_results"$/;"	v
 CONVERGENCE_CRITERIA	dypoces/muspces.py	/^CONVERGENCE_CRITERIA = 10 ** (-3)$/;"	v
 CONVERGENCE_CRITERIA	dypoces/pisces.py	/^CONVERGENCE_CRITERIA = 10 ** (-3)$/;"	v
 DCBM	dypoces/dcbm.py	/^class DCBM:$/;"	c
@@ -16,28 +17,30 @@ Dynamic Population Communities by Eigenvector Smoothing	README.md	/^# Dynamic Po
 DynamicDCBM	dypoces/dcbm.py	/^class DynamicDCBM(DCBM):$/;"	c
 FIGURE_DIR	simulations/report.py	/^FIGURE_DIR = RESULT_DIR \/ "simulation_figures"$/;"	v
 ISO_FORMAT	dypoces/utils/sutils.py	/^ISO_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"$/;"	v
-K	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^K = cv_cfg["K"]$/;"	v
-K	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^K = simul_cfg["K"]$/;"	v
+LA	dypoces/nw.py	/^from numpy import linalg as LA$/;"	x	nameref:unknown:linalg
+Loss	dypoces/nw.py	/^class Loss:$/;"	c
+MAIN_DIR	simulations/network_comparison.py	/^MAIN_DIR = Path(__file__).absolute().parent.parent$/;"	v
 MAIN_DIR	simulations/report.py	/^MAIN_DIR = Path(__file__).absolute().parent.parent$/;"	v
 MAIN_DIR	simulations/simulation.py	/^MAIN_DIR = Path(__file__).absolute().parent.parent$/;"	v
 MSDDCBM	dypoces/dcbm.py	/^    MSDDCBM = MuSDynamicDCBM(n, k, p_in, p_out, T, r_time, Ns, r_subject)$/;"	v
 MuSDynamicDCBM	dypoces/dcbm.py	/^class MuSDynamicDCBM(DynamicDCBM):$/;"	c
 MuSPCES	dypoces/muspces.py	/^class MuSPCES(SpectralClustering):$/;"	c
+NW_COMPARE_DIR	simulations/network_comparison.py	/^NW_COMPARE_DIR = RESULT_DIR \/ "network_comparison"$/;"	v
 Ns	dypoces/dcbm.py	/^    Ns = 4$/;"	v
-Ns	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^Ns = args.num_subject$/;"	v
-Ns	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^Ns = args.num_subject$/;"	v
 POSITIONAL=	simulations/run_simulation.sh	/^POSITIONAL=()$/;"	f
 PisCES	dypoces/pisces.py	/^class PisCES(SpectralClustering):$/;"	c
-RESULT_DIR	simulations/report.py	/^RESULT_DIR = MAIN_DIR \/ "results"$/;"	v
+RESULT_DIR	simulations/network_comparison.py	/^RESULT_DIR = MAIN_DIR \/ "results-aug20"$/;"	v
+RESULT_DIR	simulations/report.py	/^RESULT_DIR = MAIN_DIR \/ "results-aug20"$/;"	v
 RESULT_DIR	simulations/simulation.py	/^RESULT_DIR = MAIN_DIR \/ "results"$/;"	v
+SIMULATION_DIR	simulations/network_comparison.py	/^SIMULATION_DIR = MAIN_DIR \/ "simulations"$/;"	v
 SIMULATION_DIR	simulations/report.py	/^SIMULATION_DIR = MAIN_DIR \/ "simulations"$/;"	v
 SIMULATION_DIR	simulations/simulation.py	/^SIMULATION_DIR = MAIN_DIR \/ "simulations"$/;"	v
+Similarity	dypoces/nw.py	/^class Similarity:$/;"	c
 SimulationMSDDCBM	simulations/simulation.py	/^class SimulationMSDDCBM:$/;"	c
 SpectralClustering	dypoces/spectral.py	/^class SpectralClustering:$/;"	c
 Static	dypoces/static.py	/^class Static(SpectralClustering):$/;"	c
 T	dypoces/dcbm.py	/^    T = 3$/;"	v
-T	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^T = args.time_horizon$/;"	v
-T	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^T = args.time_horizon$/;"	v
+VIS	simulations/report.py	/^import dypoces.utils.visualization as VIS  # noqa: E402$/;"	I	nameref:module:dypoces.utils.visualization
 __init__	dypoces/dcbm.py	/^    def __init__($/;"	m	class:DynamicDCBM
 __init__	dypoces/dcbm.py	/^    def __init__($/;"	m	class:MuSDynamicDCBM
 __init__	dypoces/dcbm.py	/^    def __init__(self, n=None, k=None, p_in=None, p_out=None):$/;"	m	class:DCBM
@@ -46,8 +49,10 @@ __init__	dypoces/pisces.py	/^    def __init__(self, verbose=False):$/;"	m	class:
 __init__	dypoces/spectral.py	/^    def __init__(self, method, verbose=False):$/;"	m	class:SpectralClustering
 __init__	dypoces/static.py	/^    def __init__(self, verbose=False):$/;"	m	class:Static
 __init__	simulations/simulation.py	/^    def __init__($/;"	m	class:SimulationMSDDCBM
+_assert_before_distance	dypoces/nw.py	/^def _assert_before_distance(adj1, adj2):$/;"	f
 _eps	dypoces/dcbm.py	/^_eps = 10 ** (-5)$/;"	v
 _eps	dypoces/muspces.py	/^_eps = 10 ** (-10)$/;"	v
+_eps	dypoces/nw.py	/^_eps = 10 ** (-5)$/;"	v
 _eps	dypoces/pisces.py	/^_eps = 10 ** (-10)$/;"	v
 _eps	dypoces/spectral.py	/^_eps = 10 ** (-10)$/;"	v
 _eps	dypoces/static.py	/^_eps = 10 ** (-10)$/;"	v
@@ -56,161 +61,152 @@ _get_simulation_name	simulations/simulation.py	/^    def _get_simulation_name(se
 _z_evolve	dypoces/dcbm.py	/^    def _z_evolve(self, z_old, r):$/;"	m	class:DCBM
 adj_ms_series	dypoces/dcbm.py	/^        adj_ms_series, z_ms_series = MSDDCBM.simulate_ms_dynamic_dcbm(case=i)$/;"	v
 adj_ms_series	dypoces/muspces.py	/^    adj_ms_series, z_ms_series = model_dcbm.simulate_ms_dynamic_dcbm(case=0)$/;"	v
-adj_ms_series	dypoces/pisces.py	/^    adj_ms_series, z_ms_series = model_dcbm.simulate_ms_dynamic_dcbm(case=0)$/;"	v
+adj_series	dypoces/pisces.py	/^    adj_series, z_series = model_dcbm.simulate_dynamic_dcbm()$/;"	v
 alpha	simulations/simulation.py	/^        alpha = args.alpha$/;"	v
-alpha_muspces	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^alpha_muspces = args.alpha_muspces$/;"	v
-alpha_pisces	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^alpha_pisces = args.alpha_pisces$/;"	v
-alphalist_muspces	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^    alphalist_muspces = [0.01, 0.02, 0.05, 0.08]$/;"	v
-alphalist_muspces	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^    alphalist_muspces = [alpha_muspces]$/;"	v
-alphalist_pisces	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^    alphalist_pisces = [alpha_pisces]$/;"	v
-args	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^args = parser.parse_args()$/;"	v
-args	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^args = parser.parse_args()$/;"	v
 args	simulations/simulation.py	/^args = parser.parse_args()$/;"	v
-beta	simulations/simulation.py	/^        beta = args.alpha$/;"	v
-beta_muspces	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^beta_muspces = args.beta_muspces$/;"	v
-betalist_muspces	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^    betalist_muspces = [0.01, 0.02, 0.05]$/;"	v
-betalist_muspces	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^    betalist_muspces = [beta_muspces]$/;"	v
+beta	simulations/simulation.py	/^        beta = args.beta$/;"	v
 case_msd	simulations/simulation.py	/^    case_msd = args.case_msd$/;"	v
-catplot_results	dypoces/utils/visualization.py	/^def catplot_results(df, x, y, hue, col, row, title):$/;"	f
 cfg	simulations/simulation.py	/^        cfg = make_cfg($/;"	v
 change_log_path	dypoces/utils/sutils.py	/^def change_log_path(path):$/;"	f
 choose_k	dypoces/spectral.py	/^    def choose_k(adj_smoothed, adj, degree, k_max):$/;"	m	class:SpectralClustering
 class_dcbm	simulations/simulation.py	/^    class_dcbm = args.class_dcbm$/;"	v
 class_info	simulations/simulation.py	/^    class_info = read_class_dcbm(class_dcbm)$/;"	v
-col	simulations/report.py	/^col = "r_time"$/;"	v
+communicability_jensenshannon	dypoces/nw.py	/^    def communicability_jensenshannon(adj1, adj2):$/;"	m	class:Similarity
 community_detection	simulations/simulation.py	/^    def community_detection($/;"	m	class:SimulationMSDDCBM
 community_detection_parser	simulations/simulation.py	/^community_detection_parser = subparsers.add_parser("community-detection")$/;"	v
+community_membership_distance	dypoces/nw.py	/^    def community_membership_distance(z1, z2):$/;"	m	class:Similarity
+compare_rsubject_MuSDynamicDCBM	simulations/network_comparison.py	/^def compare_rsubject_MuSDynamicDCBM($/;"	f
+compare_rtime_MuSDynamicDCBM	simulations/network_comparison.py	/^def compare_rtime_MuSDynamicDCBM($/;"	f
 compute_for_split	dypoces/muspces.py	/^        def compute_for_split(adj, idx_test, n, th, ns, muspces_kwargs={}):$/;"	f	member:MuSPCES.cross_validation	file:
 compute_for_split	dypoces/pisces.py	/^        def compute_for_split(adj, idx_test, n, th, pisces_kwargs={}):$/;"	f	member:PisCES.cross_validation	file:
 cross_validation	dypoces/muspces.py	/^    def cross_validation($/;"	m	class:MuSPCES
 cross_validation	dypoces/pisces.py	/^    def cross_validation($/;"	m	class:PisCES
-cross_validation	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^def cross_validation():$/;"	f
-cv_case	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^cv_case = args.cv_case$/;"	v
-cv_case	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^cv_case = args.cv_case$/;"	v
-cv_cfg	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^cv_cfg = get_case_cfg(simul_case)$/;"	v
 cv_muspces	simulations/simulation.py	/^    def cv_muspces(self, alpha, beta, save=True):$/;"	m	class:SimulationMSDDCBM
 cv_pisces	simulations/simulation.py	/^    def cv_pisces(self, alpha, save=True):$/;"	m	class:SimulationMSDDCBM
-data	simulations/report.py	/^            data = results_df[mask_trip]$/;"	v
 dcbm	dypoces/dcbm.py	/^    def dcbm(self, z):$/;"	m	class:DCBM
+dcbm	simulations/network_comparison.py	/^import dypoces.dcbm as dcbm  # noqa: E402$/;"	I	nameref:module:dypoces.dcbm
+density1	dypoces/nw.py	/^        density1 = lambda w: np.sum(hwhm \/ ((w - w1) ** 2 + hwhm ** 2)) \/ norm1$/;"	f	member:Similarity.ipsen_mikhailov_distance	file:
+density2	dypoces/nw.py	/^        density2 = lambda w: np.sum(hwhm \/ ((w - w2) ** 2 + hwhm ** 2)) \/ norm2$/;"	f	member:Similarity.ipsen_mikhailov_distance	file:
+draw_heatmap	dypoces/utils/visualization.py	/^    def draw_heatmap(*args, **kwargs):$/;"	f	function:heatmap_facetgrid	file:
 draw_kamada_kawai	dypoces/utils/visualization.py	/^    def draw_kamada_kawai(A, path=None, **kwargs):$/;"	m	class:nxDraw
 draw_spectral	dypoces/utils/visualization.py	/^    def draw_spectral(A, path=None, **kwargs):$/;"	m	class:nxDraw
 dynamic_dcbm	dypoces/dcbm.py	/^    def dynamic_dcbm(self, z):$/;"	m	class:DynamicDCBM
 eigen_complete	dypoces/spectral.py	/^    def eigen_complete(adj, cvidx, epsilon, k):$/;"	m	class:SpectralClustering
 ensure_file_dir	dypoces/utils/sutils.py	/^def ensure_file_dir(file_path: Path):$/;"	f
+exact_edit_distance	dypoces/nw.py	/^    def exact_edit_distance(adj1, adj2):$/;"	m	class:Similarity
 fit	dypoces/muspces.py	/^    def fit(self, adj, degree_correction=True):$/;"	m	class:MuSPCES
 fit	dypoces/pisces.py	/^    def fit(self, adj, degree_correction=True):$/;"	m	class:PisCES
 fit	dypoces/static.py	/^    def fit(self, adj, degree_correction=True):$/;"	m	class:Static
 fit_predict	dypoces/muspces.py	/^    def fit_predict($/;"	m	class:MuSPCES
 fit_predict	dypoces/pisces.py	/^    def fit_predict($/;"	m	class:PisCES
 fit_predict	dypoces/static.py	/^    def fit_predict(self, adj, k_max=None, n_iter=30):$/;"	m	class:Static
-g	simulations/report.py	/^            g = sns.catplot($/;"	v
-gad	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^    gad = lambda decimal: str(decimal).split(".")[-1]$/;"	f	function:cross_validation	file:
+frobenius_distance	dypoces/nw.py	/^    def frobenius_distance(adj1, adj2):$/;"	m	class:Similarity
+func	dypoces/nw.py	/^        func = lambda w: (density1(w) - density2(w)) ** 2$/;"	f	member:Similarity.ipsen_mikhailov_distance	file:
 get_adjacency	dypoces/dcbm.py	/^    def get_adjacency(self, z, B, theta):$/;"	m	class:DCBM
 get_simulation_name	simulations/simulation.py	/^    def get_simulation_name($/;"	m	class:SimulationMSDDCBM
-hue	simulations/report.py	/^hue = "method"$/;"	v
+hamming_distance	dypoces/nw.py	/^    def hamming_distance(adj1, adj2):$/;"	m	class:Similarity
+heatmap_facetgrid	dypoces/utils/visualization.py	/^def heatmap_facetgrid($/;"	f
 id_number	simulations/simulation.py	/^        id_number = args.id_number$/;"	v
+inform_about_network	dypoces/nw.py	/^def inform_about_network(adj):$/;"	f
+ipsen_mikhailov_distance	dypoces/nw.py	/^    def ipsen_mikhailov_distance(adj1, adj2, hwhm=0.08):$/;"	m	class:Similarity
+jaccard_distance	dypoces/nw.py	/^    def jaccard_distance(adj1, adj2):$/;"	m	class:Similarity
 k	dypoces/dcbm.py	/^    k = 4$/;"	v
+k	simulations/network_comparison.py	/^    k = 4$/;"	v
 log	dypoces/utils/sutils.py	/^def log(*args, **kwargs):$/;"	f
 log_f	dypoces/utils/sutils.py	/^log_f = None$/;"	v
 log_p	dypoces/utils/sutils.py	/^log_p = None$/;"	v
+loglikelihood	dypoces/nw.py	/^    def loglikelihood(adj_test, adj_train, z_hat, cvidx):$/;"	m	class:Loss
+logllh	dypoces/muspces.py	/^    modu, logllh = muspces.cross_validation($/;"	v
+logllh	dypoces/pisces.py	/^    modu, logllh = pisces.cross_validation($/;"	v
 logr	dypoces/utils/sutils.py	/^def logr(*args, **kwargs):$/;"	f
-loss	dypoces/dcbm.py	/^    def loss(adj_test, adj_train, z_hat, cvidx, opt="logllh"):$/;"	m	class:DCBM
 make_cfg	simulations/simulation.py	/^def make_cfg($/;"	f
-mask_trip	simulations/report.py	/^            mask_trip = ($/;"	v
-mkfloat	simulations/report.py	/^    mkfloat = lambda x: float("0." + x[2:])$/;"	f	function:read_simulation_results_to_df	file:
-mkint	simulations/report.py	/^    mkint = lambda x: int(x[2:])$/;"	f	function:read_simulation_results_to_df	file:
+mkfloat	simulations/report.py	/^    mkfloat = lambda x: float("0." + x[2:])$/;"	f	function:read_results	file:
+mkint	simulations/report.py	/^    mkint = lambda x: int(x[2:])$/;"	f	function:read_results	file:
 model_dcbm	dypoces/muspces.py	/^    model_dcbm = MuSDynamicDCBM($/;"	v
-model_dcbm	dypoces/pisces.py	/^    model_dcbm = MuSDynamicDCBM($/;"	v
+model_dcbm	dypoces/pisces.py	/^    model_dcbm = DynamicDCBM($/;"	v
+modu	dypoces/muspces.py	/^    modu, logllh = muspces.cross_validation($/;"	v
+modu	dypoces/pisces.py	/^    modu, logllh = pisces.cross_validation($/;"	v
+modularity	dypoces/nw.py	/^    def modularity(adj_test, adj_train, z_hat, cvidx):$/;"	m	class:Loss
 msddcbm_kwargs	simulations/simulation.py	/^    msddcbm_kwargs = deepcopy(class_info)$/;"	v
 mus_dynamic_dcbm	dypoces/dcbm.py	/^    def mus_dynamic_dcbm(self, z):$/;"	m	class:MuSDynamicDCBM
+muspces	dypoces/muspces.py	/^    muspces = MuSPCES(verbose=True)$/;"	v
 muspces_cv_parser	simulations/simulation.py	/^muspces_cv_parser = subparsers.add_parser("cv-muspces")$/;"	v
 n	dypoces/dcbm.py	/^    n = 100$/;"	v
+n	dypoces/pisces.py	/^    n = 200$/;"	v
 n	dypoces/static.py	/^    n = 250$/;"	v
-n	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^n = int(cv_cfg["n"] * size_coef)$/;"	v
-n	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^n = simul_cfg["n"]$/;"	v
-n_jobs	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^n_jobs = args.n_jobs$/;"	v
-n_jobs	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^n_jobs = args.n_jobs$/;"	v
+n	simulations/network_comparison.py	/^    n = 200$/;"	v
 n_jobs	simulations/simulation.py	/^    n_jobs = args.n_jobs$/;"	v
 np	dypoces/dcbm.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	dypoces/muspces.py	/^import numpy as np$/;"	I	nameref:module:numpy
+np	dypoces/nw.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	dypoces/pisces.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	dypoces/spectral.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	dypoces/static.py	/^import numpy as np$/;"	I	nameref:module:numpy
-np	dypoces/utils/visualization.py	/^import numpy as np$/;"	I	nameref:module:numpy
-np	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^import numpy as np$/;"	I	nameref:module:numpy
-np	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^import numpy as np$/;"	I	nameref:module:numpy
+np	simulations/network_comparison.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	simulations/report.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	simulations/simulation.py	/^import numpy as np$/;"	I	nameref:module:numpy
+ns	simulations/network_comparison.py	/^    ns = 15$/;"	v
 num_subjects	simulations/simulation.py	/^    num_subjects = args.num_subjects$/;"	v
+nx	dypoces/nw.py	/^import networkx as nx$/;"	I	nameref:module:networkx
 nx	dypoces/utils/visualization.py	/^import networkx as nx$/;"	I	nameref:module:networkx
 nxDraw	dypoces/utils/visualization.py	/^class nxDraw:$/;"	c
 obj_key	simulations/simulation.py	/^        obj_key = args.obj_key$/;"	v
+objkey	simulations/report.py	/^objkey = "loglikelihood"$/;"	v
+optimized_edit_distance	dypoces/nw.py	/^    def optimized_edit_distance(adj1, adj2):$/;"	m	class:Similarity
 p_in	dypoces/dcbm.py	/^    p_in = (0.3, 0.4)$/;"	v
-p_in	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^p_in = cv_cfg["p_in"]$/;"	v
-p_in	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^p_in = simul_cfg["p_in"]$/;"	v
+p_in	simulations/network_comparison.py	/^    p_in = (0.2, 0.3)$/;"	v
 p_out	dypoces/dcbm.py	/^    p_out = 0.1$/;"	v
-p_out	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^p_out = cv_cfg["p_out"]$/;"	v
-p_out	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^p_out = simul_cfg["p_out"]$/;"	v
-parser	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^parser = add_common_arguments(parser)$/;"	v
-parser	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^parser = argparse.ArgumentParser(description="Cross-validation for MuSPCES and PisCES.")$/;"	v
-parser	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^parser = add_common_arguments(parser)$/;"	v
-parser	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^parser = argparse.ArgumentParser($/;"	v
+p_out	simulations/network_comparison.py	/^    p_out = 0.1$/;"	v
 parser	simulations/simulation.py	/^parser = argparse.ArgumentParser($/;"	v
 pd	simulations/report.py	/^import pandas as pd$/;"	I	nameref:module:pandas
-pisces	dypoces/muspces.py	/^    pisces = MuSPCES(verbose=True)$/;"	v
 pisces	dypoces/pisces.py	/^    pisces = PisCES(verbose=True)$/;"	v
 pisces_cv_parser	simulations/simulation.py	/^pisces_cv_parser = subparsers.add_parser("cv-pisces")$/;"	v
+plot_community_detection_results	simulations/report.py	/^def plot_community_detection_results(comm_result_path, figure_path):$/;"	f
+plot_cross_validation_results	simulations/report.py	/^def plot_cross_validation_results($/;"	f
 plt	dypoces/utils/visualization.py	/^import matplotlib.pyplot as plt$/;"	I	nameref:module:matplotlib.pyplot
+plt	simulations/report.py	/^import matplotlib.pyplot as plt$/;"	I	nameref:module:matplotlib.pyplot
+point_catplot	dypoces/utils/visualization.py	/^def point_catplot(title=None, **kwargs):$/;"	f
+polynomial	dypoces/nw.py	/^            def polynomial(kp):$/;"	f	function:Similarity.polynomial_dissimilarity.similarity_score	file:
+polynomial_dissimilarity	dypoces/nw.py	/^    def polynomial_dissimilarity(adj1, adj2, k=5, alpha=1):$/;"	m	class:Similarity
 predict	dypoces/muspces.py	/^    def predict(self, alpha=None, beta=None, k_max=None, n_iter=30):$/;"	m	class:MuSPCES
 predict	dypoces/pisces.py	/^    def predict(self, alpha=None, k_max=None, n_iter=30):$/;"	m	class:PisCES
 predict	dypoces/static.py	/^    def predict(self, k_max=None, n_iter=30):$/;"	m	class:Static
 r_subject	dypoces/dcbm.py	/^    r_subject = 0.2$/;"	v
-r_subject	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^r_subject = args.r_subject$/;"	v
-r_subject	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^r_subject = args.r_subject$/;"	v
+r_subject	simulations/network_comparison.py	/^    r_subject = 0.2$/;"	v
 r_subject	simulations/simulation.py	/^    r_subject = args.r_subject$/;"	v
+r_subject_grid	simulations/network_comparison.py	/^    r_subject_grid = [0, 0.01, 0.05, 0.1, 0.2, 0.5, 0.7, 1]$/;"	v
 r_time	dypoces/dcbm.py	/^    r_time = 0.2$/;"	v
-r_time	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^r_time = args.r_time$/;"	v
-r_time	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^r_time = args.r_time$/;"	v
+r_time	simulations/network_comparison.py	/^    r_time = 0.2$/;"	v
 r_time	simulations/simulation.py	/^    r_time = args.r_time$/;"	v
+r_time_grid	simulations/network_comparison.py	/^    r_time_grid = [0, 0.01, 0.05, 0.1, 0.2, 0.5, 0.7, 1]$/;"	v
 read_cfg	simulations/simulation.py	/^def read_cfg(simulation_name):$/;"	f
 read_class_dcbm	simulations/simulation.py	/^def read_class_dcbm(class_dcbm):$/;"	f
 read_csv_to_dict	dypoces/utils/sutils.py	/^def read_csv_to_dict(path):$/;"	f
-read_simulation_results_to_df	simulations/report.py	/^def read_simulation_results_to_df(simul_result_path, multi_index=False):$/;"	f
-results_df	simulations/report.py	/^results_df = read_simulation_results_to_df(RESULT_DIR \/ "simulation_results")$/;"	v
-row	simulations/report.py	/^row = "r_subject"$/;"	v
+read_results	simulations/report.py	/^def read_results(comm_result_path, multi_index=False, read_cv=False):$/;"	f
+rs1	simulations/network_comparison.py	/^    rs1 = compare_rsubject_MuSDynamicDCBM($/;"	v
+rs3	simulations/network_comparison.py	/^    rs3 = compare_rsubject_MuSDynamicDCBM($/;"	v
+rt1	simulations/network_comparison.py	/^    rt1 = compare_rtime_MuSDynamicDCBM($/;"	v
+rt3	simulations/network_comparison.py	/^    rt3 = compare_rtime_MuSDynamicDCBM($/;"	v
 safe_create_dir	dypoces/utils/sutils.py	/^def safe_create_dir(d: Path):$/;"	f
 save_community_detection_result	simulations/simulation.py	/^    def save_community_detection_result(self, name, id_number, result):$/;"	m	class:SimulationMSDDCBM
 save_cross_validation_result	simulations/simulation.py	/^    def save_cross_validation_result(self, name, header, values):$/;"	m	class:SimulationMSDDCBM
+similarity_score	dypoces/nw.py	/^        def similarity_score(adj, k, alpha):$/;"	f	member:Similarity.polynomial_dissimilarity	file:
 simul	simulations/simulation.py	/^    simul = SimulationMSDDCBM($/;"	v
-simul_case	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^simul_case = args.case$/;"	v
-simul_case	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^simul_case = args.case$/;"	v
-simul_cfg	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^simul_cfg = get_simul_cfg(simul_case, simul_name, cv_case)$/;"	v
-simul_identity	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^simul_identity = args.identity$/;"	v
-simul_name	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^simul_name = get_simul_name(simul_case, T, Ns, r_time, r_subject)$/;"	v
-simul_name	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^simul_name = get_simul_name(simul_case, T, Ns, r_time, r_subject)$/;"	v
 simulate_dynamic_dcbm	dypoces/dcbm.py	/^    def simulate_dynamic_dcbm(self):$/;"	m	class:DynamicDCBM
 simulate_ms_dynamic_dcbm	dypoces/dcbm.py	/^    def simulate_ms_dynamic_dcbm(self, case=3):$/;"	m	class:MuSDynamicDCBM
-simulation	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^def simulation():$/;"	f
-size_coef	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^size_coef = args.size_coef$/;"	v
 sns	dypoces/utils/visualization.py	/^import seaborn as sns$/;"	I	nameref:module:seaborn
 sns	simulations/report.py	/^import seaborn as sns$/;"	I	nameref:module:seaborn
 split_idx_test	dypoces/muspces.py	/^        def split_idx_test(split):$/;"	f	member:MuSPCES.cross_validation	file:
 split_idx_test	dypoces/pisces.py	/^        def split_idx_test(split):$/;"	f	member:PisCES.cross_validation	file:
 subparsers	simulations/simulation.py	/^subparsers = parser.add_subparsers(dest="task")$/;"	v
 task	simulations/simulation.py	/^    task = args.task$/;"	v
+th	dypoces/pisces.py	/^    th = 6$/;"	v
+th	simulations/network_comparison.py	/^    th = 10$/;"	v
 time_horizon	simulations/simulation.py	/^    time_horizon = args.time_horizon$/;"	v
 timeit	dypoces/utils/sutils.py	/^def timeit(f):$/;"	f
-title	simulations/report.py	/^            title = f"dcbm-class: {class_dcbm} "$/;"	v
-unique_col_val	simulations/report.py	/^unique_col_val = {}$/;"	v
-verbose	simulations/.ipynb_checkpoints/cv_dcbm-checkpoint.py	/^verbose = cv_cfg["verbose"]$/;"	v
-verbose	simulations/.ipynb_checkpoints/multisubject_dynamic_dcbm-checkpoint.py	/^verbose = simul_cfg["verbose"]$/;"	v
 verbose	simulations/simulation.py	/^    verbose = args.verbose$/;"	v
 wrapper	dypoces/utils/sutils.py	/^    def wrapper(*args, **kwargs):$/;"	f	function:timeit	file:
 write_to_csv	dypoces/utils/sutils.py	/^def write_to_csv(path, header, *args):$/;"	f
-x	simulations/report.py	/^x = "time-horizon"$/;"	v
-y	simulations/report.py	/^y = "mean(ARI)"$/;"	v
 z_ms_series	dypoces/dcbm.py	/^        adj_ms_series, z_ms_series = MSDDCBM.simulate_ms_dynamic_dcbm(case=i)$/;"	v
 z_ms_series	dypoces/muspces.py	/^    adj_ms_series, z_ms_series = model_dcbm.simulate_ms_dynamic_dcbm(case=0)$/;"	v
-z_ms_series	dypoces/pisces.py	/^    adj_ms_series, z_ms_series = model_dcbm.simulate_ms_dynamic_dcbm(case=0)$/;"	v
-z_predicted	dypoces/muspces.py	/^    z_predicted = pisces.predict($/;"	v
-z_predicted	dypoces/pisces.py	/^        z_predicted = pisces.predict(alpha=0.1 * np.ones((z_ms_series.shape[1], 2)))$/;"	v
+z_series	dypoces/pisces.py	/^    adj_series, z_series = model_dcbm.simulate_dynamic_dcbm()$/;"	v

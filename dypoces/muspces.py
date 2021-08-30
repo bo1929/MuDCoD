@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     sys.path.append("../")
 
-from dypoces.nw import Loss
+from dypoces.nw import Loss, Similarity
 from dypoces.utils.sutils import timeit, log
 from dypoces.spectral import SpectralClustering
 
@@ -26,6 +26,7 @@ CONVERGENCE_CRITERIA = 10 ** (-3)
 class MuSPCES(SpectralClustering):
     def __init__(self, verbose=False):
         super().__init__("muspces", verbose=verbose)
+        self.convergence_monitor = []
 
     def fit(self, adj, degree_correction=True):
         """
@@ -69,7 +70,9 @@ class MuSPCES(SpectralClustering):
                 for sbj in range(self.num_subjects):
                     self.degree[sbj, t, :, :] = np.eye(self.n)
 
-    def predict(self, alpha=None, beta=None, k_max=None, n_iter=30):
+    def predict(
+        self, alpha=None, beta=None, k_max=None, n_iter=30, monitor_convergence=False
+    ):
         """
         Parameters
         ----------
@@ -83,6 +86,10 @@ class MuSPCES(SpectralClustering):
             maximum number of communities, default is n/10.
         n_iter
             number of iteration of pisces, default is 30.
+
+        monitor_convergence
+            if True, method reports convergence based on ||U_{t} - U_{t-1}||
+            and |obj_t - obj_{t-1}> at each iteration.
 
         Returns
         -------
@@ -114,6 +121,8 @@ class MuSPCES(SpectralClustering):
         assert beta.shape == (ns,)
         assert k_max > 0
 
+        self.convergence_monitor = []
+
         if self.verbose:
             log(
                 f"MuSPCES-predict ~ "
@@ -122,92 +131,102 @@ class MuSPCES(SpectralClustering):
             )
 
         k = np.zeros((ns, th)).astype(int) + k_max
-        obj = np.zeros((n_iter))
-        v_emb = np.zeros((ns, th, n, k_max))
+        objective = np.zeros((n_iter))
+        v_col = np.zeros((ns, th, n, k_max))
 
-        # Initialization of k, v_emb.
+        # Initialization of k, v_col.
         for t in range(th):
             for sbj in range(ns):
                 adj_t = adj[sbj, t, :, :]
                 k[sbj, t] = self.choose_k(adj_t, adj_t, degree[sbj, t, :, :], k_max)
-                _, v_emb[sbj, t, :, : k[sbj, t]] = eigs(adj_t, k=k[sbj, t], which="LM")
+                _, v_col[sbj, t, :, : k[sbj, t]] = eigs(adj_t, k=k[sbj, t], which="LM")
 
         for itr in range(n_iter):
-            v_emb_pv = deepcopy(v_emb)
+            diffU = 0
+            v_col_pv = deepcopy(v_col)
             for t in range(th):
-                v_emb_t = v_emb_pv[:, t, :, :]
-                swv_emb_t = np.swapaxes(v_emb_t, 1, 2)
-                mu_u_t = np.mean(v_emb_t @ swv_emb_t, axis=0)
+                v_col_t = v_col_pv[:, t, :, :]
+                swp_v_col_t = np.swapaxes(v_col_t, 1, 2)
+                mu_u_t = np.mean(v_col_t @ swp_v_col_t, axis=0)
                 for sbj in range(ns):
                     if t == 0:
                         adj_t = adj[sbj, t, :, :]
-                        v_emb_ktn = v_emb_pv[sbj, t + 1, :, : k[sbj, t + 1]]
+                        v_col_ktn = v_col_pv[sbj, t + 1, :, : k[sbj, t + 1]]
                         s_t = (
                             adj_t
-                            + alpha[t, 1] * v_emb_ktn @ v_emb_ktn.T
+                            + alpha[t, 1] * v_col_ktn @ v_col_ktn.T
                             + beta[sbj] * mu_u_t
                         )
                         k[sbj, t] = self.choose_k(
                             s_t, adj_t, degree[sbj, t, :, :], k_max
                         )
-                        _, v_emb[sbj, t, :, : k[sbj, t]] = eigs(
+                        _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
                             adj_t, k=k[sbj, t], which="LM"
                         )
-                        eig_val = eigvals(
-                            v_emb[sbj, t, :, : k[sbj, t]].T
-                            @ v_emb_pv[sbj, t, :, : k[sbj, t]]
-                        )
-                        obj[itr] = obj[itr] + (np.sum(np.abs(eig_val), axis=0))
 
                     elif t == th - 1:
                         adj_t = adj[sbj, t, :, :]
-                        v_emb_ktp = v_emb_pv[sbj, t - 1, :, : k[sbj, t - 1]]
+                        v_col_ktp = v_col_pv[sbj, t - 1, :, : k[sbj, t - 1]]
                         s_t = (
                             adj_t
-                            + alpha[t, 0] * v_emb_ktp @ v_emb_ktp.T
+                            + alpha[t, 0] * v_col_ktp @ v_col_ktp.T
                             + beta[sbj] * mu_u_t
                         )
                         k[sbj, t] = self.choose_k(
                             s_t, adj_t, degree[sbj, t, :, :], k_max
                         )
-                        _, v_emb[sbj, t, :, : k[sbj, t]] = eigs(
+                        _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
                             s_t, k=k[sbj, t], which="LM"
                         )
-                        eig_val = eigvals(
-                            v_emb[sbj, t, :, : k[sbj, t]].T
-                            @ v_emb_pv[sbj, t, :, : k[sbj, t]]
-                        )
-                        obj[itr] = obj[itr] + (np.sum(np.abs(eig_val), axis=0))
 
                     else:
                         adj_t = adj[sbj, t, :, :]
-                        v_emb_ktp = v_emb_pv[sbj, t - 1, :, : k[sbj, t - 1]]
-                        v_emb_ktn = v_emb_pv[sbj, t + 1, :, : k[sbj, t + 1]]
+                        v_col_ktp = v_col_pv[sbj, t - 1, :, : k[sbj, t - 1]]
+                        v_col_ktn = v_col_pv[sbj, t + 1, :, : k[sbj, t + 1]]
                         s_t = (
                             adj_t
-                            + (alpha[t, 0] * v_emb_ktp @ v_emb_ktp.T)
-                            + (alpha[t, 1] * v_emb_ktn @ v_emb_ktn.T)
+                            + (alpha[t, 0] * v_col_ktp @ v_col_ktp.T)
+                            + (alpha[t, 1] * v_col_ktn @ v_col_ktn.T)
                             + beta[sbj] * mu_u_t
                         )
                         k[sbj, t] = self.choose_k(
                             s_t, adj_t, degree[sbj, t, :, :], k_max
                         )
-                        _, v_emb[sbj, t, :, : k[sbj, t]] = eigs(
+                        _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
                             s_t, k=k[sbj, t], which="LM"
                         )
-                        eig_val = eigvals(
-                            v_emb[sbj, t, :, : k[sbj, t]].T
-                            @ v_emb_pv[sbj, t, :, : k[sbj, t]]
+                    eig_val = eigvals(
+                        v_col[sbj, t, :, : k[sbj, t]].T
+                        @ v_col_pv[sbj, t, :, : k[sbj, t]]
+                    )
+                    objective[itr] = objective[itr] + np.sum(np.abs(eig_val), axis=0)
+
+                    if monitor_convergence:
+                        diffU = diffU + (
+                            Similarity.hamming_distance(
+                                v_col[sbj, t, :, : k[sbj, t]]
+                                @ v_col[sbj, t, :, : k[sbj, t]].T,
+                                v_col_pv[sbj, t, :, : k[sbj, t]]
+                                @ v_col_pv[sbj, t, :, : k[sbj, t]].T,
+                                normalize=False,
+                            )
                         )
-                        obj[itr] = obj[itr] + np.sum(np.abs(eig_val), axis=0)
 
             if self.verbose:
-                log(f"Value of objective funciton: {obj[itr]}, at iteration {itr+1}.")
+                log(
+                    f"Value of objective funciton: {objective[itr]}, at iteration {itr+1}."
+                )
 
-            if itr > 1 and abs(obj[itr] - obj[itr - 1]) < CONVERGENCE_CRITERIA:
-                break
+            if itr >= 1:
+                diff_obj = objective[itr] - objective[itr - 1]
 
-        if obj[itr] - obj[itr - 1] >= CONVERGENCE_CRITERIA:
+                if monitor_convergence:
+                    self.convergence_monitor.append((diff_obj, diffU))
+
+                if abs(diff_obj) < CONVERGENCE_CRITERIA:
+                    break
+
+        if objective[itr] - objective[itr - 1] >= CONVERGENCE_CRITERIA:
             warnings.warn("MuSPCES does not converge!", RuntimeWarning)
             if self.verbose:
                 log(
@@ -218,7 +237,7 @@ class MuSPCES(SpectralClustering):
         for t in range(th):
             for sbj in range(ns):
                 kmeans = KMeans(n_clusters=k[sbj, t])
-                z[sbj, t, :] = kmeans.fit_predict(v_emb[sbj, t, :, : k[sbj, t]])
+                z[sbj, t, :] = kmeans.fit_predict(v_col[sbj, t, :, : k[sbj, t]])
         return z
 
     def fit_predict(
@@ -393,9 +412,9 @@ if __name__ == "__main__":
     from dypoces.dcbm import MuSDynamicDCBM
 
     model_dcbm = MuSDynamicDCBM(
-        n=100,
+        n=500,
         k=10,
-        p_in=(0.2, 0.2),
+        p_in=(0.3, 0.3),
         p_out=0.1,
         time_horizon=10,
         r_time=0.2,
@@ -406,13 +425,21 @@ if __name__ == "__main__":
 
     muspces = MuSPCES(verbose=True)
 
-    muspces.fit(adj_ms_series[:, :, :], degree_correction=False)
+    alpha = 0.1 * np.ones((adj_ms_series.shape[1], 2))
+    beta = 0.05 * np.ones(adj_ms_series.shape[0])
+    k_max = 10
+    n_iter = 30
 
-    modu, logllh = muspces.cross_validation(
-        n_splits=5,
-        alpha=0.1 * np.ones((adj_ms_series.shape[1], 2)),
-        beta=0.05 * np.ones(adj_ms_series.shape[0]),
-        k_max=10,
-        n_iter=30,
-        n_jobs=1,
+    muspces.fit(adj_ms_series[:, :, :], degree_correction=True)
+    muspces.predict(
+        alpha=alpha, beta=beta, k_max=k_max, n_iter=n_iter, monitor_convergence=True
     )
+    print(muspces.convergence_monitor)
+    ## modu, logllh = muspces.cross_validation(
+    ##     alpha=alpha,
+    ##     beta=beta,
+    ##     k_max=k_max,
+    ##     n_iter=n_iter,
+    ##     n_splits=5,
+    ##     n_jobs=1,
+    ## )

@@ -12,11 +12,15 @@ _eps = 10 ** (-5)
 
 
 def inform_about_network(adj):
-    G = nx.from_numpy_array(adj_series[i, :, :])
+    G = nx.from_numpy_array(adj)
+    info_txt = nx.classes.function.info(G)
+    return info_txt
+
+
+def degree_details(adj):
+    G = nx.from_numpy_array(adj)
     hist_degree = nx.classes.function.degree_histogram(G)
     density = nx.classes.function.density(G)
-    info_txt = nx.classes.function.info(G)
-    print(info_txt)
     return hist_degree, density
 
 
@@ -50,10 +54,14 @@ class Similarity:
         return minv
 
     @staticmethod
-    def hamming_distance(adj1, adj2):
+    def hamming_distance(adj1, adj2, normalize=True):
         _assert_before_distance(adj1, adj2)
         n = adj1.shape[0]
-        dist = (np.sum(np.abs(adj1 - adj2))) / (n * (n - 1))
+        dist = np.sum(np.abs(adj1 - adj2))
+        if normalize:
+            dist = dist / (n * (n - 1))
+        else:
+            pass
         return dist
 
     @staticmethod
@@ -155,10 +163,14 @@ class Similarity:
         norm2 = (N - 1) * np.pi / 2 - np.sum(np.arctan(-w2 / hwhm))
 
         # define both spectral densities
-        density1 = lambda w: np.sum(hwhm / ((w - w1) ** 2 + hwhm ** 2)) / norm1
-        density2 = lambda w: np.sum(hwhm / ((w - w2) ** 2 + hwhm ** 2)) / norm2
+        density1 = (
+            lambda w: np.sum(hwhm / ((w - w1) ** 2 + hwhm ** 2)) / norm1
+        )  # noqa: E731
+        density2 = (
+            lambda w: np.sum(hwhm / ((w - w2) ** 2 + hwhm ** 2)) / norm2
+        )  # noqa: E731
 
-        func = lambda w: (density1(w) - density2(w)) ** 2
+        func = lambda w: (density1(w) - density2(w)) ** 2  # noqa: E731
 
         return np.sqrt(quad(func, 0, np.inf, limit=100)[0])
 

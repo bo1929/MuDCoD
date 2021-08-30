@@ -79,28 +79,3 @@ def compare_rsubject_MuSDynamicDCBM(
             + np.triu(membership_distances[i, :, :], 1).T
         )
     return membership_distances
-
-
-if __name__ == "__main__":
-    n = 200
-    k = 4
-    p_in = (0.2, 0.3)
-    p_out = 0.1
-    th = 10
-    ns = 15
-    r_time = 0.2
-    r_subject = 0.2
-    r_subject_grid = [0, 0.01, 0.05, 0.1, 0.2, 0.5, 0.7, 1]
-    r_time_grid = [0, 0.01, 0.05, 0.1, 0.2, 0.5, 0.7, 1]
-    rt1 = compare_rtime_MuSDynamicDCBM(
-        n, k, p_in, p_out, th, r_time_grid, ns, r_subject, 1
-    )
-    rt3 = compare_rtime_MuSDynamicDCBM(
-        n, k, p_in, p_out, th, r_time_grid, ns, r_subject, 3
-    )
-    rs1 = compare_rsubject_MuSDynamicDCBM(
-        n, k, p_in, p_out, th, r_time, ns, r_subject_grid, 1
-    )
-    rs3 = compare_rsubject_MuSDynamicDCBM(
-        n, k, p_in, p_out, th, r_time, ns, r_subject_grid, 3
-    )

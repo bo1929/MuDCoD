@@ -8,7 +8,7 @@ from scipy.linalg import sqrtm
 from sklearn.cluster import KMeans
 
 from dypoces.spectral import SpectralClustering
-from dypoces.utils.sutils import timeit, log
+from dypoces.utils.sutils import log
 
 
 warnings.filterwarnings(action="ignore", category=np.ComplexWarning)
@@ -71,22 +71,17 @@ class Static(SpectralClustering):
         if self.verbose:
             log(f"Static-predict ~ k_max:{k_max}")
 
-        v_emb = np.zeros((n, k_max))
+        v_col = np.zeros((n, k_max))
 
-        # initialization of k, v_emb.
+        # initialization of k, v_col.
         k = self.choose_k(adj, adj, degree, k_max)
-        _, v_emb[:, :k] = eigs(adj, k=k, which="LM")
+        _, v_col[:, :k] = eigs(adj, k=k, which="LM")
 
         kmeans = KMeans(n_clusters=k)
-        z = kmeans.fit_predict(v_emb[:, :k])
+        z = kmeans.fit_predict(v_col[:, :k])
 
         return z
 
     def fit_predict(self, adj, k_max=None, n_iter=30):
         self.fit(adj, degree_correction=True)
         return self.predict(k_max=k_max, n_iter=n_iter)
-
-
-if __name__ == "__main__":
-    # One easy example for static spectral clustering.
-    n = 250

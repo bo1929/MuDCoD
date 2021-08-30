@@ -142,7 +142,7 @@ def make_cfg(
         assert len(set(cv_result["alpha"])) <= 1
         assert len(set(cv_result["beta"])) <= 1
 
-        obj = mean(cv_result[obj_key])
+        obj = np.mean(cv_result[obj_key])
         if method == "muspces":
             if muspces_obj_max < obj:
                 cfg["muspces_alpha"] = cv_result["alpha"][0]

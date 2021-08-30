@@ -57,11 +57,11 @@ echo "r-time: ${r_time}"
 echo "Number of subjects:${num_subjects}"
 echo "r-subject: ${r_subject}"
 
-alpha_values=(0.01 0.03 0.06 0.1 0.15 0.2)
-beta_values=(0.02 0.05 0.1 0.15)
+alpha_values=(0.01 0.05 0.1 0.15 0.2 0.25 0.3)
+beta_values=(0.01 0.05 0.1 0.15 0.2 0.25 0.3)
 
-num_cd=100
-num_cv=10
+num_cd=0
+num_cv=100
 
 for ((i = 0 ; i < num_cv ; i++)); do
   for alpha in ${alpha_values[@]}; do
