@@ -1,4 +1,5 @@
 import time
+import yaml
 import csv
 import collections
 
@@ -98,3 +99,11 @@ def log(*args, **kwargs):
     if log_f:
         print(*args, **kwargs, file=log_f)
         log_f.flush()
+
+
+def load_yaml(path):
+    with open(path, "r") as stream:
+        try:
+            return yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            log(exc)
