@@ -4,19 +4,42 @@ import networkx as nx
 
 
 class nxDraw:
-    @staticmethod
-    def draw_spectral(A, path=None, **kwargs):
+    @classmethod
+    def draw_spectral(cls, A, path=None, **kwargs):
         G = nx.from_numpy_matrix(A)
         nx.draw_spectral(G, **kwargs)
         if path is not None:
             plt.savefig(path)
 
-    @staticmethod
-    def draw_kamada_kawai(A, path=None, **kwargs):
+    @classmethod
+    def draw_spring(cls, A, path=None, **kwargs):
+        G = nx.from_numpy_matrix(A)
+        nx.draw_spring(G, **kwargs)
+        if path is not None:
+            plt.savefig(path)
+
+    @classmethod
+    def draw_kamada_kawai(cls, A, path=None, **kwargs):
         G = nx.from_numpy_matrix(A)
         nx.draw_kamada_kawai(G, **kwargs)
         if path is not None:
             plt.savefig(path)
+
+    @classmethod
+    def draw_DCBM(cls, n, k, p_in, p_out, path=None, layout="kamada_kawai", **kwargs):
+        from dypoces.dcbm import DCBM
+
+        model = DCBM(n=n, k=k, p_in=p_in, p_out=p_out)
+        z = model._get_random_z()
+        adj, z = model.dcbm(z)
+        if layout == "kamada_kawai":
+            cls.draw_kamada_kawai(adj, path=path, node_color=z, **kwargs)
+        elif layout == "spectral":
+            cls.draw_spectral(adj, path=path, node_color=z, **kwargs)
+        elif layout == "spring":
+            cls.draw_spring(adj, path=path, node_color=z, **kwargs)
+        else:
+            raise NotImplementedError
 
 
 def point_catplot(title=None, **kwargs):
