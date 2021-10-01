@@ -1,1 +1,1 @@
-# Dynamic Population Communities by Eigenvector Smoothing
+# MuDCoD: Multi-subject Dynamic Community Detection
