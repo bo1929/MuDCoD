@@ -27,7 +27,7 @@ class nxDraw:
 
     @classmethod
     def draw_DCBM(cls, n, k, p_in, p_out, path=None, layout="kamada_kawai", **kwargs):
-        from dypoces.dcbm import DCBM
+        from mudcod.dcbm import DCBM
 
         model = DCBM(n=n, k=k, p_in=p_in, p_out=p_out)
         z = model._get_random_z()
