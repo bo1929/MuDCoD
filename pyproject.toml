@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dypoces"
+name = "mudcod"
 version = "0.1.0"
 description = "Community detection in dynamic multi-subject networks."
 authors = ["Ali Osman Berk Şapcı"]

@@ -33,7 +33,7 @@ verbose = args.verbose
 data_path = expt_utils.get_data_path(cell_type, percentile)
 msdyn_nw_details = expt_utils.get_msdyn_nw_details(data_path)
 adj_nw_details = expt_utils.get_adjacency_details(data_path)
-msdyn_nw = expt_utils.get_msdyn_nw(data_path)[:,:,:,:]
+msdyn_nw = expt_utils.get_msdyn_nw(data_path)[:, :, :, :]
 
 num_sbj, th, n, _ = msdyn_nw.shape
 
@@ -53,4 +53,4 @@ z_muspces[:, :, :] = muspces.fit_predict(
 )
 outfile = expt_utils.get_result_path(cell_type, percentile) / "pred_communities.npy"
 np.save(outfile, z_muspces)
-expt_utils.log(f"Community detection results for {cell_type} saved.")
+expt_utils.log(f"Community detection results for {cell_type} saved to {outfile}.")
