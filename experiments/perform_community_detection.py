@@ -1,10 +1,6 @@
 import argparse
 import numpy as np
 
-from itertools import combinations
-from sklearn.model_selection import RepeatedKFold
-from sklearn.metrics.cluster import adjusted_rand_score
-
 import expt_utils
 
 parser = argparse.ArgumentParser(
@@ -24,10 +20,18 @@ parser.add_argument(
     default=95,
     help="Percentile used to determine co-expression threshold.",
 )
+parser.add_argument(
+    "--method-name",
+    type=str,
+    default="muspces",
+    choices=["muspces", "pisces"],
+    help="Method for performing community detection.",
+)
 
 args = parser.parse_args()
 cell_type = args.cell_type
 percentile = args.percentile
+method_name = args.method_name
 verbose = args.verbose
 
 data_path = expt_utils.get_data_path(cell_type, percentile)
@@ -37,20 +41,45 @@ msdyn_nw = expt_utils.get_msdyn_nw(data_path)[:, :, :, :]
 
 num_sbj, th, n, _ = msdyn_nw.shape
 
-muspces, _, _ = expt_utils.get_community_detection_methods(verbose)
+if method_name == "muspces":
+    muspces, _, _ = expt_utils.get_community_detection_methods(verbose)
+    z_muspces = np.empty((num_sbj, th, n))
 
-z_muspces = np.empty((num_sbj, th, n))
+    alpha_muspces = 0.05 * np.ones((th, 2))
+    beta_muspces = 0.05 * np.ones(num_sbj)
 
-alpha_muspces = 0.05 * np.ones((th, 2))
-beta_muspces = 0.05 * np.ones(num_sbj)
+    expt_utils.log("Fit and predict running...")
+    z_muspces[:, :, :] = muspces.fit_predict(
+        msdyn_nw[:, :, :, :],
+        alpha=alpha_muspces,
+        beta=beta_muspces,
+        k_max=(n // 20),
+    )
+    outfile_z = (
+        expt_utils.get_result_path(cell_type, percentile)
+        / "muspces_pred_communities.npy"
+    )
+    np.save(outfile_z, z_muspces)
 
-expt_utils.log(f"Fit and predict running...")
-z_muspces[:, :, :] = muspces.fit_predict(
-    msdyn_nw[:, :, :, :],
-    alpha=alpha_muspces,
-    beta=beta_muspces,
-    k_max=(n // 20),
-)
-outfile = expt_utils.get_result_path(cell_type, percentile) / "pred_communities.npy"
-np.save(outfile, z_muspces)
-expt_utils.log(f"Community detection results for {cell_type} saved to {outfile}.")
+elif method_name == "pisces":
+    _, pisces, _ = expt_utils.get_community_detection_methods(verbose)
+    z_pisces = np.empty((num_sbj, th, n))
+
+    alpha_pisces = 0.05 * np.ones((th, 2))
+
+    expt_utils.log("Fit and predict running...")
+    for sbj in range(num_sbj):
+        z_pisces[sbj, :, :] = pisces.fit_predict(
+            msdyn_nw[sbj, :, :, :],
+            alpha=alpha_pisces,
+            k_max=(n // 20),
+        )
+    outfile_z = (
+        expt_utils.get_result_path(cell_type, percentile)
+        / "pisces_pred_communities.npy"
+    )
+    np.save(outfile_z, z_pisces)
+else:
+    raise NotImplementedError
+
+expt_utils.log(f"Community detection results for {cell_type} saved.")
