@@ -5,6 +5,15 @@
 ## Installation
 
 ## Running
+See the examples directory for simple examples of Multi-subject Dynamic DCBM,
+community detection with MuDCoD and cross validation to choose alpha and beta.
+
+For a Python interpreter to be able to import `mudcod`, it should be on your
+Python path. Since the current working directory is (usually) included in the
+Python path. So you can probably run the examples by running commands like
+`python examples/community_detection.py` inside the directory, which you cloned
+with git clone. You might also want to add `mudcod` to your global Python path
+by installing it via `pip` or copying it to your site-packages directory.
 
 ## Simple Demonstration
 
@@ -14,7 +23,7 @@ The code is mostly organized and readable.
 * `mudcod/`: Root folder of the package.
   * `dcbm.py`: Degree Corrected Block Models for dynamic and multi-subject dynamic settings.
   * `spectral.py`: Mixin class for common spectral methods such as model order selection eigen value completion.
-  * `nw.py`: Loss functions (modularity and loglikelihood) and network similarity methods<sup>[1](#myfootnote1)</sup>.
+  * `nw.py`: Loss functions (modularity and loglikelihood) and network similarity measures<sup>[1](#myfootnote1)</sup>.
   * `static.py`: Implementation of static spectral clustering.
   * `pisces.py`: Implementation of PisCES.
   * `muspces.py`: Implementation of MuDCoD.
@@ -41,7 +50,7 @@ It might be useful to check them out if you want to apply MuDCoD on such data.
 * `notebooks/`
 * `results/`
 
-<a name="myfootnote1">1</a>: Mostly adapted from [netrd library](https://github.com/netsiphd/netrd).
+<a name="myfootnote1">1</a>: Network similarity measures are adapted from [netrd library](https://github.com/netsiphd/netrd).
 
 ## References
 * [1] Liu, F., Choi, D., Xie, L., Roeder, K. Global spectral clustering in dynamic networks. Proceedings of the National Academy of Sciences 115(5), 927–932 (2018). https://doi.org/10.1073/pnas.1718449115
