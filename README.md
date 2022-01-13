@@ -1,5 +1,10 @@
 # MuDCoD: Multi-subject Dynamic Community Detection
- 
+MuDCoD (Multi-subject Dynamic Community Detection) provides robust community
+detection in time-varying personalized networks modules. It allow signal
+sharing between time-steps and subjects by applying eigenvector smoothing.
+When available, MuDCoD leverages common signals among networks of the subjects
+and performs robustly when subjects do not share any apparent information.
+
 ![Alt text](docs/toy-ms-dyn-nw.png?raw=true "Multi-subject Dynamic Networks") 
 
 ## Installation
@@ -9,11 +14,21 @@ See the examples directory for simple examples of Multi-subject Dynamic DCBM,
 community detection with MuDCoD and cross validation to choose alpha and beta.
 
 For a Python interpreter to be able to import `mudcod`, it should be on your
-Python path. Since the current working directory is (usually) included in the
-Python path. So you can probably run the examples by running commands like
-`python examples/community_detection.py` inside the directory, which you cloned
-with git clone. You might also want to add `mudcod` to your global Python path
-by installing it via `pip` or copying it to your site-packages directory.
+Python path. The current working directory is (usually) included in the Python
+path. So you can probably run the examples by running commands like `python
+examples/community_detection.py` inside the directory which you clone. You
+might also want to add `mudcod` to your global Python path by installing it via
+`pip` or copying it to your site-packages directory.
+
+## Dependencies
+You are able to install dependencies by using `poetry install`. However, be
+aware that installed dependencies do not necessarily include all libraries used
+in simulation and experiment scripts (`simulations/` and `experiments/`). The
+goal is to keep actual dependencies as minimal as possible. So, if you want to
+re-produce simulation or experiment results, you need to go over the imported
+libraries and install them seperately. A tool like `pipreqs` can help. This is
+not the case for the examples (`examples/`), `poetry install` is sufficient to
+run them.
 
 ## Simple Demonstration
 
