@@ -233,11 +233,10 @@ if __name__ == "__main__":
     num_subject_values = [16]
     mus_dynamic_dcmb_settings = [1, 2]
 
-    num_instances = 100
+    num_instances = 1
 
     nw_parameters = [
         {"n": 100, "k": 2, "p_in": (0.2, 0.25), "p_out": (0.1, 0.1)},
-        # {"n": 300, "k": 4, "p_in": (0.2, 0.2), "p_out": (0.1, 0.15)},
         {"n": 500, "k": 8, "p_in": (0.25, 0.4), "p_out": (0.1, 0.1)},
     ]
 
@@ -256,7 +255,7 @@ if __name__ == "__main__":
                 p_out = nw_param["p_out"]
 
                 def str_decimal(num):
-                    return str(num % 1)
+                    return str(num % 1).split(".")[-1]
 
                 def p_path(p):
                     return f"{str_decimal(p[0])}btw{str_decimal(p[1])}"
