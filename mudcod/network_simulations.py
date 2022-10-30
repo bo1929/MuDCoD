@@ -1,4 +1,3 @@
-import os
 import itertools
 import numpy as np
 
@@ -235,24 +234,24 @@ if __name__ == "__main__":
 
     num_instances = 1
 
-    nw_parameters = [
+    network_parameters = [
         {"n": 100, "k": 2, "p_in": (0.2, 0.25), "p_out": (0.1, 0.1)},
         {"n": 500, "k": 8, "p_in": (0.25, 0.4), "p_out": (0.1, 0.1)},
     ]
 
     setting_name = {1: "SSoT", 2: "SSoS"}
 
-    for setting, nw_param in itertools.product(
-        mus_dynamic_dcmb_settings, nw_parameters
+    for setting, network_param in itertools.product(
+        mus_dynamic_dcmb_settings, network_parameters
     ):
         for r_subject, r_time in itertools.product(r_subject_values, r_time_values):
             for time_horizon, num_subjects in itertools.product(
                 time_horizon_values, num_subject_values
             ):
-                n = nw_param["n"]
-                k = nw_param["k"]
-                p_in = nw_param["p_in"]
-                p_out = nw_param["p_out"]
+                n = network_param["n"]
+                k = network_param["k"]
+                p_in = network_param["p_in"]
+                p_out = network_param["p_out"]
 
                 def str_decimal(num):
                     return str(num % 1).split(".")[-1]
