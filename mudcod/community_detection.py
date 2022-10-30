@@ -874,23 +874,24 @@ class MuDCoD(CommunityDetectionMixin):
             for t in range(th):
                 v_col_t = v_col_pv[:, t, :, :]
                 swp_v_col_t = np.swapaxes(v_col_t, 1, 2)
-                mu_u_t = np.mean(v_col_t @ swp_v_col_t, axis=0)
+                u_bar_t = v_col_t @ swp_v_col_t
                 for sbj in range(ns):
                     # reprs = u[sbj, t, :, :]
+                    mu_u_bar_t = np.mean(np.delete(u_bar_t, sbj, 0), axis=0)
                     reprs = self.lapl_adj[sbj, t, :, :]
                     if t == 0:
                         v_col_pv_ktn = v_col_pv[sbj, t + 1, :, : k[sbj, t + 1]]
                         reprs_bar = (
                             reprs
                             + alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T)
-                            + beta[sbj] * mu_u_t
+                            + beta[sbj] * mu_u_bar_t
                         )
                     elif t == th - 1:
                         v_col_pv_ktp = v_col_pv[sbj, t - 1, :, : k[sbj, t - 1]]
                         reprs_bar = (
                             reprs
                             + alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T)
-                            + beta[sbj] * mu_u_t
+                            + beta[sbj] * mu_u_bar_t
                         )
                     else:
                         v_col_pv_ktp = v_col_pv[sbj, t - 1, :, : k[sbj, t - 1]]
@@ -899,7 +900,7 @@ class MuDCoD(CommunityDetectionMixin):
                             reprs
                             + (alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T))
                             + (alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T))
-                            + beta[sbj] * mu_u_t
+                            + beta[sbj] * mu_u_bar_t
                         )
 
                     k[sbj, t] = self.choose_k(
