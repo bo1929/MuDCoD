@@ -453,7 +453,7 @@ class PisCES(CommunityDetectionMixin):
         total_itr = 0
         for itr in range(n_iter):
             if self.verbose:
-                print("Iteration {it}/{n_iter} is running.", end="\r")
+                print(f"Iteration {itr}/{n_iter} is running.")
             total_itr += 1
             diffU = 0
             v_col_pv = deepcopy(v_col)
@@ -874,7 +874,7 @@ class MuDCoD(CommunityDetectionMixin):
         total_itr = 0
         for itr in range(n_iter):
             if self.verbose:
-                print("Iteration {it}/{n_iter} is running.", end="\r")
+                print(f"Iteration {itr}/{n_iter} is running.")
             total_itr += 1
             diffU = 0
             v_col_pv = deepcopy(v_col)
