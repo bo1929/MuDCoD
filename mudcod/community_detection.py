@@ -105,7 +105,7 @@ class CommunityDetectionMixin:
         else:
             n = reprs.shape[0]
             sorted_eigvals = np.sort(eigvals(np.eye(n) - reprs))
-            gaprw = np.diff(sorted_eigvals)[:k_max]
+            gaprw = np.diff(sorted_eigvals)[1:k_max]
 
             assert isinstance(gaprw, np.ndarray) and gaprw.ndim == 1
 
@@ -118,14 +118,14 @@ class CommunityDetectionMixin:
                 else:
                     k_pred = np.max(idx) + 1
             elif opt == opt_list[1]:
-                k_pred = np.argsort(gaprw[:], axis=0)[-2] + 1
+                k_pred = np.argsort(gaprw, axis=0)[-1] + 1
             else:
                 raise ValueError(
                     f"Unkown option {opt} is given for predicting number of communities.\n"
                     f"Use one of {opt_list}."
                 )
 
-        return int(k_pred)
+        return int(k_pred) + 1
 
     @staticmethod
     def modularity(adj_test, adj_train, z_pred, cv_idx, resolution=1):
