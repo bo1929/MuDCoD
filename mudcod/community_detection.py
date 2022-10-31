@@ -98,29 +98,32 @@ class CommunityDetectionMixin:
             number of modules
 
         """
-        n = reprs.shape[0]
-        opt_list = ["null", "empirical"]
+        opt_list = ["null", "empirical", "full"]
 
-        sorted_eigvals = np.sort(eigvals(np.eye(n) - reprs))
-        gaprw = np.diff(sorted_eigvals)[:k_max]
-
-        assert isinstance(gaprw, np.ndarray) and gaprw.ndim == 1
-
-        if opt == opt_list[0]:
-            pin = np.sum(degrees) / comb(n, 2) / 2
-            threshold = 3.5 / pin ** (0.58) / n ** (1.15)
-            idx = np.nonzero(gaprw > threshold)[0]
-            if idx.shape[0] == 0:
-                k_pred = 1
-            else:
-                k_pred = np.max(idx) + 1
-        elif opt == opt_list[1]:
-            k_pred = np.argsort(gaprw[:], axis=0)[-2] + 1
+        if opt == opt_list[2]:
+            k_pred = k_max
         else:
-            raise ValueError(
-                f"Unkown option {opt} is given for predicting number of communities.\n"
-                f"Use one of {opt_list}."
-            )
+            n = reprs.shape[0]
+            sorted_eigvals = np.sort(eigvals(np.eye(n) - reprs))
+            gaprw = np.diff(sorted_eigvals)[:k_max]
+
+            assert isinstance(gaprw, np.ndarray) and gaprw.ndim == 1
+
+            if opt == opt_list[0]:
+                pin = np.sum(degrees) / comb(n, 2) / 2
+                threshold = 3.5 / pin ** (0.58) / n ** (1.15)
+                idx = np.nonzero(gaprw > threshold)[0]
+                if idx.shape[0] == 0:
+                    k_pred = 1
+                else:
+                    k_pred = np.max(idx) + 1
+            elif opt == opt_list[1]:
+                k_pred = np.argsort(gaprw[:], axis=0)[-2] + 1
+            else:
+                raise ValueError(
+                    f"Unkown option {opt} is given for predicting number of communities.\n"
+                    f"Use one of {opt_list}."
+                )
 
         return int(k_pred)
 
@@ -449,7 +452,9 @@ class PisCES(CommunityDetectionMixin):
 
         total_itr = 0
         for itr in range(n_iter):
-            total_itr += 0
+            if self.verbose:
+                print("Iteration {it}/{n_iter} is running.", end="\r")
+            total_itr += 1
             diffU = 0
             v_col_pv = deepcopy(v_col)
             for t in range(th):
@@ -868,9 +873,11 @@ class MuDCoD(CommunityDetectionMixin):
 
         total_itr = 0
         for itr in range(n_iter):
+            if self.verbose:
+                print("Iteration {it}/{n_iter} is running.", end="\r")
             total_itr += 1
-            v_col_pv = deepcopy(v_col)
             diffU = 0
+            v_col_pv = deepcopy(v_col)
             for t in range(th):
                 v_col_t = v_col_pv[:, t, :, :]
                 swp_v_col_t = np.swapaxes(v_col_t, 1, 2)
