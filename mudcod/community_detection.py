@@ -101,7 +101,7 @@ class CommunityDetectionMixin:
         opt_list = ["null", "empirical", "full"]
 
         if opt == opt_list[2]:
-            k_pred = k_max
+            k_pred = k_max - 1
         else:
             n = reprs.shape[0]
             sorted_eigvals = np.sort(eigvals(np.eye(n) - reprs))
