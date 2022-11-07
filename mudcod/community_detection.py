@@ -35,7 +35,7 @@ class CommunityDetectionMixin:
         return self._embeddings
 
     @property
-    def model_order_k(self):
+    def model_order_K(self):
         if self._model_order_k is None:
             raise ValueError("Model order K is not computed yet, run 'fit' first.")
         return self._model_order_k
@@ -47,8 +47,8 @@ class CommunityDetectionMixin:
         else:
             self._embeddings = value
 
-    @model_order_k.setter
-    def model_order_k(self, value):
+    @model_order_K.setter
+    def model_order_K(self, value):
         if self.method in ["PisCES", "MuDCoD"] and not isinstance(value, np.ndarray):
             raise ValueError("Model order K must be instance of 'np.ndarray'.")
         elif self.method in ["StaticSpectralCoD"] and not isinstance(value, int):
@@ -74,38 +74,38 @@ class CommunityDetectionMixin:
         return m
 
     @staticmethod
-    def choose_k(reprs, degrees, k_max, opt="empirical"):
+    def choose_model_order_K(reprs, degrees, max_K, opt="empirical"):
         """
         Predicts number of communities/modules in a network.
 
         Parameters
         ----------
-        reprs
-            smoothed adjacency matrix from iteration of PisCES with dimension (n,n)
+        reprs : `np.ndarray` of shape (n, n)
+            Laplacianized adjacency matrix representation with dimension (n,n).
 
-        degrees
-            diagonal degrees matrix with dimension (n)
+        degrees : `np.ndarray` of shape (n)
+            Diagonal matrix of degree values with dimension (n).
 
-        k_max : `int`
+        max_K : `int`
             Determines the maximum number of communities to predict.
 
-        k_opt : `string`, default='empirical'
-            Chooses the technique to estimate k, i.e., number of communities.
+        opt_K : `string`, default='empirical'
+            Chooses the technique to estimate K, i.e., number of communities.
 
         Returns
         -------
-        k_pred : `int`
-            number of modules
+        model_order_pred : `int`
+            Number of modules to consider.
 
         """
         opt_list = ["null", "empirical", "full"]
 
         if opt == opt_list[2]:
-            k_pred = k_max - 1
+            model_order_pred = max_K - 1
         else:
             n = reprs.shape[0]
-            sorted_eigvals = np.sort(eigvals(np.eye(n) - reprs))
-            gaprw = np.diff(sorted_eigvals)[1:k_max]
+            sorted_eigenvalues = np.sort(eigvals(np.eye(n) - reprs))
+            gaprw = np.diff(sorted_eigenvalues)[1:max_K]
 
             assert isinstance(gaprw, np.ndarray) and gaprw.ndim == 1
 
@@ -114,18 +114,22 @@ class CommunityDetectionMixin:
                 threshold = 3.5 / pin ** (0.58) / n ** (1.15)
                 idx = np.nonzero(gaprw > threshold)[0]
                 if idx.shape[0] == 0:
-                    k_pred = 1
+                    model_order_pred = 1
                 else:
-                    k_pred = np.max(idx) + 1
+                    model_order_pred = np.max(idx) + 1
             elif opt == opt_list[1]:
-                k_pred = np.argsort(gaprw, axis=0)[-1] + 1
+                if (gaprw == 0).any():
+                    idx = -2
+                else:
+                    idx = -1
+                model_order_pred = np.argsort(gaprw, axis=0)[idx] + 1
             else:
                 raise ValueError(
                     f"Unkown option {opt} is given for predicting number of communities.\n"
                     f"Use one of {opt_list}."
                 )
 
-        return int(k_pred) + 1
+        return int(model_order_pred) + 1
 
     @staticmethod
     def modularity(adj_test, adj_train, z_pred, cv_idx, resolution=1):
@@ -256,7 +260,7 @@ class StaticSpectralCoD(CommunityDetectionMixin):
     def __init__(self, verbose=False):
         super().__init__("StaticSpectralCoD", verbose=verbose)
 
-    def fit(self, adj, k_max=None, k_opt="empirical"):
+    def fit(self, adj, max_K=None, opt_K="empirical"):
         """
         Computes the spectral embeddings from the adjacency matrix of the
         network.
@@ -266,15 +270,15 @@ class StaticSpectralCoD(CommunityDetectionMixin):
         adj : `np.ndarray` of shape (n, n)
             Adjacency matrices of size (n, n), n is the number of vertices.
 
-        k_max : `int`, default=n/10
+        max_K : `int`, default=n/10
             Determines the maximum number of communities to predict.
 
-        k_opt : `string`, default='empirical'
+        opt_K : `string`, default='empirical'
             Chooses the technique to estimate k, i.e., number of communities.
 
         Returns
         -------
-        embeddings : `np.ndarray` of shape (n, k_max)
+        embeddings : `np.ndarray` of shape (n, max_K)
             Computed spectral embedding of the adjacency matrix.
 
         """
@@ -284,8 +288,8 @@ class StaticSpectralCoD(CommunityDetectionMixin):
         self.degrees = np.empty(self.adj.shape[:-1])
         self.lapl_adj = np.empty_like(self.adj)
 
-        if k_max is None:
-            k_max = np.ceil(self.num_vertices / 10).astype(int)
+        if max_K is None:
+            max_K = np.ceil(self.num_vertices / 10).astype(int)
 
         assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 2
         assert self.adj.shape[0] == self.adj.shape[1]
@@ -296,12 +300,12 @@ class StaticSpectralCoD(CommunityDetectionMixin):
         sqinv_degree = sqrtm(inv(np.diag(self.degrees)))
         self.lapl_adj = sqinv_degree @ self.adj @ sqinv_degree
 
-        v_col = np.zeros((n, k_max))
-        k = self.choose_k(self.lapl_adj, self.degrees, k_max, opt=k_opt)
+        v_col = np.zeros((n, max_K))
+        k = self.choose_model_order_K(self.lapl_adj, self.degrees, max_K, opt=opt_K)
         _, v_col[:, :k] = eigs(self.lapl_adj, k=k, which="LM")
 
         self.embeddings = v_col
-        self.model_order_k = k
+        self.model_order_K = k
 
         return self.embeddings
 
@@ -318,11 +322,11 @@ class StaticSpectralCoD(CommunityDetectionMixin):
             Predicted community membership labels of each vertex.
 
         """
-        kmeans = KMeans(n_clusters=self.model_order_k)
-        z_pred = kmeans.fit_predict(self.embeddings[:, : self.model_order_k])
+        kmeans = KMeans(n_clusters=self.model_order_K)
+        z_pred = kmeans.fit_predict(self.embeddings[:, : self.model_order_K])
         return z_pred
 
-    def fit_predict(self, adj, k_max=None, k_opt="empirical"):
+    def fit_predict(self, adj, max_K=None, opt_K="empirical"):
         """
         Predicts community memberships of vertices given the adjacency matrix
         of the network.
@@ -332,10 +336,10 @@ class StaticSpectralCoD(CommunityDetectionMixin):
         adj : `np.ndarray` of shape (n, n)
             Adjacency matrices of size (n, n), n is the number of vertices.
 
-        k_max : `int`, default=n/10
+        max_K : `int`, default=n/10
             Determines the maximum number of communities to predict.
 
-        k_opt : `string`, default='empirical'
+        opt_K : `string`, default='empirical'
             Chooses the technique to estimate k, i.e., number of communities.
 
         Returns
@@ -344,7 +348,7 @@ class StaticSpectralCoD(CommunityDetectionMixin):
             Predicted community membership labels of each vertex.
 
         """
-        self.fit(adj, k_max=k_max, k_opt=k_opt)
+        self.fit(adj, max_K=max_K, opt_K=opt_K)
         return self.predict()
 
 
@@ -358,8 +362,8 @@ class PisCES(CommunityDetectionMixin):
         adj,
         alpha=None,
         n_iter=30,
-        k_max=None,
-        k_opt="empirical",
+        max_K=None,
+        opt_K="empirical",
         monitor_convergence=False,
     ):
         """
@@ -378,10 +382,10 @@ class PisCES(CommunityDetectionMixin):
         n_iter : `int`, default=30
             Determines the number of iterations to run PisCES.
 
-        k_max : `int`, default=n/10
+        max_K : `int`, default=n/10
             Determines the maximum number of communities to predict.
 
-        k_opt : `string`, default='empirical'
+        opt_K : `string`, default='empirical'
             Chooses the technique to estimate k, i.e., number of communities.
 
         monitor_convergence : `bool`, default='False'
@@ -390,9 +394,9 @@ class PisCES(CommunityDetectionMixin):
 
         Returns
         -------
-        embeddings : `np.ndarray` of shape (th, n, k_max)
+        embeddings : `np.ndarray` of shape (th, n, max_K)
             Computed and smoothed spectral embeddings of the time series of the
-            adjacency matrices, with shape (th, n, k_max).
+            adjacency matrices, with shape (th, n, max_K).
 
         """
         self.adj = adj.astype(float)
@@ -404,8 +408,8 @@ class PisCES(CommunityDetectionMixin):
 
         if alpha is None:
             alpha = 0.05 * np.ones((self.time_horizon, 2))
-        if k_max is None:
-            k_max = np.ceil(self.num_vertices / 10).astype(int)
+        if max_K is None:
+            max_K = np.ceil(self.num_vertices / 10).astype(int)
 
         if self.time_horizon < 2:
             raise ValueError(
@@ -414,14 +418,14 @@ class PisCES(CommunityDetectionMixin):
         assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 3
         assert self.adj.shape[1] == self.adj.shape[2]
         assert alpha.shape == (self.time_horizon, 2)
-        assert k_max > 0
+        assert max_K > 0
 
         th = self.time_horizon
         n = self.num_vertices
 
         u = np.zeros((th, n, n))
-        v_col = np.zeros((th, n, k_max))
-        k = np.zeros(th).astype(int) + k_max
+        v_col = np.zeros((th, n, max_K))
+        k = np.zeros(th).astype(int) + max_K
         objective = np.zeros(n_iter)
         self.convergence_monitor = []
         diffU = 0
@@ -435,7 +439,9 @@ class PisCES(CommunityDetectionMixin):
         # Initialization of k, v_col.
         for t in range(th):
             lapl_adj_t = self.lapl_adj[t, :, :]
-            k[t] = self.choose_k(lapl_adj_t, self.degrees[t, :], k_max, opt=k_opt)
+            k[t] = self.choose_model_order_K(
+                lapl_adj_t, self.degrees[t, :], max_K, opt=opt_K
+            )
             _, v_col[t, :, : k[t]] = eigs(lapl_adj_t, k=k[t], which="LM")
             u[t, :, :] = v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T
 
@@ -475,7 +481,9 @@ class PisCES(CommunityDetectionMixin):
                         + (alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T))
                     )
 
-                k[t] = self.choose_k(reprs_bar, self.degrees[t, :], k_max, opt=k_opt)
+                k[t] = self.choose_model_order_K(
+                    reprs_bar, self.degrees[t, :], max_K, opt=opt_K
+                )
                 _, v_col[t, :, : k[t]] = eigs(reprs_bar, k=k[t], which="LM")
 
                 eig_val = eigvals(v_col[t, :, : k[t]].T @ v_col_pv[t, :, : k[t]])
@@ -505,7 +513,7 @@ class PisCES(CommunityDetectionMixin):
             warnings.warn("PisCES does not converge!", RuntimeWarning)
 
         self.embeddings = v_col
-        self.model_order_k = k
+        self.model_order_K = k
 
         return self.embeddings
 
@@ -528,9 +536,9 @@ class PisCES(CommunityDetectionMixin):
         n = self.num_vertices
         z_pred = np.empty((th, n), dtype=int)
         for t in range(th):
-            kmeans = KMeans(n_clusters=self.model_order_k[t])
+            kmeans = KMeans(n_clusters=self.model_order_K[t])
             z_pred[t, :] = kmeans.fit_predict(
-                self.embeddings[t, :, : self.model_order_k[t]]
+                self.embeddings[t, :, : self.model_order_K[t]]
             )
         return z_pred
 
@@ -539,8 +547,8 @@ class PisCES(CommunityDetectionMixin):
         adj,
         alpha=None,
         n_iter=30,
-        k_max=None,
-        k_opt="empirical",
+        max_K=None,
+        opt_K="empirical",
         monitor_convergence=False,
     ):
         """
@@ -559,10 +567,10 @@ class PisCES(CommunityDetectionMixin):
         n_iter : `int`, default=30
             Determines the number of iterations to run PisCES.
 
-        k_max : `int`, default=n/10
+        max_K : `int`, default=n/10
             Determines the maximum number of communities to predict.
 
-        k_opt : `string`, default='empirical'
+        opt_K : `string`, default='empirical'
             Chooses the technique to estimate k, i.e., number of communities.
 
         monitor_convergence : `bool`, default='False'
@@ -580,8 +588,8 @@ class PisCES(CommunityDetectionMixin):
         self.fit(
             adj,
             alpha=alpha,
-            k_max=k_max,
-            k_opt=k_opt,
+            max_K=max_K,
+            opt_K=opt_K,
             n_iter=n_iter,
             monitor_convergence=monitor_convergence,
         )
@@ -594,8 +602,8 @@ class PisCES(CommunityDetectionMixin):
         num_folds=5,
         alpha=None,
         n_iter=30,
-        k_max=None,
-        k_opt="empirical",
+        max_K=None,
+        opt_K="empirical",
         n_jobs=1,
     ):
         """
@@ -616,10 +624,10 @@ class PisCES(CommunityDetectionMixin):
         n_iter : `int`, default=30
             Determines the number of iterations to run PisCES.
 
-        k_max : `int`, default=n/10
+        max_K : `int`, default=n/10
             Determines the maximum number of communities to predict.
 
-        k_opt : `string`, default='empirical'
+        opt_K : `string`, default='empirical'
             Chooses the technique to estimate k, i.e., number of communities.
 
         n_jobs : `int`, default=1
@@ -642,8 +650,8 @@ class PisCES(CommunityDetectionMixin):
 
         if alpha is None:
             alpha = 0.05 * np.ones((time_horizon, 2))
-        if k_max is None:
-            k_max = np.ceil(num_vertices / 10).astype(int)
+        if max_K is None:
+            max_K = np.ceil(num_vertices / 10).astype(int)
 
         if time_horizon < 2:
             raise ValueError(
@@ -652,7 +660,7 @@ class PisCES(CommunityDetectionMixin):
         assert type(adj) in [np.ndarray, np.memmap] and adj.ndim == 3
         assert adj.shape[1] == adj.shape[2]
         assert alpha.shape == (time_horizon, 2)
-        assert k_max > 0
+        assert max_K > 0
 
         n = num_vertices
         th = time_horizon
@@ -664,8 +672,8 @@ class PisCES(CommunityDetectionMixin):
         pisces_kwargs = {
             "alpha": alpha,
             "n_iter": n_iter,
-            "k_max": k_max,
-            "k_opt": k_opt,
+            "max_K": max_K,
+            "opt_K": opt_K,
         }
 
         def compute_for_fold(adj, idx_split, n, th, pisces_kwargs={}):
@@ -763,8 +771,8 @@ class MuDCoD(CommunityDetectionMixin):
         alpha=None,
         beta=None,
         n_iter=30,
-        k_max=None,
-        k_opt="empirical",
+        max_K=None,
+        opt_K="empirical",
         monitor_convergence=False,
     ):
         """
@@ -787,10 +795,10 @@ class MuDCoD(CommunityDetectionMixin):
         n_iter : `int`, default=30
             Determines the number of iterations to run MuDCoD.
 
-        k_max : `int`, default=n/10
+        max_K : `int`, default=n/10
             Determines the maximum number of communities to predict.
 
-        k_opt : `string`, default='empirical'
+        opt_K : `string`, default='empirical'
             Chooses the technique to estimate k, i.e., number of communities.
 
         monitor_convergence : `bool`, default='False'
@@ -799,9 +807,9 @@ class MuDCoD(CommunityDetectionMixin):
 
         Returns
         -------
-        embeddings : `np.ndarray` of shape (ns, th, n, k_max)
+        embeddings : `np.ndarray` of shape (ns, th, n, max_K)
             Computed and smoothed spectral embeddings of the multi-subject time
-            series of the adjacency matrices, with shape (ns, th, n, k_max).
+            series of the adjacency matrices, with shape (ns, th, n, max_K).
 
         """
         self.adj = adj.astype(float)
@@ -816,8 +824,8 @@ class MuDCoD(CommunityDetectionMixin):
             alpha = 0.05 * np.ones((self.time_horizon, 2))
         if beta is None:
             beta = 0.01 * np.ones(self.num_subjects)
-        if k_max is None:
-            k_max = np.ceil(self.num_vertices / 10).astype(int)
+        if max_K is None:
+            max_K = np.ceil(self.num_vertices / 10).astype(int)
 
         if self.time_horizon < 2:
             raise ValueError(
@@ -827,14 +835,14 @@ class MuDCoD(CommunityDetectionMixin):
         assert self.adj.shape[2] == self.adj.shape[3]
         assert alpha.shape == (self.time_horizon, 2)
         assert beta.shape == (self.num_subjects,)
-        assert k_max > 0
+        assert max_K > 0
 
         ns = self.num_subjects
         th = self.time_horizon
         n = self.num_vertices
 
-        k = np.zeros((ns, th)).astype(int) + k_max
-        v_col = np.zeros((ns, th, n, k_max))
+        k = np.zeros((ns, th)).astype(int) + max_K
+        v_col = np.zeros((ns, th, n, max_K))
         u = np.zeros((ns, th, n, n))
         objective = np.zeros((n_iter))
         self.convergence_monitor = []
@@ -851,8 +859,8 @@ class MuDCoD(CommunityDetectionMixin):
         for t in range(th):
             for sbj in range(ns):
                 lapl_adj_t = self.lapl_adj[sbj, t, :, :]
-                k[sbj, t] = self.choose_k(
-                    lapl_adj_t, self.degrees[sbj, t, :], k_max, opt=k_opt
+                k[sbj, t] = self.choose_model_order_K(
+                    lapl_adj_t, self.degrees[sbj, t, :], max_K, opt=opt_K
                 )
                 _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
                     lapl_adj_t, k=k[sbj, t], which="LM"
@@ -910,11 +918,11 @@ class MuDCoD(CommunityDetectionMixin):
                             + beta[sbj] * mu_u_bar_t
                         )
 
-                    k[sbj, t] = self.choose_k(
+                    k[sbj, t] = self.choose_model_order_K(
                         reprs_bar,
                         self.degrees[sbj, t, :],
-                        k_max,
-                        opt=k_opt,
+                        max_K,
+                        opt=opt_K,
                     )
                     _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
                         reprs_bar, k=k[sbj, t], which="LM"
@@ -952,7 +960,7 @@ class MuDCoD(CommunityDetectionMixin):
             warnings.warn("MuDCoD does not converge!", RuntimeWarning)
 
         self.embeddings = v_col
-        self.model_order_k = k
+        self.model_order_K = k
 
         return self.embeddings
 
@@ -980,9 +988,9 @@ class MuDCoD(CommunityDetectionMixin):
         z_pred = np.empty((ns, th, n), dtype=int)
         for t in range(th):
             for sbj in range(ns):
-                kmeans = KMeans(n_clusters=self.model_order_k[sbj, t])
+                kmeans = KMeans(n_clusters=self.model_order_K[sbj, t])
                 z_pred[sbj, t, :] = kmeans.fit_predict(
-                    self.embeddings[sbj, t, :, : self.model_order_k[sbj, t]]
+                    self.embeddings[sbj, t, :, : self.model_order_K[sbj, t]]
                 )
         return z_pred
 
@@ -992,8 +1000,8 @@ class MuDCoD(CommunityDetectionMixin):
         alpha=None,
         beta=None,
         n_iter=30,
-        k_max=None,
-        k_opt="empirical",
+        max_K=None,
+        opt_K="empirical",
         monitor_convergence=False,
     ):
         """
@@ -1012,10 +1020,10 @@ class MuDCoD(CommunityDetectionMixin):
         n_iter : `int`, default=30
             Determines the number of iterations to run PisCES.
 
-        k_max : `int`, default=n/10
+        max_K : `int`, default=n/10
             Determines the maximum number of communities to predict.
 
-        k_opt : `string`, default='empirical'
+        opt_K : `string`, default='empirical'
             Chooses the technique to estimate k, i.e., number of communities.
 
         monitor_convergence : `bool`, default='False'
@@ -1034,8 +1042,8 @@ class MuDCoD(CommunityDetectionMixin):
             adj,
             alpha=alpha,
             beta=beta,
-            k_max=k_max,
-            k_opt=k_opt,
+            max_K=max_K,
+            opt_K=opt_K,
             n_iter=n_iter,
             monitor_convergence=monitor_convergence,
         )
@@ -1049,8 +1057,8 @@ class MuDCoD(CommunityDetectionMixin):
         alpha=None,
         beta=None,
         n_iter=30,
-        k_max=None,
-        k_opt="empirical",
+        max_K=None,
+        opt_K="empirical",
         n_jobs=1,
     ):
         """
@@ -1071,10 +1079,10 @@ class MuDCoD(CommunityDetectionMixin):
         n_iter : `int`, default=30
             Determines the number of iterations to run PisCES.
 
-        k_max : `int`, default=n/10
+        max_K : `int`, default=n/10
             Determines the maximum number of communities to predict.
 
-        k_opt : `string`, default='empirical'
+        opt_K : `string`, default='empirical'
             Chooses the technique to estimate k, i.e., number of communities.
 
         n_jobs : `int`, default=1
@@ -1100,8 +1108,8 @@ class MuDCoD(CommunityDetectionMixin):
             alpha = 0.05 * np.ones((time_horizon, 2))
         if beta is None:
             beta = 0.01 * np.ones(num_subjects)
-        if k_max is None:
-            k_max = np.ceil(num_vertices / 10).astype(int)
+        if max_K is None:
+            max_K = np.ceil(num_vertices / 10).astype(int)
 
         if time_horizon < 2:
             raise ValueError(
@@ -1111,7 +1119,7 @@ class MuDCoD(CommunityDetectionMixin):
         assert adj.shape[2] == adj.shape[3]
         assert alpha.shape == (time_horizon, 2)
         assert beta.shape == (num_subjects,)
-        assert k_max > 0
+        assert max_K > 0
 
         ns = num_subjects
         th = time_horizon
@@ -1125,8 +1133,8 @@ class MuDCoD(CommunityDetectionMixin):
             "alpha": alpha,
             "beta": beta,
             "n_iter": n_iter,
-            "k_max": k_max,
-            "k_opt": k_opt,
+            "max_K": max_K,
+            "opt_K": opt_K,
         }
 
         def compute_for_fold(adj, idx_split, n, th, ns, mudcod_kwargs={}):
