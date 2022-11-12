@@ -26,7 +26,7 @@ class CommunityDetectionMixin:
             "StaticSpectralCoD".lower(),
         ]
         self._embeddings = None
-        self._model_order_k = None
+        self._model_order_K = None
 
     @property
     def embeddings(self):
@@ -36,9 +36,9 @@ class CommunityDetectionMixin:
 
     @property
     def model_order_K(self):
-        if self._model_order_k is None:
+        if self._model_order_K is None:
             raise ValueError("Model order K is not computed yet, run 'fit' first.")
-        return self._model_order_k
+        return self._model_order_K
 
     @embeddings.setter
     def embeddings(self, value):
@@ -54,7 +54,7 @@ class CommunityDetectionMixin:
         elif self.method in ["StaticSpectralCoD"] and not isinstance(value, int):
             raise ValueError("Model order K must be instance of 'int'.")
         else:
-            self._model_order_k = value
+            self._model_order_K = value
 
     @staticmethod
     def eigen_complete(adj, cv_idx, epsilon, k):
