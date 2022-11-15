@@ -1,15 +1,14 @@
 import warnings
-import numpy as np
-
-from sklearn.cluster import KMeans
-from numpy.linalg import inv, eigvals, svd
-from scipy.sparse.linalg import eigs
-from scipy.linalg import sqrtm
-from scipy.special import comb
 from copy import deepcopy
 
-from mudcod.network_distances import Distances
+import numpy as np
+from numpy.linalg import eigvals, inv, svd
+from scipy.linalg import sqrtm
+from scipy.sparse.linalg import eigs
+from scipy.special import comb
+from sklearn.cluster import KMeans
 
+from mudcod.network_distances import Distances
 
 _eps = 10 ** (-10)
 CONVERGENCE_CRITERIA = 10 ** (-5)

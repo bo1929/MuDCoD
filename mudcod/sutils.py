@@ -1,11 +1,10 @@
-import time
-import yaml
-import csv
 import collections
-
+import csv
+import time
 from datetime import datetime
 from pathlib import Path
 
+import yaml
 
 ISO_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
 

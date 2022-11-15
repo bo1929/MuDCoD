@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
-import seaborn as sns
 import networkx as nx
+import seaborn as sns
 
 
 class nxDraw:

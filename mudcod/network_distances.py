@@ -1,11 +1,10 @@
-import numpy as np
 import networkx as nx
-
+import numpy as np
 from numpy import linalg as LA
-from scipy.spatial import distance
+from scipy.integrate import quad
 from scipy.linalg import eigh
 from scipy.sparse import csgraph
-from scipy.integrate import quad
+from scipy.spatial import distance
 from sklearn.metrics.cluster import adjusted_rand_score
 
 _eps = 10 ** (-5)

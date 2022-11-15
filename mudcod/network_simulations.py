@@ -1,17 +1,16 @@
 import itertools
-import numpy as np
-
 from pathlib import Path
-from numpy.random import default_rng
 
+import numpy as np
+from numpy.random import default_rng
 
 _eps = 10 ** (-5)
 
 
 class DCBM:
-    def __init__(self, n=None, k=None, p_in=None, p_out=None, seed=0):
+    def __init__(self, n=None, model_order_K=None, p_in=None, p_out=None, seed=0):
         assert isinstance(n, int) and n > 1
-        assert isinstance(k, int) and k > 1
+        assert isinstance(model_order_K, int) and model_order_K > 1
         assert isinstance(p_in, tuple) and isinstance(p_out, tuple)
         assert all(isinstance(p, float) for p in p_in) and len(p_in) == 2
         assert all(isinstance(p, float) for p in p_out) and len(p_in) == 2
@@ -20,16 +19,18 @@ class DCBM:
         assert (p_in[0] <= p_in[1]) and (p_out[0] <= p_out[1])
 
         self.n = n
-        self.k = k
+        self.model_order_K = model_order_K
         self.p_in = p_in
         self.p_out = p_out
         self.rng = default_rng(seed)
 
     def _get_random_z(self):
         rng = self.rng
-        k = self.k
+        model_order_K = self.model_order_K
         n = self.n
-        z_init = np.nonzero(rng.multinomial(1, [1 / k] * k, size=n))[1]
+        z_init = np.nonzero(
+            rng.multinomial(1, [1 / model_order_K] * model_order_K, size=n)
+        )[1]
         return z_init
 
     def _evolve_z(self, z_prev, r):
@@ -37,15 +38,21 @@ class DCBM:
         assert isinstance(r, float) and abs(r) <= 1.0
         rng = self.rng
         n = self.n
-        k = self.k
+        model_order_K = self.model_order_K
         e_r = rng.binomial(1, r, size=n)
-        z_tn = np.nonzero(rng.multinomial(1, [1 / k] * k, size=n))[1]
+        z_tn = np.nonzero(
+            rng.multinomial(1, [1 / model_order_K] * model_order_K, size=n)
+        )[1]
         z_new = np.where(e_r == 1, z_tn, z_prev)
         return z_new
 
     def get_adjacency(self, z, connectivity_matrix, psi):
         assert z.shape[0] == self.n
-        assert connectivity_matrix.shape[0] == connectivity_matrix.shape[1] == self.k
+        assert (
+            connectivity_matrix.shape[0]
+            == connectivity_matrix.shape[1]
+            == self.model_order_K
+        )
         rng = self.rng
         n = self.n
 
@@ -63,11 +70,15 @@ class DCBM:
         assert z.shape[0] == self.n
         rng = self.rng
         n = self.n
-        k = self.k
+        model_order_K = self.model_order_K
         p_in, p_out = self.p_in, self.p_out
 
-        connectivity_matrix = np.full((k, k), rng.uniform(p_out[0], p_out[1], 1))
-        connectivity_matrix[np.diag_indices(k)] = rng.uniform(p_in[0], p_in[1], k)
+        connectivity_matrix = np.full(
+            (model_order_K, model_order_K), rng.uniform(p_out[0], p_out[1], 1)
+        )
+        connectivity_matrix[np.diag_indices(model_order_K)] = rng.uniform(
+            p_in[0], p_in[1], model_order_K
+        )
 
         if psi is None:
             gamma1 = 1
@@ -86,7 +97,7 @@ class DynamicDCBM(DCBM):
     def __init__(
         self,
         n=None,
-        k=None,
+        model_order_K=None,
         p_in=None,
         p_out=None,
         time_horizon=None,
@@ -97,7 +108,7 @@ class DynamicDCBM(DCBM):
         assert isinstance(time_horizon, int) and (time_horizon > 1)
         self.time_horizon = time_horizon
         self.r_time = r_time
-        super().__init__(n, k, p_in, p_out)
+        super().__init__(n, model_order_K, p_in, p_out)
 
     def simulate_dynamic_dcbm(self):
         n = self.n
@@ -120,7 +131,7 @@ class MuSDynamicDCBM(DynamicDCBM):
     def __init__(
         self,
         n=None,
-        k=None,
+        model_order_K=None,
         p_in=None,
         p_out=None,
         time_horizon=None,
@@ -133,7 +144,7 @@ class MuSDynamicDCBM(DynamicDCBM):
         assert isinstance(num_subjects, int) and (num_subjects > 1)
         self.num_subjects = num_subjects
         self.r_subject = r_subject
-        super().__init__(n, k, p_in, p_out, time_horizon, r_time)
+        super().__init__(n, model_order_K, p_in, p_out, time_horizon, r_time)
 
     def simulate_mus_dynamic_dcbm(self, setting=3):
         n = self.n
@@ -235,8 +246,8 @@ if __name__ == "__main__":
     num_instances = 1
 
     network_parameters = [
-        {"n": 100, "k": 2, "p_in": (0.2, 0.25), "p_out": (0.1, 0.1)},
-        {"n": 500, "k": 8, "p_in": (0.25, 0.4), "p_out": (0.1, 0.1)},
+        {"n": 100, "model_order_K": 2, "p_in": (0.2, 0.25), "p_out": (0.1, 0.1)},
+        {"n": 500, "model_order_K": 8, "p_in": (0.25, 0.4), "p_out": (0.1, 0.1)},
     ]
 
     setting_name = {1: "SSoT", 2: "SSoS"}
@@ -249,7 +260,7 @@ if __name__ == "__main__":
                 time_horizon_values, num_subject_values
             ):
                 n = network_param["n"]
-                k = network_param["k"]
+                model_order_K = network_param["model_order_K"]
                 p_in = network_param["p_in"]
                 p_out = network_param["p_out"]
 
@@ -262,7 +273,7 @@ if __name__ == "__main__":
                 scenario_dir_path = Path(SIMULATION_DATA_PATH)
                 scenario_dir_path /= f"setting{setting_name[setting]}"
                 scenario_dir_path /= Path(
-                    f"n{n}-k{k}-p_in{p_path(p_in)}-p_out{p_path(p_out)}"
+                    f"n{n}-model_order_K{model_order_K}-p_in{p_path(p_in)}-p_out{p_path(p_out)}"
                 )
                 scenario_dir_path /= (
                     f"r_time{str_decimal(r_time)}-time_horizon{time_horizon}"
@@ -275,7 +286,7 @@ if __name__ == "__main__":
                 for i in range(num_instances):
                     adj_mus_dynamic, z_mus_dynamic = MuSDynamicDCBM(
                         n=n,
-                        k=k,
+                        model_order_K=model_order_K,
                         p_in=p_in,
                         p_out=p_out,
                         time_horizon=time_horizon,
