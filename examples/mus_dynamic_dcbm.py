@@ -30,7 +30,7 @@ print("Setting SSoT: signal sharing over time, subjects evolve independently.")
 adj_mus_dynamic, z_mus_dynamic = model_dcbm.simulate_mus_dynamic_dcbm(setting=1)
 print_shape(adj_mus_dynamic, z_mus_dynamic)
 
-# scenario 2 (SSoS):
+# setting 2 (SSoS): strong signal sharing among subjects.
 print("Setting SSoS: strong signal sharing among subjects.")
 adj_mus_dynamic, z_mus_dynamic = model_dcbm.simulate_mus_dynamic_dcbm(setting=2)
 print_shape(adj_mus_dynamic, z_mus_dynamic)

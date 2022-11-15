@@ -416,7 +416,7 @@ class PisCES(CommunityDetectionMixin):
             )
         assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 3
         assert self.adj.shape[1] == self.adj.shape[2]
-        assert alpha.shape == (self.time_horizon, 2)
+        assert isinstance(alpha, np.ndarray) and alpha.shape == (self.time_horizon, 2)
         assert max_K > 0
 
         th = self.time_horizon
@@ -832,8 +832,8 @@ class MuDCoD(CommunityDetectionMixin):
             )
         assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 4
         assert self.adj.shape[2] == self.adj.shape[3]
-        assert alpha.shape == (self.time_horizon, 2)
-        assert beta.shape == (self.num_subjects,)
+        assert isinstance(alpha, np.ndarray) and alpha.shape == (self.time_horizon, 2)
+        assert isinstance(beta, np.ndarray) and beta.shape == (self.num_subjects,)
         assert max_K > 0
 
         ns = self.num_subjects
