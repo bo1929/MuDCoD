@@ -1,36 +1,29 @@
 # MuDCoD: Multi-subject Dynamic Community Detection
-MuDCoD (Multi-subject Dynamic Community Detection) provides robust community
-detection in time-varying personalized networks modules. It allow signal
-sharing between time-steps and subjects by applying eigenvector smoothing.
-When available, MuDCoD leverages common signals among networks of the subjects
-and performs robustly when subjects do not share any apparent information.
+MuDCoD (Multi-subject Dynamic Community Detection) provides robust community detection in time-varying personalized networks modules.
+It allow signal sharing between time-steps and subjects by applying eigenvector smoothing.
+When available, MuDCoD leverages common signals among networks of the subjects and performs robustly when subjects do not share any apparent information.
 
-![Alt text](docs/toy-ms-dyn-nw.png?raw=true "Multi-subject Dynamic Networks") 
+![Alt text](docs/toy-ms-dyn-nw.png?raw=true "Multi-subject Dynamic Networks")
 
 ## Installation
 
 ## Running
-See the examples directory for simple examples of Multi-subject Dynamic DCBM,
-community detection with MuDCoD and cross validation to choose alpha and beta.
+See the examples directory for simple examples of Multi-subject Dynamic DCBM, community detection with MuDCoD and cross-validation to choose alpha and beta ($\alpha$ and $\beta$).
 
-For a Python interpreter to be able to import `mudcod`, it should be on your
-Python path. The current working directory is (usually) included in the Python
-path. So you can probably run the examples by running commands like `python
-examples/community_detection.py` inside the directory which you clone. You
-might also want to add `mudcod` to your global Python path by installing it via
-`pip` or copying it to your site-packages directory.
+For a Python interpreter to be able to import `mudcod`, it should be on your Python path.
+The current working directory is (usually) included in the Python path.
+So you can probably run the examples by running commands like `python examples/community_detection.py` inside the directory which you clone.
+You might also want to add `mudcod` to your global Python path by installing it via `pip` or copying it to your site-packages directory.
 
 ## Dependencies
-You are able to install dependencies by using `poetry install`. However, be
-aware that installed dependencies do not necessarily include all libraries used
-in simulation and experiment scripts (`simulations/` and `experiments/`). The
-goal is to keep actual dependencies as minimal as possible. So, if you want to
-re-produce simulation or experiment results, you need to go over the imported
-libraries and install them separately. A tool like `pipreqs` can help. This is
-not the case for the examples (`examples/`), `poetry install` is sufficient to
-run them.
+You are able to install dependencies by using `poetry install`.
+However, be aware that installed dependencies do not necessarily include all libraries used in simulation and experiment scripts (`simulations/` and `experiments/`).
+The goal is to keep actual dependencies as minimal as possible.
+So, if you want to re-produce simulation or experiment results, you need to go over the imported libraries and install them separately.
+A tool like `pipreqs` can help.
+This is not the case for the examples (`examples/`), `poetry install` is sufficient to run them.
 
-## Simple Demonstration
+## Quickstart
 
 ## File Structure
 The code is mostly organized and readable.
@@ -71,7 +64,6 @@ The code is mostly organized and readable.
 There are three classes, namely `DCBM`, `DynamicDCBM`, and `MuSDynamicDCBM`.
 
 We use the `MuSDynamicDCBM` class to generate simulation networks with a given parameter configuration.
-
 For example, you can initialize a class instance as below.
 ```python
 mus_dynamic_dcbm = MuSDynamicDCBM(
@@ -107,5 +99,5 @@ Different setting values correspond to the following scenarios. In our experimen
 * `setting=4`: Subjects are parents of each other at each time point.
 
 ## References
-* [1] Liu, F., Choi, D., Xie, L., Roeder, K. Global spectral clustering in dynamic networks. Proceedings of the National Academy of Sciences 115(5), 927–932 (2018). https://doi.org/10.1073/pnas.1718449115
-* [2] Jerber, J., Seaton, D.D., Cuomo, A.S.E. et al. Population-scale single-cell RNA-seq profiling across dopaminergic neuron differentiation. Nat Genet 53, 304–312 (2021). https://doi.org/10.1038/s41588-021-00801-6
+* [1]: Liu, F., Choi, D., Xie, L., Roeder, K. Global spectral clustering in dynamic networks. Proceedings of the National Academy of Sciences 115(5), 927–932 (2018). https://doi.org/10.1073/pnas.1718449115
+* [2]: Jerber, J., Seaton, D.D., Cuomo, A.S.E. et al. Population-scale single-cell RNA-seq profiling across dopaminergic neuron differentiation. Nat Genet 53, 304–312 (2021). https://doi.org/10.1038/s41588-021-00801-6
