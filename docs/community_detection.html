@@ -1,0 +1,4248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>mudcod.community_detection API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mudcod.community_detection</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import warnings
+from copy import deepcopy
+
+import numpy as np
+from numpy.linalg import eigvals, inv, svd
+from scipy.linalg import sqrtm
+from scipy.sparse.linalg import eigs
+from scipy.special import comb
+from sklearn.cluster import KMeans
+
+from mudcod.network_distances import Distances
+
+_eps = 10 ** (-10)
+CONVERGENCE_CRITERIA = 10 ** (-5)
+warnings.filterwarnings(action=&#34;ignore&#34;, category=np.ComplexWarning)
+
+
+class CommunityDetectionMixin:
+    def __init__(self, method, verbose=False):
+        self.verbose = verbose
+        self.method = method
+        assert type(method) == str and method.lower() in [
+            &#34;PisCES&#34;.lower(),
+            &#34;MuDCoD&#34;.lower(),
+            &#34;StaticSpectralCoD&#34;.lower(),
+        ]
+        self._embeddings = None
+        self._model_order_K = None
+
+    @property
+    def embeddings(self):
+        if self._embeddings is None:
+            raise ValueError(&#34;Embeddings are not computed yet, run &#39;fit&#39; first.&#34;)
+        return self._embeddings
+
+    @property
+    def model_order_K(self):
+        if self._model_order_K is None:
+            raise ValueError(&#34;Model order K is not computed yet, run &#39;fit&#39; first.&#34;)
+        return self._model_order_K
+
+    @embeddings.setter
+    def embeddings(self, value):
+        if not isinstance(value, np.ndarray):
+            raise ValueError(&#34;Embeddings must be instance &#39;np.ndarray&#39;.&#34;)
+        else:
+            self._embeddings = value
+
+    @model_order_K.setter
+    def model_order_K(self, value):
+        if self.method in [&#34;PisCES&#34;, &#34;MuDCoD&#34;] and not isinstance(value, np.ndarray):
+            raise ValueError(&#34;Model order K must be instance of &#39;np.ndarray&#39;.&#34;)
+        elif self.method in [&#34;StaticSpectralCoD&#34;] and not isinstance(value, int):
+            raise ValueError(&#34;Model order K must be instance of &#39;int&#39;.&#34;)
+        else:
+            self._model_order_K = value
+
+    @staticmethod
+    def eigen_complete(adj, cv_idx, epsilon, k):
+        m = np.zeros(adj.shape)
+        while True:
+            adj_cv = (adj * (1 - cv_idx)) + (m * cv_idx)
+            u, s, vh = svd(adj_cv)
+            s[k:] = 0
+            m2 = u @ np.diag(s) @ vh
+            m2 = np.where(m2 &lt; 0, 0, m2)
+            m2 = np.where(m2 &gt; 1, 1, m2)
+            dn = np.sqrt(np.sum((m - m2) ** 2))
+            if dn &lt; epsilon:
+                break
+            else:
+                m = m2
+        return m
+
+    @staticmethod
+    def choose_model_order_K(reprs, degrees, max_K, opt=&#34;empirical&#34;):
+        &#34;&#34;&#34;
+        Predicts number of communities/modules in a network.
+
+        Parameters
+        ----------
+        reprs : `np.ndarray` of shape (n, n)
+            Laplacianized adjacency matrix representation with dimension (n,n).
+
+        degrees : `np.ndarray` of shape (n)
+            Diagonal matrix of degree values with dimension (n).
+
+        max_K : `int`
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate K, i.e., number of communities.
+
+        Returns
+        -------
+        model_order_pred : `int`
+            Number of modules to consider.
+
+        &#34;&#34;&#34;
+        opt_list = [&#34;null&#34;, &#34;empirical&#34;, &#34;full&#34;]
+
+        if opt == opt_list[2]:
+            model_order_pred = max_K - 1
+        else:
+            n = reprs.shape[0]
+            sorted_eigenvalues = np.sort(eigvals(np.eye(n) - reprs))
+            gaprw = np.diff(sorted_eigenvalues)[1:max_K]
+
+            assert isinstance(gaprw, np.ndarray) and gaprw.ndim == 1
+
+            if opt == opt_list[0]:
+                pin = np.sum(degrees) / comb(n, 2) / 2
+                threshold = 3.5 / pin ** (0.58) / n ** (1.15)
+                idx = np.nonzero(gaprw &gt; threshold)[0]
+                if idx.shape[0] == 0:
+                    model_order_pred = 1
+                else:
+                    model_order_pred = np.max(idx) + 1
+            elif opt == opt_list[1]:
+                if (gaprw == 0).any():
+                    idx = -2
+                else:
+                    idx = -1
+                model_order_pred = np.argsort(gaprw, axis=0)[idx] + 1
+            else:
+                raise ValueError(
+                    f&#34;Unkown option {opt} is given for predicting number of communities.\n&#34;
+                    f&#34;Use one of {opt_list}.&#34;
+                )
+
+        return int(model_order_pred) + 1
+
+    @staticmethod
+    def modularity(adj_test, adj_train, z_pred, cv_idx, resolution=1):
+        &#34;&#34;&#34;
+        Calculates modularity given imputed training adjacency matrix,
+        community membership predictions and the actual training matrix.
+
+        Parameters
+        ----------
+        adj_test : `np.ndarray` of shape (n, n)
+            Test ajdacency matrix of shape (n,n), corresponding to the actual network.
+
+        adj_train : `np.ndarray` of shape (n, n)
+            Training adjacency matrix of shape (n,n); whose edges are removed
+            and then imputed, where n is the number of vertices.
+
+        z_pred : np.ndarray of shape (n)
+            Predicted community membership label vector of size (n) of each
+            vertex to compute loss.
+
+        cv_idx : `np.ndarray` of shape (n, n)
+            A marix of size (n,n), indicating the index of removed edges. Value
+            of the entry is 1 for test and 0 for training edges.
+
+        Returns
+        -------
+        modu : `float`
+            Modularity value computed based on the predicted community
+            memberships.
+
+        &#34;&#34;&#34;
+        modu = 0
+        np.fill_diagonal(cv_idx, 0)
+
+        d_out_train = np.sum(adj_train, axis=0)
+        d_in_train = np.sum(adj_train, axis=1)
+        m = np.sum(cv_idx * adj_test) / 2
+        norm = 1 / (np.sum(adj_train) / 2) ** 2
+
+        for i, j in zip(*np.nonzero(cv_idx.astype(bool))):
+            if (cv_idx[i, j] &gt; 0) and (z_pred[i] == z_pred[j]) and (i != j):
+                c = z_pred[i] = z_pred[j]
+                out_degree_sum = np.sum(d_out_train[z_pred == c])
+                in_degree_sum = np.sum(d_in_train[z_pred == c])
+                modu += adj_test[i, j] / m - (
+                    (resolution * out_degree_sum * in_degree_sum * norm)
+                    / np.sum(cv_idx[z_pred == c][:, z_pred == c])
+                    / 2
+                )
+        return modu / 2
+
+    @staticmethod
+    def loglikelihood(adj_test, adj_train, z_pred, cv_idx):
+        &#34;&#34;&#34;
+        Calcualtes loglikelihood given imputed training adjacency matrix,
+        community membership predictions and the actual training matrix.
+
+        Parameters
+        ----------
+        adj_test : `np.ndarray` of shape (n, n)
+            Test ajdacency matrix of shape (n,n), corresponding to the actual network.
+
+        adj_train : `np.ndarray` of shape (n, n)
+            Training adjacency matrix of shape (n,n); whose edges are removed
+            and then imputed, where n is the number of vertices.
+
+        z_pred : np.ndarray of shape (n)
+            Predicted community membership label vector of size (n) of each
+            vertex to compute loss.
+
+        cv_idx : `np.ndarray` of shape (n, n)
+            A marix of size (n,n), indicating the index of removed edges. Value
+            of the entry is 1 for test and 0 for training edges.
+
+        Returns
+        -------
+        logllh : `float`
+            DCBM loglikelihood value computed based on the predicted community
+            memberships.
+
+        &#34;&#34;&#34;
+        logllh = 0
+        num_communities = np.max(z_pred) + 1
+
+        d_out_train = np.sum(adj_train[:, :], axis=0)
+        # dp_out_train = d_out_train[:, np.newaxis] @ d_out_train[np.newaxis, :]
+
+        # hatB = np.zeros((num_communities, num_communities), dtype=int)
+        hat0 = np.zeros((num_communities, num_communities), dtype=int)
+
+        for comm_k in range(num_communities):
+            for comm_l in range(num_communities):
+                z_ix_kl = np.ix_(z_pred == comm_k, z_pred == comm_l)
+                total_degree = np.sum(adj_train[z_ix_kl])
+                # sum_degree_product = np.sum(dp_out_train[z_ix_kl])
+                # hatB[comm_k, comm_l] = total_degree / sum_degree_product
+                hat0[comm_k, comm_l] = total_degree
+
+        for i, j in zip(*np.nonzero(cv_idx.astype(bool))):
+            # prob = d_out_train[i] * d_out_train[j] * hatB[z_pred[i], z_pred[j]]
+            prob = (
+                d_out_train[i]
+                / np.sum(hat0[z_pred[i], :])
+                * d_out_train[j]
+                / np.sum(hat0[z_pred[j], :])
+                * hat0[z_pred[i], z_pred[j]]
+                * 0.8
+            )
+
+            if prob == 0 or np.isnan(prob):
+                prob = _eps
+            elif prob &gt;= 1:
+                prob = 1 - _eps
+            else:
+                pass
+
+            logllh = (
+                logllh
+                + np.log(prob) * (adj_test[i, j] &gt;= _eps)
+                + np.log(1 - prob) * (adj_test[i, j] &lt; _eps)
+            )
+
+        # return logllh
+        return logllh / np.sum(adj_train)
+
+
+class StaticSpectralCoD(CommunityDetectionMixin):
+    def __init__(self, verbose=False):
+        super().__init__(&#34;StaticSpectralCoD&#34;, verbose=verbose)
+
+    def fit(self, adj, max_K=None, opt_K=&#34;empirical&#34;):
+        &#34;&#34;&#34;
+        Computes the spectral embeddings from the adjacency matrix of the
+        network.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (n, n)
+            Adjacency matrices of size (n, n), n is the number of vertices.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        Returns
+        -------
+        embeddings : `np.ndarray` of shape (n, max_K)
+            Computed spectral embedding of the adjacency matrix.
+
+        &#34;&#34;&#34;
+        self.adj = adj.astype(float)
+        self.num_vertices = self.adj.shape[0]
+
+        self.degrees = np.empty(self.adj.shape[:-1])
+        self.lapl_adj = np.empty_like(self.adj)
+
+        if max_K is None:
+            max_K = np.ceil(self.num_vertices / 10).astype(int)
+
+        assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 2
+        assert self.adj.shape[0] == self.adj.shape[1]
+
+        n = self.num_vertices
+
+        self.degrees = np.sum(np.abs(self.adj), axis=0) + _eps
+        sqinv_degree = sqrtm(inv(np.diag(self.degrees)))
+        self.lapl_adj = sqinv_degree @ self.adj @ sqinv_degree
+
+        v_col = np.zeros((n, max_K))
+        k = self.choose_model_order_K(self.lapl_adj, self.degrees, max_K, opt=opt_K)
+        _, v_col[:, :k] = eigs(self.lapl_adj, k=k, which=&#34;LM&#34;)
+
+        self.embeddings = v_col
+        self.model_order_K = k
+
+        return self.embeddings
+
+    def predict(self):
+        &#34;&#34;&#34;
+        Predicts community memberships of vertices.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (n)
+            Predicted community membership labels of each vertex.
+
+        &#34;&#34;&#34;
+        kmeans = KMeans(n_clusters=self.model_order_K)
+        z_pred = kmeans.fit_predict(self.embeddings[:, : self.model_order_K])
+        return z_pred
+
+    def fit_predict(self, adj, max_K=None, opt_K=&#34;empirical&#34;):
+        &#34;&#34;&#34;
+        Predicts community memberships of vertices given the adjacency matrix
+        of the network.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (n, n)
+            Adjacency matrices of size (n, n), n is the number of vertices.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (n)
+            Predicted community membership labels of each vertex.
+
+        &#34;&#34;&#34;
+        self.fit(adj, max_K=max_K, opt_K=opt_K)
+        return self.predict()
+
+
+class PisCES(CommunityDetectionMixin):
+    def __init__(self, verbose=False):
+        super().__init__(&#34;PisCES&#34;, verbose=verbose)
+        self.convergence_monitor = []
+
+    def fit(
+        self,
+        adj,
+        alpha=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        monitor_convergence=False,
+    ):
+        &#34;&#34;&#34;
+        Computes the spectral embeddings from given time series of matrices of
+        the dynamic network.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (th, n, n)
+            Time series of adjacency matrices of size (th,n,n), where n is the
+            number of vertices, and th is the time horizon.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run PisCES.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        monitor_convergence : `bool`, default=&#39;False&#39;
+            Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+            obj_{t-1}&gt; at each iteration to monitor convergence.
+
+        Returns
+        -------
+        embeddings : `np.ndarray` of shape (th, n, max_K)
+            Computed and smoothed spectral embeddings of the time series of the
+            adjacency matrices, with shape (th, n, max_K).
+
+        &#34;&#34;&#34;
+        self.adj = adj.astype(float)
+        self.num_vertices = self.adj.shape[1]
+        self.time_horizon = self.adj.shape[0]
+
+        self.degrees = np.empty(self.adj.shape[:-1])
+        self.lapl_adj = np.empty_like(self.adj)
+
+        if alpha is None:
+            alpha = 0.05 * np.ones((self.time_horizon, 2))
+        if max_K is None:
+            max_K = np.ceil(self.num_vertices / 10).astype(int)
+
+        if self.time_horizon &lt; 2:
+            raise ValueError(
+                &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+            )
+        assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 3
+        assert self.adj.shape[1] == self.adj.shape[2]
+        assert isinstance(alpha, np.ndarray) and alpha.shape == (self.time_horizon, 2)
+        assert max_K &gt; 0
+
+        th = self.time_horizon
+        n = self.num_vertices
+
+        u = np.zeros((th, n, n))
+        v_col = np.zeros((th, n, max_K))
+        k = np.zeros(th).astype(int) + max_K
+        objective = np.zeros(n_iter)
+        self.convergence_monitor = []
+        diffU = 0
+
+        for t in range(th):
+            adj_t = self.adj[t, :, :]
+            self.degrees[t, :] = np.sum(np.abs(adj_t), axis=0) + _eps
+            sqinv_degree = sqrtm(inv(np.diag(self.degrees[t, :])))
+            self.lapl_adj[t, :, :] = sqinv_degree @ adj_t @ sqinv_degree
+
+        # Initialization of k, v_col.
+        for t in range(th):
+            lapl_adj_t = self.lapl_adj[t, :, :]
+            k[t] = self.choose_model_order_K(
+                lapl_adj_t, self.degrees[t, :], max_K, opt=opt_K
+            )
+            _, v_col[t, :, : k[t]] = eigs(lapl_adj_t, k=k[t], which=&#34;LM&#34;)
+            u[t, :, :] = v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T
+
+            if monitor_convergence:
+                diffU = diffU + (
+                    Distances.hamming_distance(
+                        self.lapl_adj[t, :, :],
+                        v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T,
+                    )
+                )
+
+        if monitor_convergence:
+            self.convergence_monitor.append((-np.inf, diffU))
+
+        total_itr = 0
+        for itr in range(n_iter):
+            if self.verbose:
+                print(f&#34;Iteration {itr}/{n_iter} is running.&#34;)
+            total_itr += 1
+            diffU = 0
+            v_col_pv = deepcopy(v_col)
+            for t in range(th):
+                # reprs = u[t, :, :]
+                reprs = self.lapl_adj[t, :, :]
+                if t == 0:
+                    v_col_pv_ktn = v_col_pv[t + 1, :, : k[t + 1]]
+                    reprs_bar = reprs + alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T)
+                elif t == th - 1:
+                    v_col_pv_ktp = v_col_pv[t - 1, :, : k[t - 1]]
+                    reprs_bar = reprs + alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T)
+                else:
+                    v_col_pv_ktp = v_col_pv[t - 1, :, : k[t - 1]]
+                    v_col_pv_ktn = v_col_pv[t + 1, :, : k[t + 1]]
+                    reprs_bar = (
+                        reprs
+                        + (alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T))
+                        + (alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T))
+                    )
+
+                k[t] = self.choose_model_order_K(
+                    reprs_bar, self.degrees[t, :], max_K, opt=opt_K
+                )
+                _, v_col[t, :, : k[t]] = eigs(reprs_bar, k=k[t], which=&#34;LM&#34;)
+
+                eig_val = eigvals(v_col[t, :, : k[t]].T @ v_col_pv[t, :, : k[t]])
+                objective[itr] = objective[itr] + np.sum(np.abs(eig_val), axis=0)
+
+                if monitor_convergence:
+                    diffU = diffU + (
+                        Distances.hamming_distance(
+                            v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T,
+                            v_col_pv[t, :, : k[t]] @ v_col_pv[t, :, : k[t]].T,
+                        )
+                    )
+
+            if monitor_convergence:
+                self.convergence_monitor.append((objective[itr], diffU))
+
+            if itr &gt;= 1:
+                diff_obj = objective[itr] - objective[itr - 1]
+                if abs(diff_obj) &lt; CONVERGENCE_CRITERIA:
+                    break
+
+        if (
+            (total_itr &gt; 1)
+            and (total_itr == n_iter)
+            and (objective[-1] - objective[-2] &gt;= CONVERGENCE_CRITERIA)
+        ):
+            warnings.warn(&#34;PisCES does not converge!&#34;, RuntimeWarning)
+
+        self.embeddings = v_col
+        self.model_order_K = k
+
+        return self.embeddings
+
+    def predict(self):
+        &#34;&#34;&#34;
+        Predicts community memberships of vertices at each time point.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (th, n)
+            Predicted community membership labels of vertices at each time
+            point, where n is the number of vertices and th is the time
+            horizon.
+
+        &#34;&#34;&#34;
+        th = self.time_horizon
+        n = self.num_vertices
+        z_pred = np.empty((th, n), dtype=int)
+        for t in range(th):
+            kmeans = KMeans(n_clusters=self.model_order_K[t])
+            z_pred[t, :] = kmeans.fit_predict(
+                self.embeddings[t, :, : self.model_order_K[t]]
+            )
+        return z_pred
+
+    def fit_predict(
+        self,
+        adj,
+        alpha=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        monitor_convergence=False,
+    ):
+        &#34;&#34;&#34;
+        Predicts time series of community memberships given the adjacency
+        matrices of the dynamic network.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (th, n, n)
+            Time series of adjacency matrices of size (th,n,n), where n
+            is the number of vertices, and th is the time horizon.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run PisCES.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        monitor_convergence : `bool`, default=&#39;False&#39;
+            Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+            obj_{t-1}&gt; at each iteration to monitor convergence.
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (th, n)
+            Predicted community membership labels of vertices at each time
+            point, where n is the number of vertices and th is the time
+            horizon.
+
+        &#34;&#34;&#34;
+        self.fit(
+            adj,
+            alpha=alpha,
+            max_K=max_K,
+            opt_K=opt_K,
+            n_iter=n_iter,
+            monitor_convergence=monitor_convergence,
+        )
+        return self.predict()
+
+    @classmethod
+    def cross_validation(
+        cls,
+        adj,
+        num_folds=5,
+        alpha=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        n_jobs=1,
+    ):
+        &#34;&#34;&#34;
+        Performs cross validation to choose the best value for the alpha parameter.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (th, n, n)
+            Time series of adjacency matrices of size (th,n,n), where n is the
+            number of vertices, and th is the time horizon.
+
+        num_folds : `int`, default=5
+            Number of folds to perform in the cross validation.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run PisCES.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        n_jobs : `int`, default=1
+            The number of parallel `joblib` threads.
+
+        Returns
+        -------
+        modu : `float`
+            Sum of the modularity value computed for each fold with respect to
+            the given alpha.
+
+        logllh : `float`
+            Sum of the log-likelihood value computed for each fold with
+            respect to the given alpha.
+
+        &#34;&#34;&#34;
+        adj = adj.astype(float)
+        num_vertices = adj.shape[1]
+        time_horizon = adj.shape[0]
+
+        if alpha is None:
+            alpha = 0.05 * np.ones((time_horizon, 2))
+        if max_K is None:
+            max_K = np.ceil(num_vertices / 10).astype(int)
+
+        if time_horizon &lt; 2:
+            raise ValueError(
+                &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+            )
+        assert type(adj) in [np.ndarray, np.memmap] and adj.ndim == 3
+        assert adj.shape[1] == adj.shape[2]
+        assert alpha.shape == (time_horizon, 2)
+        assert max_K &gt; 0
+
+        n = num_vertices
+        th = time_horizon
+
+        idx_n = np.arange(n)
+        idx = np.c_[np.repeat(idx_n, idx_n.shape), np.tile(idx_n, idx_n.shape)]
+        r = np.random.choice(n**2, size=n**2, replace=False)
+
+        pisces_kwargs = {
+            &#34;alpha&#34;: alpha,
+            &#34;n_iter&#34;: n_iter,
+            &#34;max_K&#34;: max_K,
+            &#34;opt_K&#34;: opt_K,
+        }
+
+        def compute_for_fold(adj, idx_split, n, th, pisces_kwargs={}):
+            cv_idx = np.zeros((th, n, n), dtype=bool)
+            adj_train = np.zeros((th, n, n))
+            adj_train_imputed = np.zeros((th, n, n))
+
+            for t in range(th):
+                idx1, idx2 = idx_split[t, :, 0], idx_split[t, :, 1]
+
+                cv_idx_t = np.zeros((n, n), dtype=bool)
+                cv_idx_t[idx1, idx2] = True
+                cv_idx_t = np.triu(cv_idx_t) + np.triu(cv_idx_t).T
+                cv_idx[t, :, :] = cv_idx_t
+
+                adj_train[t, :, :] = adj[t, :, :]
+                adj_train[t, idx1, idx2] = 0
+                adj_train[t, :, :] = (
+                    np.triu(adj_train[t, :, :]) + np.triu(adj_train[t, :, :]).T
+                )
+                adj_train_imputed[t, :, :] = cls.eigen_complete(
+                    adj_train[t, :, :], cv_idx_t, 10, 10
+                )
+
+            z_pred = cls().fit_predict(
+                deepcopy(adj_train_imputed[:, :, :]),
+                **pisces_kwargs,
+            )
+
+            modu_fold, logllh_fold = 0, 0
+            for t in range(th):
+                modu_fold = modu_fold + cls.modularity(
+                    adj[t, :, :],
+                    adj_train[t, :, :],
+                    z_pred[t, :],
+                    cv_idx[t, :, :],
+                )
+                logllh_fold = logllh_fold + cls.loglikelihood(
+                    adj[t, :, :],
+                    adj_train[t, :, :],
+                    z_pred[t, :],
+                    cv_idx[t, :, :],
+                )
+
+            return modu_fold, logllh_fold
+
+        modu_total = 0
+        logllh_total = 0
+
+        def split_train_test(fold_idx):
+            pfold = n**2 // num_folds
+            start, end = pfold * fold_idx, (fold_idx + 1) * pfold
+            test = r[start:end]
+            idx_split = idx[test, :]
+            return np.tile(idx_split, (th, 1, 1))
+
+        if n_jobs &gt; 1:
+            from joblib import Parallel, delayed
+
+            with Parallel(n_jobs=n_jobs) as parallel:  # prefer=&#34;processes&#34;
+                loss_zipped = parallel(
+                    delayed(compute_for_fold)(
+                        adj,
+                        split_train_test(fold_idx),
+                        n,
+                        th,
+                        pisces_kwargs=pisces_kwargs,
+                    )
+                    for fold_idx in range(num_folds)
+                )
+                modu_fold, logllh_fold = map(np.array, zip(*loss_zipped))
+                modu_total = sum(modu_fold)
+                logllh_total = sum(logllh_fold)
+        else:
+            for fold_idx in range(num_folds):
+                modu_fold, logllh_fold = compute_for_fold(
+                    adj, split_train_test(fold_idx), n, th, pisces_kwargs=pisces_kwargs
+                )
+                modu_total = modu_total + modu_fold
+                logllh_total = logllh_total + logllh_fold
+
+        num_adj = th
+
+        return modu_total / num_adj, logllh_total / num_adj
+
+
+class MuDCoD(CommunityDetectionMixin):
+    def __init__(self, verbose=False):
+        super().__init__(&#34;MuDCoD&#34;, verbose=verbose)
+        self.convergence_monitor = []
+
+    def fit(
+        self,
+        adj,
+        alpha=None,
+        beta=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        monitor_convergence=False,
+    ):
+        &#34;&#34;&#34;
+        Computes the spectral embeddings from given multi-subject time series
+        of matrices of the dynamic networks of different subjects.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (ns, th, n, n)
+            Multi-subject time series of adjacency matrices of size (ns,
+            th,n,n), where n is the number of vertices, th is the time horizon,
+            and ns is the number of subjects.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        beta : `np.ndarray` of shape (ns), default=0.01J(ns)
+            Tuning parameter for smoothing along the subject axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run MuDCoD.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        monitor_convergence : `bool`, default=&#39;False&#39;
+            Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+            obj_{t-1}&gt; at each iteration to monitor convergence.
+
+        Returns
+        -------
+        embeddings : `np.ndarray` of shape (ns, th, n, max_K)
+            Computed and smoothed spectral embeddings of the multi-subject time
+            series of the adjacency matrices, with shape (ns, th, n, max_K).
+
+        &#34;&#34;&#34;
+        self.adj = adj.astype(float)
+        self.num_subjects = self.adj.shape[0]
+        self.time_horizon = self.adj.shape[1]
+        self.num_vertices = self.adj.shape[2]
+
+        self.degrees = np.empty(self.adj.shape[:-1])
+        self.lapl_adj = np.empty_like(self.adj)
+
+        if alpha is None:
+            alpha = 0.05 * np.ones((self.time_horizon, 2))
+        if beta is None:
+            beta = 0.01 * np.ones(self.num_subjects)
+        if max_K is None:
+            max_K = np.ceil(self.num_vertices / 10).astype(int)
+
+        if self.time_horizon &lt; 2:
+            raise ValueError(
+                &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+            )
+        assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 4
+        assert self.adj.shape[2] == self.adj.shape[3]
+        assert isinstance(alpha, np.ndarray) and alpha.shape == (self.time_horizon, 2)
+        assert isinstance(beta, np.ndarray) and beta.shape == (self.num_subjects,)
+        assert max_K &gt; 0
+
+        ns = self.num_subjects
+        th = self.time_horizon
+        n = self.num_vertices
+
+        k = np.zeros((ns, th)).astype(int) + max_K
+        v_col = np.zeros((ns, th, n, max_K))
+        u = np.zeros((ns, th, n, n))
+        objective = np.zeros((n_iter))
+        self.convergence_monitor = []
+        diffU = 0
+
+        for t in range(th):
+            for sbj in range(ns):
+                adj_t = self.adj[sbj, t, :, :]
+                self.degrees[sbj, t, :] = np.sum(np.abs(adj_t), axis=0) + _eps
+                sqinv_degree = sqrtm(inv(np.diag(self.degrees[sbj, t, :])))
+                self.lapl_adj[sbj, t, :, :] = sqinv_degree @ adj_t @ sqinv_degree
+
+        # Initialization of k, v_col.
+        for t in range(th):
+            for sbj in range(ns):
+                lapl_adj_t = self.lapl_adj[sbj, t, :, :]
+                k[sbj, t] = self.choose_model_order_K(
+                    lapl_adj_t, self.degrees[sbj, t, :], max_K, opt=opt_K
+                )
+                _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
+                    lapl_adj_t, k=k[sbj, t], which=&#34;LM&#34;
+                )
+                u[sbj, t, :, :] = v_col[sbj, t, :, :] @ v_col[sbj, t, :, :].T
+
+                if monitor_convergence:
+                    diffU = diffU + (
+                        Distances.hamming_distance(
+                            self.lapl_adj[sbj, t, :, :],
+                            v_col[sbj, t, :, : k[sbj, t]]
+                            @ v_col[sbj, t, :, : k[sbj, t]].T,
+                        )
+                    )
+
+        if monitor_convergence:
+            self.convergence_monitor.append((-np.inf, diffU))
+
+        total_itr = 0
+        for itr in range(n_iter):
+            if self.verbose:
+                print(f&#34;Iteration {itr}/{n_iter} is running.&#34;)
+            total_itr += 1
+            diffU = 0
+            v_col_pv = deepcopy(v_col)
+            for t in range(th):
+                v_col_t = v_col_pv[:, t, :, :]
+                swp_v_col_t = np.swapaxes(v_col_t, 1, 2)
+                u_bar_t = v_col_t @ swp_v_col_t
+                for sbj in range(ns):
+                    # reprs = u[sbj, t, :, :]
+                    mu_u_bar_t = np.mean(np.delete(u_bar_t, sbj, 0), axis=0)
+                    reprs = self.lapl_adj[sbj, t, :, :]
+                    if t == 0:
+                        v_col_pv_ktn = v_col_pv[sbj, t + 1, :, : k[sbj, t + 1]]
+                        reprs_bar = (
+                            reprs
+                            + alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T)
+                            + beta[sbj] * mu_u_bar_t
+                        )
+                    elif t == th - 1:
+                        v_col_pv_ktp = v_col_pv[sbj, t - 1, :, : k[sbj, t - 1]]
+                        reprs_bar = (
+                            reprs
+                            + alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T)
+                            + beta[sbj] * mu_u_bar_t
+                        )
+                    else:
+                        v_col_pv_ktp = v_col_pv[sbj, t - 1, :, : k[sbj, t - 1]]
+                        v_col_pv_ktn = v_col_pv[sbj, t + 1, :, : k[sbj, t + 1]]
+                        reprs_bar = (
+                            reprs
+                            + (alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T))
+                            + (alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T))
+                            + beta[sbj] * mu_u_bar_t
+                        )
+
+                    k[sbj, t] = self.choose_model_order_K(
+                        reprs_bar,
+                        self.degrees[sbj, t, :],
+                        max_K,
+                        opt=opt_K,
+                    )
+                    _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
+                        reprs_bar, k=k[sbj, t], which=&#34;LM&#34;
+                    )
+
+                    eig_val = eigvals(
+                        v_col[sbj, t, :, : k[sbj, t]].T
+                        @ v_col_pv[sbj, t, :, : k[sbj, t]]
+                    )
+                    objective[itr] = objective[itr] + np.sum(np.abs(eig_val), axis=0)
+
+                    if monitor_convergence:
+                        diffU = diffU + (
+                            Distances.hamming_distance(
+                                v_col[sbj, t, :, : k[sbj, t]]
+                                @ v_col[sbj, t, :, : k[sbj, t]].T,
+                                v_col_pv[sbj, t, :, : k[sbj, t]]
+                                @ v_col_pv[sbj, t, :, : k[sbj, t]].T,
+                            )
+                        )
+
+            if monitor_convergence:
+                self.convergence_monitor.append((objective[itr], diffU))
+
+            if itr &gt;= 1:
+                diff_obj = objective[itr] - objective[itr - 1]
+                if abs(diff_obj) &lt; CONVERGENCE_CRITERIA:
+                    break
+
+        if (
+            (total_itr &gt; 1)
+            and (total_itr == n_iter)
+            and (objective[-1] - objective[-2] &gt;= CONVERGENCE_CRITERIA)
+        ):
+            warnings.warn(&#34;MuDCoD does not converge!&#34;, RuntimeWarning)
+
+        self.embeddings = v_col
+        self.model_order_K = k
+
+        return self.embeddings
+
+    def predict(
+        self,
+    ):
+        &#34;&#34;&#34;
+        Predicts community memberships of vertices at each time point for each
+        subject.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (ns, th, n)
+            Predicted community membership labels of vertices at each time
+            point for each subject, where n is the number of vertices, th is
+            the time horizon, and ns is the number of subjects.
+
+        &#34;&#34;&#34;
+        ns = self.num_subjects
+        th = self.time_horizon
+        n = self.num_vertices
+        z_pred = np.empty((ns, th, n), dtype=int)
+        for t in range(th):
+            for sbj in range(ns):
+                kmeans = KMeans(n_clusters=self.model_order_K[sbj, t])
+                z_pred[sbj, t, :] = kmeans.fit_predict(
+                    self.embeddings[sbj, t, :, : self.model_order_K[sbj, t]]
+                )
+        return z_pred
+
+    def fit_predict(
+        self,
+        adj,
+        alpha=None,
+        beta=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        monitor_convergence=False,
+    ):
+        &#34;&#34;&#34;
+        Predicts multi-subject time series of community memberships given the
+        adjacency matrices of the dynamic networks for each subject.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (th, n, n)
+            Time series of adjacency matrices of size (th,n,n), where n is the
+            number of vertices, and th is the time horizon.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run PisCES.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        monitor_convergence : `bool`, default=&#39;False&#39;
+            Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+            obj_{t-1}&gt; at each iteration to monitor convergence.
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (ns, th, n)
+            Predicted community membership labels of vertices at each time
+            point for each subject, where n is the number of vertices, th is
+            the time horizon, and ns is the number of subjects.
+
+        &#34;&#34;&#34;
+        self.fit(
+            adj,
+            alpha=alpha,
+            beta=beta,
+            max_K=max_K,
+            opt_K=opt_K,
+            n_iter=n_iter,
+            monitor_convergence=monitor_convergence,
+        )
+        return self.predict()
+
+    @classmethod
+    def cross_validation(
+        cls,
+        adj,
+        num_folds=5,
+        alpha=None,
+        beta=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        n_jobs=1,
+    ):
+        &#34;&#34;&#34;
+        Performs cross validation to choose the best pair of values for the alpha
+        and the beta parameters.
+
+        Parameters
+        ----------
+        num_folds : `int`, default=5
+            Number of folds to perform in the cross validation.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        beta : `np.ndarray` of shape (ns), default=0.01J(ns)
+            Tuning parameter for smoothing along the subject axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run PisCES.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        n_jobs : `int`, default=1
+            The number of parallel `joblib` threads.
+
+        Returns
+        -------
+        modu : `float`
+            Sum of the modularity value computed for each fold with respect to
+            the given alpha.
+
+        logllh : `float`
+            Sum of the log-likelihood value computed for each fold with
+            respect to the given alpha.
+
+        &#34;&#34;&#34;
+        adj = adj.astype(float)
+        num_vertices = adj.shape[2]
+        time_horizon = adj.shape[1]
+        num_subjects = adj.shape[0]
+
+        if alpha is None:
+            alpha = 0.05 * np.ones((time_horizon, 2))
+        if beta is None:
+            beta = 0.01 * np.ones(num_subjects)
+        if max_K is None:
+            max_K = np.ceil(num_vertices / 10).astype(int)
+
+        if time_horizon &lt; 2:
+            raise ValueError(
+                &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+            )
+        assert type(adj) in [np.ndarray, np.memmap] and adj.ndim == 4
+        assert adj.shape[2] == adj.shape[3]
+        assert alpha.shape == (time_horizon, 2)
+        assert beta.shape == (num_subjects,)
+        assert max_K &gt; 0
+
+        ns = num_subjects
+        th = time_horizon
+        n = num_vertices
+
+        idx_n = np.arange(n)
+        idx = np.c_[np.repeat(idx_n, idx_n.shape), np.tile(idx_n, idx_n.shape)]
+        r = np.random.choice(n**2, size=n**2, replace=False)
+
+        mudcod_kwargs = {
+            &#34;alpha&#34;: alpha,
+            &#34;beta&#34;: beta,
+            &#34;n_iter&#34;: n_iter,
+            &#34;max_K&#34;: max_K,
+            &#34;opt_K&#34;: opt_K,
+        }
+
+        def compute_for_fold(adj, idx_split, n, th, ns, mudcod_kwargs={}):
+            cv_idx = np.empty((ns, th, n, n), dtype=bool)
+            adj_train = np.zeros((ns, th, n, n))
+            adj_train_imputed = np.zeros((ns, th, n, n))
+
+            for t in range(th):
+                for sbj in range(ns):
+                    idx1, idx2 = idx_split[sbj, t, :, 0], idx_split[sbj, t, :, 1]
+
+                    cv_idx_t = np.zeros((n, n), dtype=bool)
+                    cv_idx_t[idx1, idx2] = True
+                    cv_idx_t = np.triu(cv_idx_t) + np.triu(cv_idx_t).T
+                    cv_idx[sbj, t, :, :] = cv_idx_t
+
+                    adj_train[sbj, t, :, :] = adj[sbj, t, :, :]
+                    adj_train[sbj, t, idx1, idx2] = 0
+                    adj_train[sbj, t] = (
+                        np.triu(adj_train[sbj, t]) + np.triu(adj_train[sbj, t]).T
+                    )
+                    adj_train_imputed[sbj, t, :, :] = cls.eigen_complete(
+                        adj_train[sbj, t], cv_idx_t, 10, 10
+                    )
+
+            z_pred = cls().fit_predict(
+                deepcopy(adj_train_imputed[:, :, :, :]),
+                **mudcod_kwargs,
+            )
+
+            modu_fold, logllh_fold = 0, 0
+            for t in range(th):
+                for sbj in range(ns):
+                    modu_fold = modu_fold + cls.modularity(
+                        adj[sbj, t, :, :],
+                        adj_train[sbj, t, :, :],
+                        z_pred[sbj, t, :],
+                        cv_idx[sbj, t, :, :],
+                    )
+                    logllh_fold = logllh_fold + cls.loglikelihood(
+                        adj[sbj, t, :, :],
+                        adj_train[sbj, t, :, :],
+                        z_pred[sbj, t, :],
+                        cv_idx[sbj, t, :, :],
+                    )
+            return modu_fold, logllh_fold
+
+        modu_total = 0
+        logllh_total = 0
+
+        def split_train_test(fold_idx):
+            pfold = n**2 // num_folds
+            start, end = pfold * fold_idx, (fold_idx + 1) * pfold
+            test = r[start:end]
+            idx_split = idx[test, :]
+            return np.tile(idx_split, (ns, th, 1, 1))
+
+        if n_jobs &gt; 1:
+            from joblib import Parallel, delayed
+
+            with Parallel(n_jobs=n_jobs) as parallel:  # prefer=&#34;processes&#34;
+                loss_zipped = parallel(
+                    delayed(compute_for_fold)(
+                        adj,
+                        split_train_test(fold_idx),
+                        n,
+                        th,
+                        ns,
+                        mudcod_kwargs=mudcod_kwargs,
+                    )
+                    for fold_idx in range(num_folds)
+                )
+                modu_fold, logllh_fold = map(np.array, zip(*loss_zipped))
+                modu_total = sum(modu_fold)
+                logllh_total = sum(logllh_fold)
+        else:
+            for fold_idx in range(num_folds):
+                modu_fold, logllh_fold = compute_for_fold(
+                    adj,
+                    split_train_test(fold_idx),
+                    n,
+                    th,
+                    ns,
+                    mudcod_kwargs=mudcod_kwargs,
+                )
+                modu_total = modu_total + modu_fold
+                logllh_total = logllh_total + logllh_fold
+
+        num_adj = ns * th
+
+        return modu_total / num_adj, logllh_total / num_adj</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="mudcod.community_detection.CommunityDetectionMixin"><code class="flex name class">
+<span>class <span class="ident">CommunityDetectionMixin</span></span>
+<span>(</span><span>method, verbose=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CommunityDetectionMixin:
+    def __init__(self, method, verbose=False):
+        self.verbose = verbose
+        self.method = method
+        assert type(method) == str and method.lower() in [
+            &#34;PisCES&#34;.lower(),
+            &#34;MuDCoD&#34;.lower(),
+            &#34;StaticSpectralCoD&#34;.lower(),
+        ]
+        self._embeddings = None
+        self._model_order_K = None
+
+    @property
+    def embeddings(self):
+        if self._embeddings is None:
+            raise ValueError(&#34;Embeddings are not computed yet, run &#39;fit&#39; first.&#34;)
+        return self._embeddings
+
+    @property
+    def model_order_K(self):
+        if self._model_order_K is None:
+            raise ValueError(&#34;Model order K is not computed yet, run &#39;fit&#39; first.&#34;)
+        return self._model_order_K
+
+    @embeddings.setter
+    def embeddings(self, value):
+        if not isinstance(value, np.ndarray):
+            raise ValueError(&#34;Embeddings must be instance &#39;np.ndarray&#39;.&#34;)
+        else:
+            self._embeddings = value
+
+    @model_order_K.setter
+    def model_order_K(self, value):
+        if self.method in [&#34;PisCES&#34;, &#34;MuDCoD&#34;] and not isinstance(value, np.ndarray):
+            raise ValueError(&#34;Model order K must be instance of &#39;np.ndarray&#39;.&#34;)
+        elif self.method in [&#34;StaticSpectralCoD&#34;] and not isinstance(value, int):
+            raise ValueError(&#34;Model order K must be instance of &#39;int&#39;.&#34;)
+        else:
+            self._model_order_K = value
+
+    @staticmethod
+    def eigen_complete(adj, cv_idx, epsilon, k):
+        m = np.zeros(adj.shape)
+        while True:
+            adj_cv = (adj * (1 - cv_idx)) + (m * cv_idx)
+            u, s, vh = svd(adj_cv)
+            s[k:] = 0
+            m2 = u @ np.diag(s) @ vh
+            m2 = np.where(m2 &lt; 0, 0, m2)
+            m2 = np.where(m2 &gt; 1, 1, m2)
+            dn = np.sqrt(np.sum((m - m2) ** 2))
+            if dn &lt; epsilon:
+                break
+            else:
+                m = m2
+        return m
+
+    @staticmethod
+    def choose_model_order_K(reprs, degrees, max_K, opt=&#34;empirical&#34;):
+        &#34;&#34;&#34;
+        Predicts number of communities/modules in a network.
+
+        Parameters
+        ----------
+        reprs : `np.ndarray` of shape (n, n)
+            Laplacianized adjacency matrix representation with dimension (n,n).
+
+        degrees : `np.ndarray` of shape (n)
+            Diagonal matrix of degree values with dimension (n).
+
+        max_K : `int`
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate K, i.e., number of communities.
+
+        Returns
+        -------
+        model_order_pred : `int`
+            Number of modules to consider.
+
+        &#34;&#34;&#34;
+        opt_list = [&#34;null&#34;, &#34;empirical&#34;, &#34;full&#34;]
+
+        if opt == opt_list[2]:
+            model_order_pred = max_K - 1
+        else:
+            n = reprs.shape[0]
+            sorted_eigenvalues = np.sort(eigvals(np.eye(n) - reprs))
+            gaprw = np.diff(sorted_eigenvalues)[1:max_K]
+
+            assert isinstance(gaprw, np.ndarray) and gaprw.ndim == 1
+
+            if opt == opt_list[0]:
+                pin = np.sum(degrees) / comb(n, 2) / 2
+                threshold = 3.5 / pin ** (0.58) / n ** (1.15)
+                idx = np.nonzero(gaprw &gt; threshold)[0]
+                if idx.shape[0] == 0:
+                    model_order_pred = 1
+                else:
+                    model_order_pred = np.max(idx) + 1
+            elif opt == opt_list[1]:
+                if (gaprw == 0).any():
+                    idx = -2
+                else:
+                    idx = -1
+                model_order_pred = np.argsort(gaprw, axis=0)[idx] + 1
+            else:
+                raise ValueError(
+                    f&#34;Unkown option {opt} is given for predicting number of communities.\n&#34;
+                    f&#34;Use one of {opt_list}.&#34;
+                )
+
+        return int(model_order_pred) + 1
+
+    @staticmethod
+    def modularity(adj_test, adj_train, z_pred, cv_idx, resolution=1):
+        &#34;&#34;&#34;
+        Calculates modularity given imputed training adjacency matrix,
+        community membership predictions and the actual training matrix.
+
+        Parameters
+        ----------
+        adj_test : `np.ndarray` of shape (n, n)
+            Test ajdacency matrix of shape (n,n), corresponding to the actual network.
+
+        adj_train : `np.ndarray` of shape (n, n)
+            Training adjacency matrix of shape (n,n); whose edges are removed
+            and then imputed, where n is the number of vertices.
+
+        z_pred : np.ndarray of shape (n)
+            Predicted community membership label vector of size (n) of each
+            vertex to compute loss.
+
+        cv_idx : `np.ndarray` of shape (n, n)
+            A marix of size (n,n), indicating the index of removed edges. Value
+            of the entry is 1 for test and 0 for training edges.
+
+        Returns
+        -------
+        modu : `float`
+            Modularity value computed based on the predicted community
+            memberships.
+
+        &#34;&#34;&#34;
+        modu = 0
+        np.fill_diagonal(cv_idx, 0)
+
+        d_out_train = np.sum(adj_train, axis=0)
+        d_in_train = np.sum(adj_train, axis=1)
+        m = np.sum(cv_idx * adj_test) / 2
+        norm = 1 / (np.sum(adj_train) / 2) ** 2
+
+        for i, j in zip(*np.nonzero(cv_idx.astype(bool))):
+            if (cv_idx[i, j] &gt; 0) and (z_pred[i] == z_pred[j]) and (i != j):
+                c = z_pred[i] = z_pred[j]
+                out_degree_sum = np.sum(d_out_train[z_pred == c])
+                in_degree_sum = np.sum(d_in_train[z_pred == c])
+                modu += adj_test[i, j] / m - (
+                    (resolution * out_degree_sum * in_degree_sum * norm)
+                    / np.sum(cv_idx[z_pred == c][:, z_pred == c])
+                    / 2
+                )
+        return modu / 2
+
+    @staticmethod
+    def loglikelihood(adj_test, adj_train, z_pred, cv_idx):
+        &#34;&#34;&#34;
+        Calcualtes loglikelihood given imputed training adjacency matrix,
+        community membership predictions and the actual training matrix.
+
+        Parameters
+        ----------
+        adj_test : `np.ndarray` of shape (n, n)
+            Test ajdacency matrix of shape (n,n), corresponding to the actual network.
+
+        adj_train : `np.ndarray` of shape (n, n)
+            Training adjacency matrix of shape (n,n); whose edges are removed
+            and then imputed, where n is the number of vertices.
+
+        z_pred : np.ndarray of shape (n)
+            Predicted community membership label vector of size (n) of each
+            vertex to compute loss.
+
+        cv_idx : `np.ndarray` of shape (n, n)
+            A marix of size (n,n), indicating the index of removed edges. Value
+            of the entry is 1 for test and 0 for training edges.
+
+        Returns
+        -------
+        logllh : `float`
+            DCBM loglikelihood value computed based on the predicted community
+            memberships.
+
+        &#34;&#34;&#34;
+        logllh = 0
+        num_communities = np.max(z_pred) + 1
+
+        d_out_train = np.sum(adj_train[:, :], axis=0)
+        # dp_out_train = d_out_train[:, np.newaxis] @ d_out_train[np.newaxis, :]
+
+        # hatB = np.zeros((num_communities, num_communities), dtype=int)
+        hat0 = np.zeros((num_communities, num_communities), dtype=int)
+
+        for comm_k in range(num_communities):
+            for comm_l in range(num_communities):
+                z_ix_kl = np.ix_(z_pred == comm_k, z_pred == comm_l)
+                total_degree = np.sum(adj_train[z_ix_kl])
+                # sum_degree_product = np.sum(dp_out_train[z_ix_kl])
+                # hatB[comm_k, comm_l] = total_degree / sum_degree_product
+                hat0[comm_k, comm_l] = total_degree
+
+        for i, j in zip(*np.nonzero(cv_idx.astype(bool))):
+            # prob = d_out_train[i] * d_out_train[j] * hatB[z_pred[i], z_pred[j]]
+            prob = (
+                d_out_train[i]
+                / np.sum(hat0[z_pred[i], :])
+                * d_out_train[j]
+                / np.sum(hat0[z_pred[j], :])
+                * hat0[z_pred[i], z_pred[j]]
+                * 0.8
+            )
+
+            if prob == 0 or np.isnan(prob):
+                prob = _eps
+            elif prob &gt;= 1:
+                prob = 1 - _eps
+            else:
+                pass
+
+            logllh = (
+                logllh
+                + np.log(prob) * (adj_test[i, j] &gt;= _eps)
+                + np.log(1 - prob) * (adj_test[i, j] &lt; _eps)
+            )
+
+        # return logllh
+        return logllh / np.sum(adj_train)</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="mudcod.community_detection.MuDCoD" href="#mudcod.community_detection.MuDCoD">MuDCoD</a></li>
+<li><a title="mudcod.community_detection.PisCES" href="#mudcod.community_detection.PisCES">PisCES</a></li>
+<li><a title="mudcod.community_detection.StaticSpectralCoD" href="#mudcod.community_detection.StaticSpectralCoD">StaticSpectralCoD</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="mudcod.community_detection.CommunityDetectionMixin.choose_model_order_K"><code class="name flex">
+<span>def <span class="ident">choose_model_order_K</span></span>(<span>reprs, degrees, max_K, opt='empirical')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts number of communities/modules in a network.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>reprs</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n, n)</code></dt>
+<dd>Laplacianized adjacency matrix representation with dimension (n,n).</dd>
+<dt><strong><code>degrees</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n)</code></dt>
+<dd>Diagonal matrix of degree values with dimension (n).</dd>
+<dt><strong><code>max_K</code></strong> :&ensp;<code>int</code></dt>
+<dd>Determines the maximum number of communities to predict.</dd>
+<dt><strong><code>opt_K</code></strong> :&ensp;<code>string</code>, default=<code>'empirical'</code></dt>
+<dd>Chooses the technique to estimate K, i.e., number of communities.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>model_order_pred</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of modules to consider.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def choose_model_order_K(reprs, degrees, max_K, opt=&#34;empirical&#34;):
+    &#34;&#34;&#34;
+    Predicts number of communities/modules in a network.
+
+    Parameters
+    ----------
+    reprs : `np.ndarray` of shape (n, n)
+        Laplacianized adjacency matrix representation with dimension (n,n).
+
+    degrees : `np.ndarray` of shape (n)
+        Diagonal matrix of degree values with dimension (n).
+
+    max_K : `int`
+        Determines the maximum number of communities to predict.
+
+    opt_K : `string`, default=&#39;empirical&#39;
+        Chooses the technique to estimate K, i.e., number of communities.
+
+    Returns
+    -------
+    model_order_pred : `int`
+        Number of modules to consider.
+
+    &#34;&#34;&#34;
+    opt_list = [&#34;null&#34;, &#34;empirical&#34;, &#34;full&#34;]
+
+    if opt == opt_list[2]:
+        model_order_pred = max_K - 1
+    else:
+        n = reprs.shape[0]
+        sorted_eigenvalues = np.sort(eigvals(np.eye(n) - reprs))
+        gaprw = np.diff(sorted_eigenvalues)[1:max_K]
+
+        assert isinstance(gaprw, np.ndarray) and gaprw.ndim == 1
+
+        if opt == opt_list[0]:
+            pin = np.sum(degrees) / comb(n, 2) / 2
+            threshold = 3.5 / pin ** (0.58) / n ** (1.15)
+            idx = np.nonzero(gaprw &gt; threshold)[0]
+            if idx.shape[0] == 0:
+                model_order_pred = 1
+            else:
+                model_order_pred = np.max(idx) + 1
+        elif opt == opt_list[1]:
+            if (gaprw == 0).any():
+                idx = -2
+            else:
+                idx = -1
+            model_order_pred = np.argsort(gaprw, axis=0)[idx] + 1
+        else:
+            raise ValueError(
+                f&#34;Unkown option {opt} is given for predicting number of communities.\n&#34;
+                f&#34;Use one of {opt_list}.&#34;
+            )
+
+    return int(model_order_pred) + 1</code></pre>
+</details>
+</dd>
+<dt id="mudcod.community_detection.CommunityDetectionMixin.eigen_complete"><code class="name flex">
+<span>def <span class="ident">eigen_complete</span></span>(<span>adj, cv_idx, epsilon, k)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def eigen_complete(adj, cv_idx, epsilon, k):
+    m = np.zeros(adj.shape)
+    while True:
+        adj_cv = (adj * (1 - cv_idx)) + (m * cv_idx)
+        u, s, vh = svd(adj_cv)
+        s[k:] = 0
+        m2 = u @ np.diag(s) @ vh
+        m2 = np.where(m2 &lt; 0, 0, m2)
+        m2 = np.where(m2 &gt; 1, 1, m2)
+        dn = np.sqrt(np.sum((m - m2) ** 2))
+        if dn &lt; epsilon:
+            break
+        else:
+            m = m2
+    return m</code></pre>
+</details>
+</dd>
+<dt id="mudcod.community_detection.CommunityDetectionMixin.loglikelihood"><code class="name flex">
+<span>def <span class="ident">loglikelihood</span></span>(<span>adj_test, adj_train, z_pred, cv_idx)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calcualtes loglikelihood given imputed training adjacency matrix,
+community membership predictions and the actual training matrix.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>adj_test</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n, n)</code></dt>
+<dd>Test ajdacency matrix of shape (n,n), corresponding to the actual network.</dd>
+<dt><strong><code>adj_train</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n, n)</code></dt>
+<dd>Training adjacency matrix of shape (n,n); whose edges are removed
+and then imputed, where n is the number of vertices.</dd>
+<dt><strong><code>z_pred</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n)</code></dt>
+<dd>Predicted community membership label vector of size (n) of each
+vertex to compute loss.</dd>
+<dt><strong><code>cv_idx</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n, n)</code></dt>
+<dd>A marix of size (n,n), indicating the index of removed edges. Value
+of the entry is 1 for test and 0 for training edges.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>logllh</code></strong> :&ensp;<code>float</code></dt>
+<dd>DCBM loglikelihood value computed based on the predicted community
+memberships.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def loglikelihood(adj_test, adj_train, z_pred, cv_idx):
+    &#34;&#34;&#34;
+    Calcualtes loglikelihood given imputed training adjacency matrix,
+    community membership predictions and the actual training matrix.
+
+    Parameters
+    ----------
+    adj_test : `np.ndarray` of shape (n, n)
+        Test ajdacency matrix of shape (n,n), corresponding to the actual network.
+
+    adj_train : `np.ndarray` of shape (n, n)
+        Training adjacency matrix of shape (n,n); whose edges are removed
+        and then imputed, where n is the number of vertices.
+
+    z_pred : np.ndarray of shape (n)
+        Predicted community membership label vector of size (n) of each
+        vertex to compute loss.
+
+    cv_idx : `np.ndarray` of shape (n, n)
+        A marix of size (n,n), indicating the index of removed edges. Value
+        of the entry is 1 for test and 0 for training edges.
+
+    Returns
+    -------
+    logllh : `float`
+        DCBM loglikelihood value computed based on the predicted community
+        memberships.
+
+    &#34;&#34;&#34;
+    logllh = 0
+    num_communities = np.max(z_pred) + 1
+
+    d_out_train = np.sum(adj_train[:, :], axis=0)
+    # dp_out_train = d_out_train[:, np.newaxis] @ d_out_train[np.newaxis, :]
+
+    # hatB = np.zeros((num_communities, num_communities), dtype=int)
+    hat0 = np.zeros((num_communities, num_communities), dtype=int)
+
+    for comm_k in range(num_communities):
+        for comm_l in range(num_communities):
+            z_ix_kl = np.ix_(z_pred == comm_k, z_pred == comm_l)
+            total_degree = np.sum(adj_train[z_ix_kl])
+            # sum_degree_product = np.sum(dp_out_train[z_ix_kl])
+            # hatB[comm_k, comm_l] = total_degree / sum_degree_product
+            hat0[comm_k, comm_l] = total_degree
+
+    for i, j in zip(*np.nonzero(cv_idx.astype(bool))):
+        # prob = d_out_train[i] * d_out_train[j] * hatB[z_pred[i], z_pred[j]]
+        prob = (
+            d_out_train[i]
+            / np.sum(hat0[z_pred[i], :])
+            * d_out_train[j]
+            / np.sum(hat0[z_pred[j], :])
+            * hat0[z_pred[i], z_pred[j]]
+            * 0.8
+        )
+
+        if prob == 0 or np.isnan(prob):
+            prob = _eps
+        elif prob &gt;= 1:
+            prob = 1 - _eps
+        else:
+            pass
+
+        logllh = (
+            logllh
+            + np.log(prob) * (adj_test[i, j] &gt;= _eps)
+            + np.log(1 - prob) * (adj_test[i, j] &lt; _eps)
+        )
+
+    # return logllh
+    return logllh / np.sum(adj_train)</code></pre>
+</details>
+</dd>
+<dt id="mudcod.community_detection.CommunityDetectionMixin.modularity"><code class="name flex">
+<span>def <span class="ident">modularity</span></span>(<span>adj_test, adj_train, z_pred, cv_idx, resolution=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculates modularity given imputed training adjacency matrix,
+community membership predictions and the actual training matrix.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>adj_test</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n, n)</code></dt>
+<dd>Test ajdacency matrix of shape (n,n), corresponding to the actual network.</dd>
+<dt><strong><code>adj_train</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n, n)</code></dt>
+<dd>Training adjacency matrix of shape (n,n); whose edges are removed
+and then imputed, where n is the number of vertices.</dd>
+<dt><strong><code>z_pred</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n)</code></dt>
+<dd>Predicted community membership label vector of size (n) of each
+vertex to compute loss.</dd>
+<dt><strong><code>cv_idx</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n, n)</code></dt>
+<dd>A marix of size (n,n), indicating the index of removed edges. Value
+of the entry is 1 for test and 0 for training edges.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>modu</code></strong> :&ensp;<code>float</code></dt>
+<dd>Modularity value computed based on the predicted community
+memberships.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def modularity(adj_test, adj_train, z_pred, cv_idx, resolution=1):
+    &#34;&#34;&#34;
+    Calculates modularity given imputed training adjacency matrix,
+    community membership predictions and the actual training matrix.
+
+    Parameters
+    ----------
+    adj_test : `np.ndarray` of shape (n, n)
+        Test ajdacency matrix of shape (n,n), corresponding to the actual network.
+
+    adj_train : `np.ndarray` of shape (n, n)
+        Training adjacency matrix of shape (n,n); whose edges are removed
+        and then imputed, where n is the number of vertices.
+
+    z_pred : np.ndarray of shape (n)
+        Predicted community membership label vector of size (n) of each
+        vertex to compute loss.
+
+    cv_idx : `np.ndarray` of shape (n, n)
+        A marix of size (n,n), indicating the index of removed edges. Value
+        of the entry is 1 for test and 0 for training edges.
+
+    Returns
+    -------
+    modu : `float`
+        Modularity value computed based on the predicted community
+        memberships.
+
+    &#34;&#34;&#34;
+    modu = 0
+    np.fill_diagonal(cv_idx, 0)
+
+    d_out_train = np.sum(adj_train, axis=0)
+    d_in_train = np.sum(adj_train, axis=1)
+    m = np.sum(cv_idx * adj_test) / 2
+    norm = 1 / (np.sum(adj_train) / 2) ** 2
+
+    for i, j in zip(*np.nonzero(cv_idx.astype(bool))):
+        if (cv_idx[i, j] &gt; 0) and (z_pred[i] == z_pred[j]) and (i != j):
+            c = z_pred[i] = z_pred[j]
+            out_degree_sum = np.sum(d_out_train[z_pred == c])
+            in_degree_sum = np.sum(d_in_train[z_pred == c])
+            modu += adj_test[i, j] / m - (
+                (resolution * out_degree_sum * in_degree_sum * norm)
+                / np.sum(cv_idx[z_pred == c][:, z_pred == c])
+                / 2
+            )
+    return modu / 2</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="mudcod.community_detection.CommunityDetectionMixin.embeddings"><code class="name">var <span class="ident">embeddings</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def embeddings(self):
+    if self._embeddings is None:
+        raise ValueError(&#34;Embeddings are not computed yet, run &#39;fit&#39; first.&#34;)
+    return self._embeddings</code></pre>
+</details>
+</dd>
+<dt id="mudcod.community_detection.CommunityDetectionMixin.model_order_K"><code class="name">var <span class="ident">model_order_K</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def model_order_K(self):
+    if self._model_order_K is None:
+        raise ValueError(&#34;Model order K is not computed yet, run &#39;fit&#39; first.&#34;)
+    return self._model_order_K</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="mudcod.community_detection.MuDCoD"><code class="flex name class">
+<span>class <span class="ident">MuDCoD</span></span>
+<span>(</span><span>verbose=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MuDCoD(CommunityDetectionMixin):
+    def __init__(self, verbose=False):
+        super().__init__(&#34;MuDCoD&#34;, verbose=verbose)
+        self.convergence_monitor = []
+
+    def fit(
+        self,
+        adj,
+        alpha=None,
+        beta=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        monitor_convergence=False,
+    ):
+        &#34;&#34;&#34;
+        Computes the spectral embeddings from given multi-subject time series
+        of matrices of the dynamic networks of different subjects.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (ns, th, n, n)
+            Multi-subject time series of adjacency matrices of size (ns,
+            th,n,n), where n is the number of vertices, th is the time horizon,
+            and ns is the number of subjects.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        beta : `np.ndarray` of shape (ns), default=0.01J(ns)
+            Tuning parameter for smoothing along the subject axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run MuDCoD.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        monitor_convergence : `bool`, default=&#39;False&#39;
+            Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+            obj_{t-1}&gt; at each iteration to monitor convergence.
+
+        Returns
+        -------
+        embeddings : `np.ndarray` of shape (ns, th, n, max_K)
+            Computed and smoothed spectral embeddings of the multi-subject time
+            series of the adjacency matrices, with shape (ns, th, n, max_K).
+
+        &#34;&#34;&#34;
+        self.adj = adj.astype(float)
+        self.num_subjects = self.adj.shape[0]
+        self.time_horizon = self.adj.shape[1]
+        self.num_vertices = self.adj.shape[2]
+
+        self.degrees = np.empty(self.adj.shape[:-1])
+        self.lapl_adj = np.empty_like(self.adj)
+
+        if alpha is None:
+            alpha = 0.05 * np.ones((self.time_horizon, 2))
+        if beta is None:
+            beta = 0.01 * np.ones(self.num_subjects)
+        if max_K is None:
+            max_K = np.ceil(self.num_vertices / 10).astype(int)
+
+        if self.time_horizon &lt; 2:
+            raise ValueError(
+                &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+            )
+        assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 4
+        assert self.adj.shape[2] == self.adj.shape[3]
+        assert isinstance(alpha, np.ndarray) and alpha.shape == (self.time_horizon, 2)
+        assert isinstance(beta, np.ndarray) and beta.shape == (self.num_subjects,)
+        assert max_K &gt; 0
+
+        ns = self.num_subjects
+        th = self.time_horizon
+        n = self.num_vertices
+
+        k = np.zeros((ns, th)).astype(int) + max_K
+        v_col = np.zeros((ns, th, n, max_K))
+        u = np.zeros((ns, th, n, n))
+        objective = np.zeros((n_iter))
+        self.convergence_monitor = []
+        diffU = 0
+
+        for t in range(th):
+            for sbj in range(ns):
+                adj_t = self.adj[sbj, t, :, :]
+                self.degrees[sbj, t, :] = np.sum(np.abs(adj_t), axis=0) + _eps
+                sqinv_degree = sqrtm(inv(np.diag(self.degrees[sbj, t, :])))
+                self.lapl_adj[sbj, t, :, :] = sqinv_degree @ adj_t @ sqinv_degree
+
+        # Initialization of k, v_col.
+        for t in range(th):
+            for sbj in range(ns):
+                lapl_adj_t = self.lapl_adj[sbj, t, :, :]
+                k[sbj, t] = self.choose_model_order_K(
+                    lapl_adj_t, self.degrees[sbj, t, :], max_K, opt=opt_K
+                )
+                _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
+                    lapl_adj_t, k=k[sbj, t], which=&#34;LM&#34;
+                )
+                u[sbj, t, :, :] = v_col[sbj, t, :, :] @ v_col[sbj, t, :, :].T
+
+                if monitor_convergence:
+                    diffU = diffU + (
+                        Distances.hamming_distance(
+                            self.lapl_adj[sbj, t, :, :],
+                            v_col[sbj, t, :, : k[sbj, t]]
+                            @ v_col[sbj, t, :, : k[sbj, t]].T,
+                        )
+                    )
+
+        if monitor_convergence:
+            self.convergence_monitor.append((-np.inf, diffU))
+
+        total_itr = 0
+        for itr in range(n_iter):
+            if self.verbose:
+                print(f&#34;Iteration {itr}/{n_iter} is running.&#34;)
+            total_itr += 1
+            diffU = 0
+            v_col_pv = deepcopy(v_col)
+            for t in range(th):
+                v_col_t = v_col_pv[:, t, :, :]
+                swp_v_col_t = np.swapaxes(v_col_t, 1, 2)
+                u_bar_t = v_col_t @ swp_v_col_t
+                for sbj in range(ns):
+                    # reprs = u[sbj, t, :, :]
+                    mu_u_bar_t = np.mean(np.delete(u_bar_t, sbj, 0), axis=0)
+                    reprs = self.lapl_adj[sbj, t, :, :]
+                    if t == 0:
+                        v_col_pv_ktn = v_col_pv[sbj, t + 1, :, : k[sbj, t + 1]]
+                        reprs_bar = (
+                            reprs
+                            + alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T)
+                            + beta[sbj] * mu_u_bar_t
+                        )
+                    elif t == th - 1:
+                        v_col_pv_ktp = v_col_pv[sbj, t - 1, :, : k[sbj, t - 1]]
+                        reprs_bar = (
+                            reprs
+                            + alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T)
+                            + beta[sbj] * mu_u_bar_t
+                        )
+                    else:
+                        v_col_pv_ktp = v_col_pv[sbj, t - 1, :, : k[sbj, t - 1]]
+                        v_col_pv_ktn = v_col_pv[sbj, t + 1, :, : k[sbj, t + 1]]
+                        reprs_bar = (
+                            reprs
+                            + (alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T))
+                            + (alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T))
+                            + beta[sbj] * mu_u_bar_t
+                        )
+
+                    k[sbj, t] = self.choose_model_order_K(
+                        reprs_bar,
+                        self.degrees[sbj, t, :],
+                        max_K,
+                        opt=opt_K,
+                    )
+                    _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
+                        reprs_bar, k=k[sbj, t], which=&#34;LM&#34;
+                    )
+
+                    eig_val = eigvals(
+                        v_col[sbj, t, :, : k[sbj, t]].T
+                        @ v_col_pv[sbj, t, :, : k[sbj, t]]
+                    )
+                    objective[itr] = objective[itr] + np.sum(np.abs(eig_val), axis=0)
+
+                    if monitor_convergence:
+                        diffU = diffU + (
+                            Distances.hamming_distance(
+                                v_col[sbj, t, :, : k[sbj, t]]
+                                @ v_col[sbj, t, :, : k[sbj, t]].T,
+                                v_col_pv[sbj, t, :, : k[sbj, t]]
+                                @ v_col_pv[sbj, t, :, : k[sbj, t]].T,
+                            )
+                        )
+
+            if monitor_convergence:
+                self.convergence_monitor.append((objective[itr], diffU))
+
+            if itr &gt;= 1:
+                diff_obj = objective[itr] - objective[itr - 1]
+                if abs(diff_obj) &lt; CONVERGENCE_CRITERIA:
+                    break
+
+        if (
+            (total_itr &gt; 1)
+            and (total_itr == n_iter)
+            and (objective[-1] - objective[-2] &gt;= CONVERGENCE_CRITERIA)
+        ):
+            warnings.warn(&#34;MuDCoD does not converge!&#34;, RuntimeWarning)
+
+        self.embeddings = v_col
+        self.model_order_K = k
+
+        return self.embeddings
+
+    def predict(
+        self,
+    ):
+        &#34;&#34;&#34;
+        Predicts community memberships of vertices at each time point for each
+        subject.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (ns, th, n)
+            Predicted community membership labels of vertices at each time
+            point for each subject, where n is the number of vertices, th is
+            the time horizon, and ns is the number of subjects.
+
+        &#34;&#34;&#34;
+        ns = self.num_subjects
+        th = self.time_horizon
+        n = self.num_vertices
+        z_pred = np.empty((ns, th, n), dtype=int)
+        for t in range(th):
+            for sbj in range(ns):
+                kmeans = KMeans(n_clusters=self.model_order_K[sbj, t])
+                z_pred[sbj, t, :] = kmeans.fit_predict(
+                    self.embeddings[sbj, t, :, : self.model_order_K[sbj, t]]
+                )
+        return z_pred
+
+    def fit_predict(
+        self,
+        adj,
+        alpha=None,
+        beta=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        monitor_convergence=False,
+    ):
+        &#34;&#34;&#34;
+        Predicts multi-subject time series of community memberships given the
+        adjacency matrices of the dynamic networks for each subject.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (th, n, n)
+            Time series of adjacency matrices of size (th,n,n), where n is the
+            number of vertices, and th is the time horizon.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run PisCES.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        monitor_convergence : `bool`, default=&#39;False&#39;
+            Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+            obj_{t-1}&gt; at each iteration to monitor convergence.
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (ns, th, n)
+            Predicted community membership labels of vertices at each time
+            point for each subject, where n is the number of vertices, th is
+            the time horizon, and ns is the number of subjects.
+
+        &#34;&#34;&#34;
+        self.fit(
+            adj,
+            alpha=alpha,
+            beta=beta,
+            max_K=max_K,
+            opt_K=opt_K,
+            n_iter=n_iter,
+            monitor_convergence=monitor_convergence,
+        )
+        return self.predict()
+
+    @classmethod
+    def cross_validation(
+        cls,
+        adj,
+        num_folds=5,
+        alpha=None,
+        beta=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        n_jobs=1,
+    ):
+        &#34;&#34;&#34;
+        Performs cross validation to choose the best pair of values for the alpha
+        and the beta parameters.
+
+        Parameters
+        ----------
+        num_folds : `int`, default=5
+            Number of folds to perform in the cross validation.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        beta : `np.ndarray` of shape (ns), default=0.01J(ns)
+            Tuning parameter for smoothing along the subject axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run PisCES.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        n_jobs : `int`, default=1
+            The number of parallel `joblib` threads.
+
+        Returns
+        -------
+        modu : `float`
+            Sum of the modularity value computed for each fold with respect to
+            the given alpha.
+
+        logllh : `float`
+            Sum of the log-likelihood value computed for each fold with
+            respect to the given alpha.
+
+        &#34;&#34;&#34;
+        adj = adj.astype(float)
+        num_vertices = adj.shape[2]
+        time_horizon = adj.shape[1]
+        num_subjects = adj.shape[0]
+
+        if alpha is None:
+            alpha = 0.05 * np.ones((time_horizon, 2))
+        if beta is None:
+            beta = 0.01 * np.ones(num_subjects)
+        if max_K is None:
+            max_K = np.ceil(num_vertices / 10).astype(int)
+
+        if time_horizon &lt; 2:
+            raise ValueError(
+                &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+            )
+        assert type(adj) in [np.ndarray, np.memmap] and adj.ndim == 4
+        assert adj.shape[2] == adj.shape[3]
+        assert alpha.shape == (time_horizon, 2)
+        assert beta.shape == (num_subjects,)
+        assert max_K &gt; 0
+
+        ns = num_subjects
+        th = time_horizon
+        n = num_vertices
+
+        idx_n = np.arange(n)
+        idx = np.c_[np.repeat(idx_n, idx_n.shape), np.tile(idx_n, idx_n.shape)]
+        r = np.random.choice(n**2, size=n**2, replace=False)
+
+        mudcod_kwargs = {
+            &#34;alpha&#34;: alpha,
+            &#34;beta&#34;: beta,
+            &#34;n_iter&#34;: n_iter,
+            &#34;max_K&#34;: max_K,
+            &#34;opt_K&#34;: opt_K,
+        }
+
+        def compute_for_fold(adj, idx_split, n, th, ns, mudcod_kwargs={}):
+            cv_idx = np.empty((ns, th, n, n), dtype=bool)
+            adj_train = np.zeros((ns, th, n, n))
+            adj_train_imputed = np.zeros((ns, th, n, n))
+
+            for t in range(th):
+                for sbj in range(ns):
+                    idx1, idx2 = idx_split[sbj, t, :, 0], idx_split[sbj, t, :, 1]
+
+                    cv_idx_t = np.zeros((n, n), dtype=bool)
+                    cv_idx_t[idx1, idx2] = True
+                    cv_idx_t = np.triu(cv_idx_t) + np.triu(cv_idx_t).T
+                    cv_idx[sbj, t, :, :] = cv_idx_t
+
+                    adj_train[sbj, t, :, :] = adj[sbj, t, :, :]
+                    adj_train[sbj, t, idx1, idx2] = 0
+                    adj_train[sbj, t] = (
+                        np.triu(adj_train[sbj, t]) + np.triu(adj_train[sbj, t]).T
+                    )
+                    adj_train_imputed[sbj, t, :, :] = cls.eigen_complete(
+                        adj_train[sbj, t], cv_idx_t, 10, 10
+                    )
+
+            z_pred = cls().fit_predict(
+                deepcopy(adj_train_imputed[:, :, :, :]),
+                **mudcod_kwargs,
+            )
+
+            modu_fold, logllh_fold = 0, 0
+            for t in range(th):
+                for sbj in range(ns):
+                    modu_fold = modu_fold + cls.modularity(
+                        adj[sbj, t, :, :],
+                        adj_train[sbj, t, :, :],
+                        z_pred[sbj, t, :],
+                        cv_idx[sbj, t, :, :],
+                    )
+                    logllh_fold = logllh_fold + cls.loglikelihood(
+                        adj[sbj, t, :, :],
+                        adj_train[sbj, t, :, :],
+                        z_pred[sbj, t, :],
+                        cv_idx[sbj, t, :, :],
+                    )
+            return modu_fold, logllh_fold
+
+        modu_total = 0
+        logllh_total = 0
+
+        def split_train_test(fold_idx):
+            pfold = n**2 // num_folds
+            start, end = pfold * fold_idx, (fold_idx + 1) * pfold
+            test = r[start:end]
+            idx_split = idx[test, :]
+            return np.tile(idx_split, (ns, th, 1, 1))
+
+        if n_jobs &gt; 1:
+            from joblib import Parallel, delayed
+
+            with Parallel(n_jobs=n_jobs) as parallel:  # prefer=&#34;processes&#34;
+                loss_zipped = parallel(
+                    delayed(compute_for_fold)(
+                        adj,
+                        split_train_test(fold_idx),
+                        n,
+                        th,
+                        ns,
+                        mudcod_kwargs=mudcod_kwargs,
+                    )
+                    for fold_idx in range(num_folds)
+                )
+                modu_fold, logllh_fold = map(np.array, zip(*loss_zipped))
+                modu_total = sum(modu_fold)
+                logllh_total = sum(logllh_fold)
+        else:
+            for fold_idx in range(num_folds):
+                modu_fold, logllh_fold = compute_for_fold(
+                    adj,
+                    split_train_test(fold_idx),
+                    n,
+                    th,
+                    ns,
+                    mudcod_kwargs=mudcod_kwargs,
+                )
+                modu_total = modu_total + modu_fold
+                logllh_total = logllh_total + logllh_fold
+
+        num_adj = ns * th
+
+        return modu_total / num_adj, logllh_total / num_adj</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mudcod.community_detection.CommunityDetectionMixin" href="#mudcod.community_detection.CommunityDetectionMixin">CommunityDetectionMixin</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="mudcod.community_detection.MuDCoD.cross_validation"><code class="name flex">
+<span>def <span class="ident">cross_validation</span></span>(<span>adj, num_folds=5, alpha=None, beta=None, n_iter=30, max_K=None, opt_K='empirical', n_jobs=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Performs cross validation to choose the best pair of values for the alpha
+and the beta parameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>num_folds</code></strong> :&ensp;<code>int</code>, default=<code>5</code></dt>
+<dd>Number of folds to perform in the cross validation.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, 2)</code>, default=<code>0.05J(th,2)</code></dt>
+<dd>Tuning parameter for smoothing along the time axis.</dd>
+<dt><strong><code>beta</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (ns)</code>, default=<code>0.01J(ns)</code></dt>
+<dd>Tuning parameter for smoothing along the subject axis.</dd>
+<dt><strong><code>n_iter</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
+<dd>Determines the number of iterations to run PisCES.</dd>
+<dt><strong><code>max_K</code></strong> :&ensp;<code>int</code>, default=<code>n/10</code></dt>
+<dd>Determines the maximum number of communities to predict.</dd>
+<dt><strong><code>opt_K</code></strong> :&ensp;<code>string</code>, default=<code>'empirical'</code></dt>
+<dd>Chooses the technique to estimate k, i.e., number of communities.</dd>
+<dt><strong><code>n_jobs</code></strong> :&ensp;<code>int</code>, default=<code>1</code></dt>
+<dd>The number of parallel <code>joblib</code> threads.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>modu</code></strong> :&ensp;<code>float</code></dt>
+<dd>Sum of the modularity value computed for each fold with respect to
+the given alpha.</dd>
+<dt><strong><code>logllh</code></strong> :&ensp;<code>float</code></dt>
+<dd>Sum of the log-likelihood value computed for each fold with
+respect to the given alpha.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def cross_validation(
+    cls,
+    adj,
+    num_folds=5,
+    alpha=None,
+    beta=None,
+    n_iter=30,
+    max_K=None,
+    opt_K=&#34;empirical&#34;,
+    n_jobs=1,
+):
+    &#34;&#34;&#34;
+    Performs cross validation to choose the best pair of values for the alpha
+    and the beta parameters.
+
+    Parameters
+    ----------
+    num_folds : `int`, default=5
+        Number of folds to perform in the cross validation.
+
+    alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+        Tuning parameter for smoothing along the time axis.
+
+    beta : `np.ndarray` of shape (ns), default=0.01J(ns)
+        Tuning parameter for smoothing along the subject axis.
+
+    n_iter : `int`, default=30
+        Determines the number of iterations to run PisCES.
+
+    max_K : `int`, default=n/10
+        Determines the maximum number of communities to predict.
+
+    opt_K : `string`, default=&#39;empirical&#39;
+        Chooses the technique to estimate k, i.e., number of communities.
+
+    n_jobs : `int`, default=1
+        The number of parallel `joblib` threads.
+
+    Returns
+    -------
+    modu : `float`
+        Sum of the modularity value computed for each fold with respect to
+        the given alpha.
+
+    logllh : `float`
+        Sum of the log-likelihood value computed for each fold with
+        respect to the given alpha.
+
+    &#34;&#34;&#34;
+    adj = adj.astype(float)
+    num_vertices = adj.shape[2]
+    time_horizon = adj.shape[1]
+    num_subjects = adj.shape[0]
+
+    if alpha is None:
+        alpha = 0.05 * np.ones((time_horizon, 2))
+    if beta is None:
+        beta = 0.01 * np.ones(num_subjects)
+    if max_K is None:
+        max_K = np.ceil(num_vertices / 10).astype(int)
+
+    if time_horizon &lt; 2:
+        raise ValueError(
+            &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+        )
+    assert type(adj) in [np.ndarray, np.memmap] and adj.ndim == 4
+    assert adj.shape[2] == adj.shape[3]
+    assert alpha.shape == (time_horizon, 2)
+    assert beta.shape == (num_subjects,)
+    assert max_K &gt; 0
+
+    ns = num_subjects
+    th = time_horizon
+    n = num_vertices
+
+    idx_n = np.arange(n)
+    idx = np.c_[np.repeat(idx_n, idx_n.shape), np.tile(idx_n, idx_n.shape)]
+    r = np.random.choice(n**2, size=n**2, replace=False)
+
+    mudcod_kwargs = {
+        &#34;alpha&#34;: alpha,
+        &#34;beta&#34;: beta,
+        &#34;n_iter&#34;: n_iter,
+        &#34;max_K&#34;: max_K,
+        &#34;opt_K&#34;: opt_K,
+    }
+
+    def compute_for_fold(adj, idx_split, n, th, ns, mudcod_kwargs={}):
+        cv_idx = np.empty((ns, th, n, n), dtype=bool)
+        adj_train = np.zeros((ns, th, n, n))
+        adj_train_imputed = np.zeros((ns, th, n, n))
+
+        for t in range(th):
+            for sbj in range(ns):
+                idx1, idx2 = idx_split[sbj, t, :, 0], idx_split[sbj, t, :, 1]
+
+                cv_idx_t = np.zeros((n, n), dtype=bool)
+                cv_idx_t[idx1, idx2] = True
+                cv_idx_t = np.triu(cv_idx_t) + np.triu(cv_idx_t).T
+                cv_idx[sbj, t, :, :] = cv_idx_t
+
+                adj_train[sbj, t, :, :] = adj[sbj, t, :, :]
+                adj_train[sbj, t, idx1, idx2] = 0
+                adj_train[sbj, t] = (
+                    np.triu(adj_train[sbj, t]) + np.triu(adj_train[sbj, t]).T
+                )
+                adj_train_imputed[sbj, t, :, :] = cls.eigen_complete(
+                    adj_train[sbj, t], cv_idx_t, 10, 10
+                )
+
+        z_pred = cls().fit_predict(
+            deepcopy(adj_train_imputed[:, :, :, :]),
+            **mudcod_kwargs,
+        )
+
+        modu_fold, logllh_fold = 0, 0
+        for t in range(th):
+            for sbj in range(ns):
+                modu_fold = modu_fold + cls.modularity(
+                    adj[sbj, t, :, :],
+                    adj_train[sbj, t, :, :],
+                    z_pred[sbj, t, :],
+                    cv_idx[sbj, t, :, :],
+                )
+                logllh_fold = logllh_fold + cls.loglikelihood(
+                    adj[sbj, t, :, :],
+                    adj_train[sbj, t, :, :],
+                    z_pred[sbj, t, :],
+                    cv_idx[sbj, t, :, :],
+                )
+        return modu_fold, logllh_fold
+
+    modu_total = 0
+    logllh_total = 0
+
+    def split_train_test(fold_idx):
+        pfold = n**2 // num_folds
+        start, end = pfold * fold_idx, (fold_idx + 1) * pfold
+        test = r[start:end]
+        idx_split = idx[test, :]
+        return np.tile(idx_split, (ns, th, 1, 1))
+
+    if n_jobs &gt; 1:
+        from joblib import Parallel, delayed
+
+        with Parallel(n_jobs=n_jobs) as parallel:  # prefer=&#34;processes&#34;
+            loss_zipped = parallel(
+                delayed(compute_for_fold)(
+                    adj,
+                    split_train_test(fold_idx),
+                    n,
+                    th,
+                    ns,
+                    mudcod_kwargs=mudcod_kwargs,
+                )
+                for fold_idx in range(num_folds)
+            )
+            modu_fold, logllh_fold = map(np.array, zip(*loss_zipped))
+            modu_total = sum(modu_fold)
+            logllh_total = sum(logllh_fold)
+    else:
+        for fold_idx in range(num_folds):
+            modu_fold, logllh_fold = compute_for_fold(
+                adj,
+                split_train_test(fold_idx),
+                n,
+                th,
+                ns,
+                mudcod_kwargs=mudcod_kwargs,
+            )
+            modu_total = modu_total + modu_fold
+            logllh_total = logllh_total + logllh_fold
+
+    num_adj = ns * th
+
+    return modu_total / num_adj, logllh_total / num_adj</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="mudcod.community_detection.MuDCoD.fit"><code class="name flex">
+<span>def <span class="ident">fit</span></span>(<span>self, adj, alpha=None, beta=None, n_iter=30, max_K=None, opt_K='empirical', monitor_convergence=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the spectral embeddings from given multi-subject time series
+of matrices of the dynamic networks of different subjects.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>adj</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (ns, th, n, n)</code></dt>
+<dd>Multi-subject time series of adjacency matrices of size (ns,
+th,n,n), where n is the number of vertices, th is the time horizon,
+and ns is the number of subjects.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, 2)</code>, default=<code>0.05J(th,2)</code></dt>
+<dd>Tuning parameter for smoothing along the time axis.</dd>
+<dt><strong><code>beta</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (ns)</code>, default=<code>0.01J(ns)</code></dt>
+<dd>Tuning parameter for smoothing along the subject axis.</dd>
+<dt><strong><code>n_iter</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
+<dd>Determines the number of iterations to run MuDCoD.</dd>
+<dt><strong><code>max_K</code></strong> :&ensp;<code>int</code>, default=<code>n/10</code></dt>
+<dd>Determines the maximum number of communities to predict.</dd>
+<dt><strong><code>opt_K</code></strong> :&ensp;<code>string</code>, default=<code>'empirical'</code></dt>
+<dd>Chooses the technique to estimate k, i.e., number of communities.</dd>
+<dt><strong><code>monitor_convergence</code></strong> :&ensp;<code>bool</code>, default=<code>'False'</code></dt>
+<dd>Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+obj_{t-1}&gt; at each iteration to monitor convergence.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>embeddings</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (ns, th, n, max_K)</code></dt>
+<dd>Computed and smoothed spectral embeddings of the multi-subject time
+series of the adjacency matrices, with shape (ns, th, n, max_K).</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit(
+    self,
+    adj,
+    alpha=None,
+    beta=None,
+    n_iter=30,
+    max_K=None,
+    opt_K=&#34;empirical&#34;,
+    monitor_convergence=False,
+):
+    &#34;&#34;&#34;
+    Computes the spectral embeddings from given multi-subject time series
+    of matrices of the dynamic networks of different subjects.
+
+    Parameters
+    ----------
+    adj : `np.ndarray` of shape (ns, th, n, n)
+        Multi-subject time series of adjacency matrices of size (ns,
+        th,n,n), where n is the number of vertices, th is the time horizon,
+        and ns is the number of subjects.
+
+    alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+        Tuning parameter for smoothing along the time axis.
+
+    beta : `np.ndarray` of shape (ns), default=0.01J(ns)
+        Tuning parameter for smoothing along the subject axis.
+
+    n_iter : `int`, default=30
+        Determines the number of iterations to run MuDCoD.
+
+    max_K : `int`, default=n/10
+        Determines the maximum number of communities to predict.
+
+    opt_K : `string`, default=&#39;empirical&#39;
+        Chooses the technique to estimate k, i.e., number of communities.
+
+    monitor_convergence : `bool`, default=&#39;False&#39;
+        Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+        obj_{t-1}&gt; at each iteration to monitor convergence.
+
+    Returns
+    -------
+    embeddings : `np.ndarray` of shape (ns, th, n, max_K)
+        Computed and smoothed spectral embeddings of the multi-subject time
+        series of the adjacency matrices, with shape (ns, th, n, max_K).
+
+    &#34;&#34;&#34;
+    self.adj = adj.astype(float)
+    self.num_subjects = self.adj.shape[0]
+    self.time_horizon = self.adj.shape[1]
+    self.num_vertices = self.adj.shape[2]
+
+    self.degrees = np.empty(self.adj.shape[:-1])
+    self.lapl_adj = np.empty_like(self.adj)
+
+    if alpha is None:
+        alpha = 0.05 * np.ones((self.time_horizon, 2))
+    if beta is None:
+        beta = 0.01 * np.ones(self.num_subjects)
+    if max_K is None:
+        max_K = np.ceil(self.num_vertices / 10).astype(int)
+
+    if self.time_horizon &lt; 2:
+        raise ValueError(
+            &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+        )
+    assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 4
+    assert self.adj.shape[2] == self.adj.shape[3]
+    assert isinstance(alpha, np.ndarray) and alpha.shape == (self.time_horizon, 2)
+    assert isinstance(beta, np.ndarray) and beta.shape == (self.num_subjects,)
+    assert max_K &gt; 0
+
+    ns = self.num_subjects
+    th = self.time_horizon
+    n = self.num_vertices
+
+    k = np.zeros((ns, th)).astype(int) + max_K
+    v_col = np.zeros((ns, th, n, max_K))
+    u = np.zeros((ns, th, n, n))
+    objective = np.zeros((n_iter))
+    self.convergence_monitor = []
+    diffU = 0
+
+    for t in range(th):
+        for sbj in range(ns):
+            adj_t = self.adj[sbj, t, :, :]
+            self.degrees[sbj, t, :] = np.sum(np.abs(adj_t), axis=0) + _eps
+            sqinv_degree = sqrtm(inv(np.diag(self.degrees[sbj, t, :])))
+            self.lapl_adj[sbj, t, :, :] = sqinv_degree @ adj_t @ sqinv_degree
+
+    # Initialization of k, v_col.
+    for t in range(th):
+        for sbj in range(ns):
+            lapl_adj_t = self.lapl_adj[sbj, t, :, :]
+            k[sbj, t] = self.choose_model_order_K(
+                lapl_adj_t, self.degrees[sbj, t, :], max_K, opt=opt_K
+            )
+            _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
+                lapl_adj_t, k=k[sbj, t], which=&#34;LM&#34;
+            )
+            u[sbj, t, :, :] = v_col[sbj, t, :, :] @ v_col[sbj, t, :, :].T
+
+            if monitor_convergence:
+                diffU = diffU + (
+                    Distances.hamming_distance(
+                        self.lapl_adj[sbj, t, :, :],
+                        v_col[sbj, t, :, : k[sbj, t]]
+                        @ v_col[sbj, t, :, : k[sbj, t]].T,
+                    )
+                )
+
+    if monitor_convergence:
+        self.convergence_monitor.append((-np.inf, diffU))
+
+    total_itr = 0
+    for itr in range(n_iter):
+        if self.verbose:
+            print(f&#34;Iteration {itr}/{n_iter} is running.&#34;)
+        total_itr += 1
+        diffU = 0
+        v_col_pv = deepcopy(v_col)
+        for t in range(th):
+            v_col_t = v_col_pv[:, t, :, :]
+            swp_v_col_t = np.swapaxes(v_col_t, 1, 2)
+            u_bar_t = v_col_t @ swp_v_col_t
+            for sbj in range(ns):
+                # reprs = u[sbj, t, :, :]
+                mu_u_bar_t = np.mean(np.delete(u_bar_t, sbj, 0), axis=0)
+                reprs = self.lapl_adj[sbj, t, :, :]
+                if t == 0:
+                    v_col_pv_ktn = v_col_pv[sbj, t + 1, :, : k[sbj, t + 1]]
+                    reprs_bar = (
+                        reprs
+                        + alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T)
+                        + beta[sbj] * mu_u_bar_t
+                    )
+                elif t == th - 1:
+                    v_col_pv_ktp = v_col_pv[sbj, t - 1, :, : k[sbj, t - 1]]
+                    reprs_bar = (
+                        reprs
+                        + alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T)
+                        + beta[sbj] * mu_u_bar_t
+                    )
+                else:
+                    v_col_pv_ktp = v_col_pv[sbj, t - 1, :, : k[sbj, t - 1]]
+                    v_col_pv_ktn = v_col_pv[sbj, t + 1, :, : k[sbj, t + 1]]
+                    reprs_bar = (
+                        reprs
+                        + (alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T))
+                        + (alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T))
+                        + beta[sbj] * mu_u_bar_t
+                    )
+
+                k[sbj, t] = self.choose_model_order_K(
+                    reprs_bar,
+                    self.degrees[sbj, t, :],
+                    max_K,
+                    opt=opt_K,
+                )
+                _, v_col[sbj, t, :, : k[sbj, t]] = eigs(
+                    reprs_bar, k=k[sbj, t], which=&#34;LM&#34;
+                )
+
+                eig_val = eigvals(
+                    v_col[sbj, t, :, : k[sbj, t]].T
+                    @ v_col_pv[sbj, t, :, : k[sbj, t]]
+                )
+                objective[itr] = objective[itr] + np.sum(np.abs(eig_val), axis=0)
+
+                if monitor_convergence:
+                    diffU = diffU + (
+                        Distances.hamming_distance(
+                            v_col[sbj, t, :, : k[sbj, t]]
+                            @ v_col[sbj, t, :, : k[sbj, t]].T,
+                            v_col_pv[sbj, t, :, : k[sbj, t]]
+                            @ v_col_pv[sbj, t, :, : k[sbj, t]].T,
+                        )
+                    )
+
+        if monitor_convergence:
+            self.convergence_monitor.append((objective[itr], diffU))
+
+        if itr &gt;= 1:
+            diff_obj = objective[itr] - objective[itr - 1]
+            if abs(diff_obj) &lt; CONVERGENCE_CRITERIA:
+                break
+
+    if (
+        (total_itr &gt; 1)
+        and (total_itr == n_iter)
+        and (objective[-1] - objective[-2] &gt;= CONVERGENCE_CRITERIA)
+    ):
+        warnings.warn(&#34;MuDCoD does not converge!&#34;, RuntimeWarning)
+
+    self.embeddings = v_col
+    self.model_order_K = k
+
+    return self.embeddings</code></pre>
+</details>
+</dd>
+<dt id="mudcod.community_detection.MuDCoD.fit_predict"><code class="name flex">
+<span>def <span class="ident">fit_predict</span></span>(<span>self, adj, alpha=None, beta=None, n_iter=30, max_K=None, opt_K='empirical', monitor_convergence=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts multi-subject time series of community memberships given the
+adjacency matrices of the dynamic networks for each subject.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>adj</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, n, n)</code></dt>
+<dd>Time series of adjacency matrices of size (th,n,n), where n is the
+number of vertices, and th is the time horizon.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, 2)</code>, default=<code>0.05J(th,2)</code></dt>
+<dd>Tuning parameter for smoothing along the time axis.</dd>
+<dt><strong><code>n_iter</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
+<dd>Determines the number of iterations to run PisCES.</dd>
+<dt><strong><code>max_K</code></strong> :&ensp;<code>int</code>, default=<code>n/10</code></dt>
+<dd>Determines the maximum number of communities to predict.</dd>
+<dt><strong><code>opt_K</code></strong> :&ensp;<code>string</code>, default=<code>'empirical'</code></dt>
+<dd>Chooses the technique to estimate k, i.e., number of communities.</dd>
+<dt><strong><code>monitor_convergence</code></strong> :&ensp;<code>bool</code>, default=<code>'False'</code></dt>
+<dd>Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+obj_{t-1}&gt; at each iteration to monitor convergence.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>z_pred</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (ns, th, n)</code></dt>
+<dd>Predicted community membership labels of vertices at each time
+point for each subject, where n is the number of vertices, th is
+the time horizon, and ns is the number of subjects.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit_predict(
+    self,
+    adj,
+    alpha=None,
+    beta=None,
+    n_iter=30,
+    max_K=None,
+    opt_K=&#34;empirical&#34;,
+    monitor_convergence=False,
+):
+    &#34;&#34;&#34;
+    Predicts multi-subject time series of community memberships given the
+    adjacency matrices of the dynamic networks for each subject.
+
+    Parameters
+    ----------
+    adj : `np.ndarray` of shape (th, n, n)
+        Time series of adjacency matrices of size (th,n,n), where n is the
+        number of vertices, and th is the time horizon.
+
+    alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+        Tuning parameter for smoothing along the time axis.
+
+    n_iter : `int`, default=30
+        Determines the number of iterations to run PisCES.
+
+    max_K : `int`, default=n/10
+        Determines the maximum number of communities to predict.
+
+    opt_K : `string`, default=&#39;empirical&#39;
+        Chooses the technique to estimate k, i.e., number of communities.
+
+    monitor_convergence : `bool`, default=&#39;False&#39;
+        Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+        obj_{t-1}&gt; at each iteration to monitor convergence.
+
+    Returns
+    -------
+    z_pred : np.ndarray of shape (ns, th, n)
+        Predicted community membership labels of vertices at each time
+        point for each subject, where n is the number of vertices, th is
+        the time horizon, and ns is the number of subjects.
+
+    &#34;&#34;&#34;
+    self.fit(
+        adj,
+        alpha=alpha,
+        beta=beta,
+        max_K=max_K,
+        opt_K=opt_K,
+        n_iter=n_iter,
+        monitor_convergence=monitor_convergence,
+    )
+    return self.predict()</code></pre>
+</details>
+</dd>
+<dt id="mudcod.community_detection.MuDCoD.predict"><code class="name flex">
+<span>def <span class="ident">predict</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts community memberships of vertices at each time point for each
+subject.</p>
+<h2 id="parameters">Parameters</h2>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>z_pred</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (ns, th, n)</code></dt>
+<dd>Predicted community membership labels of vertices at each time
+point for each subject, where n is the number of vertices, th is
+the time horizon, and ns is the number of subjects.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def predict(
+    self,
+):
+    &#34;&#34;&#34;
+    Predicts community memberships of vertices at each time point for each
+    subject.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    z_pred : np.ndarray of shape (ns, th, n)
+        Predicted community membership labels of vertices at each time
+        point for each subject, where n is the number of vertices, th is
+        the time horizon, and ns is the number of subjects.
+
+    &#34;&#34;&#34;
+    ns = self.num_subjects
+    th = self.time_horizon
+    n = self.num_vertices
+    z_pred = np.empty((ns, th, n), dtype=int)
+    for t in range(th):
+        for sbj in range(ns):
+            kmeans = KMeans(n_clusters=self.model_order_K[sbj, t])
+            z_pred[sbj, t, :] = kmeans.fit_predict(
+                self.embeddings[sbj, t, :, : self.model_order_K[sbj, t]]
+            )
+    return z_pred</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mudcod.community_detection.CommunityDetectionMixin" href="#mudcod.community_detection.CommunityDetectionMixin">CommunityDetectionMixin</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.choose_model_order_K" href="#mudcod.community_detection.CommunityDetectionMixin.choose_model_order_K">choose_model_order_K</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.loglikelihood" href="#mudcod.community_detection.CommunityDetectionMixin.loglikelihood">loglikelihood</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.modularity" href="#mudcod.community_detection.CommunityDetectionMixin.modularity">modularity</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mudcod.community_detection.PisCES"><code class="flex name class">
+<span>class <span class="ident">PisCES</span></span>
+<span>(</span><span>verbose=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PisCES(CommunityDetectionMixin):
+    def __init__(self, verbose=False):
+        super().__init__(&#34;PisCES&#34;, verbose=verbose)
+        self.convergence_monitor = []
+
+    def fit(
+        self,
+        adj,
+        alpha=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        monitor_convergence=False,
+    ):
+        &#34;&#34;&#34;
+        Computes the spectral embeddings from given time series of matrices of
+        the dynamic network.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (th, n, n)
+            Time series of adjacency matrices of size (th,n,n), where n is the
+            number of vertices, and th is the time horizon.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run PisCES.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        monitor_convergence : `bool`, default=&#39;False&#39;
+            Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+            obj_{t-1}&gt; at each iteration to monitor convergence.
+
+        Returns
+        -------
+        embeddings : `np.ndarray` of shape (th, n, max_K)
+            Computed and smoothed spectral embeddings of the time series of the
+            adjacency matrices, with shape (th, n, max_K).
+
+        &#34;&#34;&#34;
+        self.adj = adj.astype(float)
+        self.num_vertices = self.adj.shape[1]
+        self.time_horizon = self.adj.shape[0]
+
+        self.degrees = np.empty(self.adj.shape[:-1])
+        self.lapl_adj = np.empty_like(self.adj)
+
+        if alpha is None:
+            alpha = 0.05 * np.ones((self.time_horizon, 2))
+        if max_K is None:
+            max_K = np.ceil(self.num_vertices / 10).astype(int)
+
+        if self.time_horizon &lt; 2:
+            raise ValueError(
+                &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+            )
+        assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 3
+        assert self.adj.shape[1] == self.adj.shape[2]
+        assert isinstance(alpha, np.ndarray) and alpha.shape == (self.time_horizon, 2)
+        assert max_K &gt; 0
+
+        th = self.time_horizon
+        n = self.num_vertices
+
+        u = np.zeros((th, n, n))
+        v_col = np.zeros((th, n, max_K))
+        k = np.zeros(th).astype(int) + max_K
+        objective = np.zeros(n_iter)
+        self.convergence_monitor = []
+        diffU = 0
+
+        for t in range(th):
+            adj_t = self.adj[t, :, :]
+            self.degrees[t, :] = np.sum(np.abs(adj_t), axis=0) + _eps
+            sqinv_degree = sqrtm(inv(np.diag(self.degrees[t, :])))
+            self.lapl_adj[t, :, :] = sqinv_degree @ adj_t @ sqinv_degree
+
+        # Initialization of k, v_col.
+        for t in range(th):
+            lapl_adj_t = self.lapl_adj[t, :, :]
+            k[t] = self.choose_model_order_K(
+                lapl_adj_t, self.degrees[t, :], max_K, opt=opt_K
+            )
+            _, v_col[t, :, : k[t]] = eigs(lapl_adj_t, k=k[t], which=&#34;LM&#34;)
+            u[t, :, :] = v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T
+
+            if monitor_convergence:
+                diffU = diffU + (
+                    Distances.hamming_distance(
+                        self.lapl_adj[t, :, :],
+                        v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T,
+                    )
+                )
+
+        if monitor_convergence:
+            self.convergence_monitor.append((-np.inf, diffU))
+
+        total_itr = 0
+        for itr in range(n_iter):
+            if self.verbose:
+                print(f&#34;Iteration {itr}/{n_iter} is running.&#34;)
+            total_itr += 1
+            diffU = 0
+            v_col_pv = deepcopy(v_col)
+            for t in range(th):
+                # reprs = u[t, :, :]
+                reprs = self.lapl_adj[t, :, :]
+                if t == 0:
+                    v_col_pv_ktn = v_col_pv[t + 1, :, : k[t + 1]]
+                    reprs_bar = reprs + alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T)
+                elif t == th - 1:
+                    v_col_pv_ktp = v_col_pv[t - 1, :, : k[t - 1]]
+                    reprs_bar = reprs + alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T)
+                else:
+                    v_col_pv_ktp = v_col_pv[t - 1, :, : k[t - 1]]
+                    v_col_pv_ktn = v_col_pv[t + 1, :, : k[t + 1]]
+                    reprs_bar = (
+                        reprs
+                        + (alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T))
+                        + (alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T))
+                    )
+
+                k[t] = self.choose_model_order_K(
+                    reprs_bar, self.degrees[t, :], max_K, opt=opt_K
+                )
+                _, v_col[t, :, : k[t]] = eigs(reprs_bar, k=k[t], which=&#34;LM&#34;)
+
+                eig_val = eigvals(v_col[t, :, : k[t]].T @ v_col_pv[t, :, : k[t]])
+                objective[itr] = objective[itr] + np.sum(np.abs(eig_val), axis=0)
+
+                if monitor_convergence:
+                    diffU = diffU + (
+                        Distances.hamming_distance(
+                            v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T,
+                            v_col_pv[t, :, : k[t]] @ v_col_pv[t, :, : k[t]].T,
+                        )
+                    )
+
+            if monitor_convergence:
+                self.convergence_monitor.append((objective[itr], diffU))
+
+            if itr &gt;= 1:
+                diff_obj = objective[itr] - objective[itr - 1]
+                if abs(diff_obj) &lt; CONVERGENCE_CRITERIA:
+                    break
+
+        if (
+            (total_itr &gt; 1)
+            and (total_itr == n_iter)
+            and (objective[-1] - objective[-2] &gt;= CONVERGENCE_CRITERIA)
+        ):
+            warnings.warn(&#34;PisCES does not converge!&#34;, RuntimeWarning)
+
+        self.embeddings = v_col
+        self.model_order_K = k
+
+        return self.embeddings
+
+    def predict(self):
+        &#34;&#34;&#34;
+        Predicts community memberships of vertices at each time point.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (th, n)
+            Predicted community membership labels of vertices at each time
+            point, where n is the number of vertices and th is the time
+            horizon.
+
+        &#34;&#34;&#34;
+        th = self.time_horizon
+        n = self.num_vertices
+        z_pred = np.empty((th, n), dtype=int)
+        for t in range(th):
+            kmeans = KMeans(n_clusters=self.model_order_K[t])
+            z_pred[t, :] = kmeans.fit_predict(
+                self.embeddings[t, :, : self.model_order_K[t]]
+            )
+        return z_pred
+
+    def fit_predict(
+        self,
+        adj,
+        alpha=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        monitor_convergence=False,
+    ):
+        &#34;&#34;&#34;
+        Predicts time series of community memberships given the adjacency
+        matrices of the dynamic network.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (th, n, n)
+            Time series of adjacency matrices of size (th,n,n), where n
+            is the number of vertices, and th is the time horizon.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run PisCES.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        monitor_convergence : `bool`, default=&#39;False&#39;
+            Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+            obj_{t-1}&gt; at each iteration to monitor convergence.
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (th, n)
+            Predicted community membership labels of vertices at each time
+            point, where n is the number of vertices and th is the time
+            horizon.
+
+        &#34;&#34;&#34;
+        self.fit(
+            adj,
+            alpha=alpha,
+            max_K=max_K,
+            opt_K=opt_K,
+            n_iter=n_iter,
+            monitor_convergence=monitor_convergence,
+        )
+        return self.predict()
+
+    @classmethod
+    def cross_validation(
+        cls,
+        adj,
+        num_folds=5,
+        alpha=None,
+        n_iter=30,
+        max_K=None,
+        opt_K=&#34;empirical&#34;,
+        n_jobs=1,
+    ):
+        &#34;&#34;&#34;
+        Performs cross validation to choose the best value for the alpha parameter.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (th, n, n)
+            Time series of adjacency matrices of size (th,n,n), where n is the
+            number of vertices, and th is the time horizon.
+
+        num_folds : `int`, default=5
+            Number of folds to perform in the cross validation.
+
+        alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+            Tuning parameter for smoothing along the time axis.
+
+        n_iter : `int`, default=30
+            Determines the number of iterations to run PisCES.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        n_jobs : `int`, default=1
+            The number of parallel `joblib` threads.
+
+        Returns
+        -------
+        modu : `float`
+            Sum of the modularity value computed for each fold with respect to
+            the given alpha.
+
+        logllh : `float`
+            Sum of the log-likelihood value computed for each fold with
+            respect to the given alpha.
+
+        &#34;&#34;&#34;
+        adj = adj.astype(float)
+        num_vertices = adj.shape[1]
+        time_horizon = adj.shape[0]
+
+        if alpha is None:
+            alpha = 0.05 * np.ones((time_horizon, 2))
+        if max_K is None:
+            max_K = np.ceil(num_vertices / 10).astype(int)
+
+        if time_horizon &lt; 2:
+            raise ValueError(
+                &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+            )
+        assert type(adj) in [np.ndarray, np.memmap] and adj.ndim == 3
+        assert adj.shape[1] == adj.shape[2]
+        assert alpha.shape == (time_horizon, 2)
+        assert max_K &gt; 0
+
+        n = num_vertices
+        th = time_horizon
+
+        idx_n = np.arange(n)
+        idx = np.c_[np.repeat(idx_n, idx_n.shape), np.tile(idx_n, idx_n.shape)]
+        r = np.random.choice(n**2, size=n**2, replace=False)
+
+        pisces_kwargs = {
+            &#34;alpha&#34;: alpha,
+            &#34;n_iter&#34;: n_iter,
+            &#34;max_K&#34;: max_K,
+            &#34;opt_K&#34;: opt_K,
+        }
+
+        def compute_for_fold(adj, idx_split, n, th, pisces_kwargs={}):
+            cv_idx = np.zeros((th, n, n), dtype=bool)
+            adj_train = np.zeros((th, n, n))
+            adj_train_imputed = np.zeros((th, n, n))
+
+            for t in range(th):
+                idx1, idx2 = idx_split[t, :, 0], idx_split[t, :, 1]
+
+                cv_idx_t = np.zeros((n, n), dtype=bool)
+                cv_idx_t[idx1, idx2] = True
+                cv_idx_t = np.triu(cv_idx_t) + np.triu(cv_idx_t).T
+                cv_idx[t, :, :] = cv_idx_t
+
+                adj_train[t, :, :] = adj[t, :, :]
+                adj_train[t, idx1, idx2] = 0
+                adj_train[t, :, :] = (
+                    np.triu(adj_train[t, :, :]) + np.triu(adj_train[t, :, :]).T
+                )
+                adj_train_imputed[t, :, :] = cls.eigen_complete(
+                    adj_train[t, :, :], cv_idx_t, 10, 10
+                )
+
+            z_pred = cls().fit_predict(
+                deepcopy(adj_train_imputed[:, :, :]),
+                **pisces_kwargs,
+            )
+
+            modu_fold, logllh_fold = 0, 0
+            for t in range(th):
+                modu_fold = modu_fold + cls.modularity(
+                    adj[t, :, :],
+                    adj_train[t, :, :],
+                    z_pred[t, :],
+                    cv_idx[t, :, :],
+                )
+                logllh_fold = logllh_fold + cls.loglikelihood(
+                    adj[t, :, :],
+                    adj_train[t, :, :],
+                    z_pred[t, :],
+                    cv_idx[t, :, :],
+                )
+
+            return modu_fold, logllh_fold
+
+        modu_total = 0
+        logllh_total = 0
+
+        def split_train_test(fold_idx):
+            pfold = n**2 // num_folds
+            start, end = pfold * fold_idx, (fold_idx + 1) * pfold
+            test = r[start:end]
+            idx_split = idx[test, :]
+            return np.tile(idx_split, (th, 1, 1))
+
+        if n_jobs &gt; 1:
+            from joblib import Parallel, delayed
+
+            with Parallel(n_jobs=n_jobs) as parallel:  # prefer=&#34;processes&#34;
+                loss_zipped = parallel(
+                    delayed(compute_for_fold)(
+                        adj,
+                        split_train_test(fold_idx),
+                        n,
+                        th,
+                        pisces_kwargs=pisces_kwargs,
+                    )
+                    for fold_idx in range(num_folds)
+                )
+                modu_fold, logllh_fold = map(np.array, zip(*loss_zipped))
+                modu_total = sum(modu_fold)
+                logllh_total = sum(logllh_fold)
+        else:
+            for fold_idx in range(num_folds):
+                modu_fold, logllh_fold = compute_for_fold(
+                    adj, split_train_test(fold_idx), n, th, pisces_kwargs=pisces_kwargs
+                )
+                modu_total = modu_total + modu_fold
+                logllh_total = logllh_total + logllh_fold
+
+        num_adj = th
+
+        return modu_total / num_adj, logllh_total / num_adj</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mudcod.community_detection.CommunityDetectionMixin" href="#mudcod.community_detection.CommunityDetectionMixin">CommunityDetectionMixin</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="mudcod.community_detection.PisCES.cross_validation"><code class="name flex">
+<span>def <span class="ident">cross_validation</span></span>(<span>adj, num_folds=5, alpha=None, n_iter=30, max_K=None, opt_K='empirical', n_jobs=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Performs cross validation to choose the best value for the alpha parameter.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>adj</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, n, n)</code></dt>
+<dd>Time series of adjacency matrices of size (th,n,n), where n is the
+number of vertices, and th is the time horizon.</dd>
+<dt><strong><code>num_folds</code></strong> :&ensp;<code>int</code>, default=<code>5</code></dt>
+<dd>Number of folds to perform in the cross validation.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, 2)</code>, default=<code>0.05J(th,2)</code></dt>
+<dd>Tuning parameter for smoothing along the time axis.</dd>
+<dt><strong><code>n_iter</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
+<dd>Determines the number of iterations to run PisCES.</dd>
+<dt><strong><code>max_K</code></strong> :&ensp;<code>int</code>, default=<code>n/10</code></dt>
+<dd>Determines the maximum number of communities to predict.</dd>
+<dt><strong><code>opt_K</code></strong> :&ensp;<code>string</code>, default=<code>'empirical'</code></dt>
+<dd>Chooses the technique to estimate k, i.e., number of communities.</dd>
+<dt><strong><code>n_jobs</code></strong> :&ensp;<code>int</code>, default=<code>1</code></dt>
+<dd>The number of parallel <code>joblib</code> threads.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>modu</code></strong> :&ensp;<code>float</code></dt>
+<dd>Sum of the modularity value computed for each fold with respect to
+the given alpha.</dd>
+<dt><strong><code>logllh</code></strong> :&ensp;<code>float</code></dt>
+<dd>Sum of the log-likelihood value computed for each fold with
+respect to the given alpha.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def cross_validation(
+    cls,
+    adj,
+    num_folds=5,
+    alpha=None,
+    n_iter=30,
+    max_K=None,
+    opt_K=&#34;empirical&#34;,
+    n_jobs=1,
+):
+    &#34;&#34;&#34;
+    Performs cross validation to choose the best value for the alpha parameter.
+
+    Parameters
+    ----------
+    adj : `np.ndarray` of shape (th, n, n)
+        Time series of adjacency matrices of size (th,n,n), where n is the
+        number of vertices, and th is the time horizon.
+
+    num_folds : `int`, default=5
+        Number of folds to perform in the cross validation.
+
+    alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+        Tuning parameter for smoothing along the time axis.
+
+    n_iter : `int`, default=30
+        Determines the number of iterations to run PisCES.
+
+    max_K : `int`, default=n/10
+        Determines the maximum number of communities to predict.
+
+    opt_K : `string`, default=&#39;empirical&#39;
+        Chooses the technique to estimate k, i.e., number of communities.
+
+    n_jobs : `int`, default=1
+        The number of parallel `joblib` threads.
+
+    Returns
+    -------
+    modu : `float`
+        Sum of the modularity value computed for each fold with respect to
+        the given alpha.
+
+    logllh : `float`
+        Sum of the log-likelihood value computed for each fold with
+        respect to the given alpha.
+
+    &#34;&#34;&#34;
+    adj = adj.astype(float)
+    num_vertices = adj.shape[1]
+    time_horizon = adj.shape[0]
+
+    if alpha is None:
+        alpha = 0.05 * np.ones((time_horizon, 2))
+    if max_K is None:
+        max_K = np.ceil(num_vertices / 10).astype(int)
+
+    if time_horizon &lt; 2:
+        raise ValueError(
+            &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+        )
+    assert type(adj) in [np.ndarray, np.memmap] and adj.ndim == 3
+    assert adj.shape[1] == adj.shape[2]
+    assert alpha.shape == (time_horizon, 2)
+    assert max_K &gt; 0
+
+    n = num_vertices
+    th = time_horizon
+
+    idx_n = np.arange(n)
+    idx = np.c_[np.repeat(idx_n, idx_n.shape), np.tile(idx_n, idx_n.shape)]
+    r = np.random.choice(n**2, size=n**2, replace=False)
+
+    pisces_kwargs = {
+        &#34;alpha&#34;: alpha,
+        &#34;n_iter&#34;: n_iter,
+        &#34;max_K&#34;: max_K,
+        &#34;opt_K&#34;: opt_K,
+    }
+
+    def compute_for_fold(adj, idx_split, n, th, pisces_kwargs={}):
+        cv_idx = np.zeros((th, n, n), dtype=bool)
+        adj_train = np.zeros((th, n, n))
+        adj_train_imputed = np.zeros((th, n, n))
+
+        for t in range(th):
+            idx1, idx2 = idx_split[t, :, 0], idx_split[t, :, 1]
+
+            cv_idx_t = np.zeros((n, n), dtype=bool)
+            cv_idx_t[idx1, idx2] = True
+            cv_idx_t = np.triu(cv_idx_t) + np.triu(cv_idx_t).T
+            cv_idx[t, :, :] = cv_idx_t
+
+            adj_train[t, :, :] = adj[t, :, :]
+            adj_train[t, idx1, idx2] = 0
+            adj_train[t, :, :] = (
+                np.triu(adj_train[t, :, :]) + np.triu(adj_train[t, :, :]).T
+            )
+            adj_train_imputed[t, :, :] = cls.eigen_complete(
+                adj_train[t, :, :], cv_idx_t, 10, 10
+            )
+
+        z_pred = cls().fit_predict(
+            deepcopy(adj_train_imputed[:, :, :]),
+            **pisces_kwargs,
+        )
+
+        modu_fold, logllh_fold = 0, 0
+        for t in range(th):
+            modu_fold = modu_fold + cls.modularity(
+                adj[t, :, :],
+                adj_train[t, :, :],
+                z_pred[t, :],
+                cv_idx[t, :, :],
+            )
+            logllh_fold = logllh_fold + cls.loglikelihood(
+                adj[t, :, :],
+                adj_train[t, :, :],
+                z_pred[t, :],
+                cv_idx[t, :, :],
+            )
+
+        return modu_fold, logllh_fold
+
+    modu_total = 0
+    logllh_total = 0
+
+    def split_train_test(fold_idx):
+        pfold = n**2 // num_folds
+        start, end = pfold * fold_idx, (fold_idx + 1) * pfold
+        test = r[start:end]
+        idx_split = idx[test, :]
+        return np.tile(idx_split, (th, 1, 1))
+
+    if n_jobs &gt; 1:
+        from joblib import Parallel, delayed
+
+        with Parallel(n_jobs=n_jobs) as parallel:  # prefer=&#34;processes&#34;
+            loss_zipped = parallel(
+                delayed(compute_for_fold)(
+                    adj,
+                    split_train_test(fold_idx),
+                    n,
+                    th,
+                    pisces_kwargs=pisces_kwargs,
+                )
+                for fold_idx in range(num_folds)
+            )
+            modu_fold, logllh_fold = map(np.array, zip(*loss_zipped))
+            modu_total = sum(modu_fold)
+            logllh_total = sum(logllh_fold)
+    else:
+        for fold_idx in range(num_folds):
+            modu_fold, logllh_fold = compute_for_fold(
+                adj, split_train_test(fold_idx), n, th, pisces_kwargs=pisces_kwargs
+            )
+            modu_total = modu_total + modu_fold
+            logllh_total = logllh_total + logllh_fold
+
+    num_adj = th
+
+    return modu_total / num_adj, logllh_total / num_adj</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="mudcod.community_detection.PisCES.fit"><code class="name flex">
+<span>def <span class="ident">fit</span></span>(<span>self, adj, alpha=None, n_iter=30, max_K=None, opt_K='empirical', monitor_convergence=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the spectral embeddings from given time series of matrices of
+the dynamic network.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>adj</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, n, n)</code></dt>
+<dd>Time series of adjacency matrices of size (th,n,n), where n is the
+number of vertices, and th is the time horizon.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, 2)</code>, default=<code>0.05J(th,2)</code></dt>
+<dd>Tuning parameter for smoothing along the time axis.</dd>
+<dt><strong><code>n_iter</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
+<dd>Determines the number of iterations to run PisCES.</dd>
+<dt><strong><code>max_K</code></strong> :&ensp;<code>int</code>, default=<code>n/10</code></dt>
+<dd>Determines the maximum number of communities to predict.</dd>
+<dt><strong><code>opt_K</code></strong> :&ensp;<code>string</code>, default=<code>'empirical'</code></dt>
+<dd>Chooses the technique to estimate k, i.e., number of communities.</dd>
+<dt><strong><code>monitor_convergence</code></strong> :&ensp;<code>bool</code>, default=<code>'False'</code></dt>
+<dd>Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+obj_{t-1}&gt; at each iteration to monitor convergence.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>embeddings</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, n, max_K)</code></dt>
+<dd>Computed and smoothed spectral embeddings of the time series of the
+adjacency matrices, with shape (th, n, max_K).</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit(
+    self,
+    adj,
+    alpha=None,
+    n_iter=30,
+    max_K=None,
+    opt_K=&#34;empirical&#34;,
+    monitor_convergence=False,
+):
+    &#34;&#34;&#34;
+    Computes the spectral embeddings from given time series of matrices of
+    the dynamic network.
+
+    Parameters
+    ----------
+    adj : `np.ndarray` of shape (th, n, n)
+        Time series of adjacency matrices of size (th,n,n), where n is the
+        number of vertices, and th is the time horizon.
+
+    alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+        Tuning parameter for smoothing along the time axis.
+
+    n_iter : `int`, default=30
+        Determines the number of iterations to run PisCES.
+
+    max_K : `int`, default=n/10
+        Determines the maximum number of communities to predict.
+
+    opt_K : `string`, default=&#39;empirical&#39;
+        Chooses the technique to estimate k, i.e., number of communities.
+
+    monitor_convergence : `bool`, default=&#39;False&#39;
+        Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+        obj_{t-1}&gt; at each iteration to monitor convergence.
+
+    Returns
+    -------
+    embeddings : `np.ndarray` of shape (th, n, max_K)
+        Computed and smoothed spectral embeddings of the time series of the
+        adjacency matrices, with shape (th, n, max_K).
+
+    &#34;&#34;&#34;
+    self.adj = adj.astype(float)
+    self.num_vertices = self.adj.shape[1]
+    self.time_horizon = self.adj.shape[0]
+
+    self.degrees = np.empty(self.adj.shape[:-1])
+    self.lapl_adj = np.empty_like(self.adj)
+
+    if alpha is None:
+        alpha = 0.05 * np.ones((self.time_horizon, 2))
+    if max_K is None:
+        max_K = np.ceil(self.num_vertices / 10).astype(int)
+
+    if self.time_horizon &lt; 2:
+        raise ValueError(
+            &#34;Time horizon must be at least 2, otherwise use static spectral clustering.&#34;
+        )
+    assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 3
+    assert self.adj.shape[1] == self.adj.shape[2]
+    assert isinstance(alpha, np.ndarray) and alpha.shape == (self.time_horizon, 2)
+    assert max_K &gt; 0
+
+    th = self.time_horizon
+    n = self.num_vertices
+
+    u = np.zeros((th, n, n))
+    v_col = np.zeros((th, n, max_K))
+    k = np.zeros(th).astype(int) + max_K
+    objective = np.zeros(n_iter)
+    self.convergence_monitor = []
+    diffU = 0
+
+    for t in range(th):
+        adj_t = self.adj[t, :, :]
+        self.degrees[t, :] = np.sum(np.abs(adj_t), axis=0) + _eps
+        sqinv_degree = sqrtm(inv(np.diag(self.degrees[t, :])))
+        self.lapl_adj[t, :, :] = sqinv_degree @ adj_t @ sqinv_degree
+
+    # Initialization of k, v_col.
+    for t in range(th):
+        lapl_adj_t = self.lapl_adj[t, :, :]
+        k[t] = self.choose_model_order_K(
+            lapl_adj_t, self.degrees[t, :], max_K, opt=opt_K
+        )
+        _, v_col[t, :, : k[t]] = eigs(lapl_adj_t, k=k[t], which=&#34;LM&#34;)
+        u[t, :, :] = v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T
+
+        if monitor_convergence:
+            diffU = diffU + (
+                Distances.hamming_distance(
+                    self.lapl_adj[t, :, :],
+                    v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T,
+                )
+            )
+
+    if monitor_convergence:
+        self.convergence_monitor.append((-np.inf, diffU))
+
+    total_itr = 0
+    for itr in range(n_iter):
+        if self.verbose:
+            print(f&#34;Iteration {itr}/{n_iter} is running.&#34;)
+        total_itr += 1
+        diffU = 0
+        v_col_pv = deepcopy(v_col)
+        for t in range(th):
+            # reprs = u[t, :, :]
+            reprs = self.lapl_adj[t, :, :]
+            if t == 0:
+                v_col_pv_ktn = v_col_pv[t + 1, :, : k[t + 1]]
+                reprs_bar = reprs + alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T)
+            elif t == th - 1:
+                v_col_pv_ktp = v_col_pv[t - 1, :, : k[t - 1]]
+                reprs_bar = reprs + alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T)
+            else:
+                v_col_pv_ktp = v_col_pv[t - 1, :, : k[t - 1]]
+                v_col_pv_ktn = v_col_pv[t + 1, :, : k[t + 1]]
+                reprs_bar = (
+                    reprs
+                    + (alpha[t, 0] * (v_col_pv_ktp @ v_col_pv_ktp.T))
+                    + (alpha[t, 1] * (v_col_pv_ktn @ v_col_pv_ktn.T))
+                )
+
+            k[t] = self.choose_model_order_K(
+                reprs_bar, self.degrees[t, :], max_K, opt=opt_K
+            )
+            _, v_col[t, :, : k[t]] = eigs(reprs_bar, k=k[t], which=&#34;LM&#34;)
+
+            eig_val = eigvals(v_col[t, :, : k[t]].T @ v_col_pv[t, :, : k[t]])
+            objective[itr] = objective[itr] + np.sum(np.abs(eig_val), axis=0)
+
+            if monitor_convergence:
+                diffU = diffU + (
+                    Distances.hamming_distance(
+                        v_col[t, :, : k[t]] @ v_col[t, :, : k[t]].T,
+                        v_col_pv[t, :, : k[t]] @ v_col_pv[t, :, : k[t]].T,
+                    )
+                )
+
+        if monitor_convergence:
+            self.convergence_monitor.append((objective[itr], diffU))
+
+        if itr &gt;= 1:
+            diff_obj = objective[itr] - objective[itr - 1]
+            if abs(diff_obj) &lt; CONVERGENCE_CRITERIA:
+                break
+
+    if (
+        (total_itr &gt; 1)
+        and (total_itr == n_iter)
+        and (objective[-1] - objective[-2] &gt;= CONVERGENCE_CRITERIA)
+    ):
+        warnings.warn(&#34;PisCES does not converge!&#34;, RuntimeWarning)
+
+    self.embeddings = v_col
+    self.model_order_K = k
+
+    return self.embeddings</code></pre>
+</details>
+</dd>
+<dt id="mudcod.community_detection.PisCES.fit_predict"><code class="name flex">
+<span>def <span class="ident">fit_predict</span></span>(<span>self, adj, alpha=None, n_iter=30, max_K=None, opt_K='empirical', monitor_convergence=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts time series of community memberships given the adjacency
+matrices of the dynamic network.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>adj</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, n, n)</code></dt>
+<dd>Time series of adjacency matrices of size (th,n,n), where n
+is the number of vertices, and th is the time horizon.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, 2)</code>, default=<code>0.05J(th,2)</code></dt>
+<dd>Tuning parameter for smoothing along the time axis.</dd>
+<dt><strong><code>n_iter</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
+<dd>Determines the number of iterations to run PisCES.</dd>
+<dt><strong><code>max_K</code></strong> :&ensp;<code>int</code>, default=<code>n/10</code></dt>
+<dd>Determines the maximum number of communities to predict.</dd>
+<dt><strong><code>opt_K</code></strong> :&ensp;<code>string</code>, default=<code>'empirical'</code></dt>
+<dd>Chooses the technique to estimate k, i.e., number of communities.</dd>
+<dt><strong><code>monitor_convergence</code></strong> :&ensp;<code>bool</code>, default=<code>'False'</code></dt>
+<dd>Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+obj_{t-1}&gt; at each iteration to monitor convergence.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>z_pred</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, n)</code></dt>
+<dd>Predicted community membership labels of vertices at each time
+point, where n is the number of vertices and th is the time
+horizon.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit_predict(
+    self,
+    adj,
+    alpha=None,
+    n_iter=30,
+    max_K=None,
+    opt_K=&#34;empirical&#34;,
+    monitor_convergence=False,
+):
+    &#34;&#34;&#34;
+    Predicts time series of community memberships given the adjacency
+    matrices of the dynamic network.
+
+    Parameters
+    ----------
+    adj : `np.ndarray` of shape (th, n, n)
+        Time series of adjacency matrices of size (th,n,n), where n
+        is the number of vertices, and th is the time horizon.
+
+    alpha : `np.ndarray` of shape (th, 2), default=0.05J(th,2)
+        Tuning parameter for smoothing along the time axis.
+
+    n_iter : `int`, default=30
+        Determines the number of iterations to run PisCES.
+
+    max_K : `int`, default=n/10
+        Determines the maximum number of communities to predict.
+
+    opt_K : `string`, default=&#39;empirical&#39;
+        Chooses the technique to estimate k, i.e., number of communities.
+
+    monitor_convergence : `bool`, default=&#39;False&#39;
+        Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
+        obj_{t-1}&gt; at each iteration to monitor convergence.
+
+    Returns
+    -------
+    z_pred : np.ndarray of shape (th, n)
+        Predicted community membership labels of vertices at each time
+        point, where n is the number of vertices and th is the time
+        horizon.
+
+    &#34;&#34;&#34;
+    self.fit(
+        adj,
+        alpha=alpha,
+        max_K=max_K,
+        opt_K=opt_K,
+        n_iter=n_iter,
+        monitor_convergence=monitor_convergence,
+    )
+    return self.predict()</code></pre>
+</details>
+</dd>
+<dt id="mudcod.community_detection.PisCES.predict"><code class="name flex">
+<span>def <span class="ident">predict</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts community memberships of vertices at each time point.</p>
+<h2 id="parameters">Parameters</h2>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>z_pred</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (th, n)</code></dt>
+<dd>Predicted community membership labels of vertices at each time
+point, where n is the number of vertices and th is the time
+horizon.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def predict(self):
+    &#34;&#34;&#34;
+    Predicts community memberships of vertices at each time point.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    z_pred : np.ndarray of shape (th, n)
+        Predicted community membership labels of vertices at each time
+        point, where n is the number of vertices and th is the time
+        horizon.
+
+    &#34;&#34;&#34;
+    th = self.time_horizon
+    n = self.num_vertices
+    z_pred = np.empty((th, n), dtype=int)
+    for t in range(th):
+        kmeans = KMeans(n_clusters=self.model_order_K[t])
+        z_pred[t, :] = kmeans.fit_predict(
+            self.embeddings[t, :, : self.model_order_K[t]]
+        )
+    return z_pred</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mudcod.community_detection.CommunityDetectionMixin" href="#mudcod.community_detection.CommunityDetectionMixin">CommunityDetectionMixin</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.choose_model_order_K" href="#mudcod.community_detection.CommunityDetectionMixin.choose_model_order_K">choose_model_order_K</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.loglikelihood" href="#mudcod.community_detection.CommunityDetectionMixin.loglikelihood">loglikelihood</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.modularity" href="#mudcod.community_detection.CommunityDetectionMixin.modularity">modularity</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mudcod.community_detection.StaticSpectralCoD"><code class="flex name class">
+<span>class <span class="ident">StaticSpectralCoD</span></span>
+<span>(</span><span>verbose=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StaticSpectralCoD(CommunityDetectionMixin):
+    def __init__(self, verbose=False):
+        super().__init__(&#34;StaticSpectralCoD&#34;, verbose=verbose)
+
+    def fit(self, adj, max_K=None, opt_K=&#34;empirical&#34;):
+        &#34;&#34;&#34;
+        Computes the spectral embeddings from the adjacency matrix of the
+        network.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (n, n)
+            Adjacency matrices of size (n, n), n is the number of vertices.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        Returns
+        -------
+        embeddings : `np.ndarray` of shape (n, max_K)
+            Computed spectral embedding of the adjacency matrix.
+
+        &#34;&#34;&#34;
+        self.adj = adj.astype(float)
+        self.num_vertices = self.adj.shape[0]
+
+        self.degrees = np.empty(self.adj.shape[:-1])
+        self.lapl_adj = np.empty_like(self.adj)
+
+        if max_K is None:
+            max_K = np.ceil(self.num_vertices / 10).astype(int)
+
+        assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 2
+        assert self.adj.shape[0] == self.adj.shape[1]
+
+        n = self.num_vertices
+
+        self.degrees = np.sum(np.abs(self.adj), axis=0) + _eps
+        sqinv_degree = sqrtm(inv(np.diag(self.degrees)))
+        self.lapl_adj = sqinv_degree @ self.adj @ sqinv_degree
+
+        v_col = np.zeros((n, max_K))
+        k = self.choose_model_order_K(self.lapl_adj, self.degrees, max_K, opt=opt_K)
+        _, v_col[:, :k] = eigs(self.lapl_adj, k=k, which=&#34;LM&#34;)
+
+        self.embeddings = v_col
+        self.model_order_K = k
+
+        return self.embeddings
+
+    def predict(self):
+        &#34;&#34;&#34;
+        Predicts community memberships of vertices.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (n)
+            Predicted community membership labels of each vertex.
+
+        &#34;&#34;&#34;
+        kmeans = KMeans(n_clusters=self.model_order_K)
+        z_pred = kmeans.fit_predict(self.embeddings[:, : self.model_order_K])
+        return z_pred
+
+    def fit_predict(self, adj, max_K=None, opt_K=&#34;empirical&#34;):
+        &#34;&#34;&#34;
+        Predicts community memberships of vertices given the adjacency matrix
+        of the network.
+
+        Parameters
+        ----------
+        adj : `np.ndarray` of shape (n, n)
+            Adjacency matrices of size (n, n), n is the number of vertices.
+
+        max_K : `int`, default=n/10
+            Determines the maximum number of communities to predict.
+
+        opt_K : `string`, default=&#39;empirical&#39;
+            Chooses the technique to estimate k, i.e., number of communities.
+
+        Returns
+        -------
+        z_pred : np.ndarray of shape (n)
+            Predicted community membership labels of each vertex.
+
+        &#34;&#34;&#34;
+        self.fit(adj, max_K=max_K, opt_K=opt_K)
+        return self.predict()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mudcod.community_detection.CommunityDetectionMixin" href="#mudcod.community_detection.CommunityDetectionMixin">CommunityDetectionMixin</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="mudcod.community_detection.StaticSpectralCoD.fit"><code class="name flex">
+<span>def <span class="ident">fit</span></span>(<span>self, adj, max_K=None, opt_K='empirical')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the spectral embeddings from the adjacency matrix of the
+network.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>adj</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n, n)</code></dt>
+<dd>Adjacency matrices of size (n, n), n is the number of vertices.</dd>
+<dt><strong><code>max_K</code></strong> :&ensp;<code>int</code>, default=<code>n/10</code></dt>
+<dd>Determines the maximum number of communities to predict.</dd>
+<dt><strong><code>opt_K</code></strong> :&ensp;<code>string</code>, default=<code>'empirical'</code></dt>
+<dd>Chooses the technique to estimate k, i.e., number of communities.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>embeddings</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n, max_K)</code></dt>
+<dd>Computed spectral embedding of the adjacency matrix.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit(self, adj, max_K=None, opt_K=&#34;empirical&#34;):
+    &#34;&#34;&#34;
+    Computes the spectral embeddings from the adjacency matrix of the
+    network.
+
+    Parameters
+    ----------
+    adj : `np.ndarray` of shape (n, n)
+        Adjacency matrices of size (n, n), n is the number of vertices.
+
+    max_K : `int`, default=n/10
+        Determines the maximum number of communities to predict.
+
+    opt_K : `string`, default=&#39;empirical&#39;
+        Chooses the technique to estimate k, i.e., number of communities.
+
+    Returns
+    -------
+    embeddings : `np.ndarray` of shape (n, max_K)
+        Computed spectral embedding of the adjacency matrix.
+
+    &#34;&#34;&#34;
+    self.adj = adj.astype(float)
+    self.num_vertices = self.adj.shape[0]
+
+    self.degrees = np.empty(self.adj.shape[:-1])
+    self.lapl_adj = np.empty_like(self.adj)
+
+    if max_K is None:
+        max_K = np.ceil(self.num_vertices / 10).astype(int)
+
+    assert type(self.adj) in [np.ndarray, np.memmap] and self.adj.ndim == 2
+    assert self.adj.shape[0] == self.adj.shape[1]
+
+    n = self.num_vertices
+
+    self.degrees = np.sum(np.abs(self.adj), axis=0) + _eps
+    sqinv_degree = sqrtm(inv(np.diag(self.degrees)))
+    self.lapl_adj = sqinv_degree @ self.adj @ sqinv_degree
+
+    v_col = np.zeros((n, max_K))
+    k = self.choose_model_order_K(self.lapl_adj, self.degrees, max_K, opt=opt_K)
+    _, v_col[:, :k] = eigs(self.lapl_adj, k=k, which=&#34;LM&#34;)
+
+    self.embeddings = v_col
+    self.model_order_K = k
+
+    return self.embeddings</code></pre>
+</details>
+</dd>
+<dt id="mudcod.community_detection.StaticSpectralCoD.fit_predict"><code class="name flex">
+<span>def <span class="ident">fit_predict</span></span>(<span>self, adj, max_K=None, opt_K='empirical')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts community memberships of vertices given the adjacency matrix
+of the network.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>adj</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n, n)</code></dt>
+<dd>Adjacency matrices of size (n, n), n is the number of vertices.</dd>
+<dt><strong><code>max_K</code></strong> :&ensp;<code>int</code>, default=<code>n/10</code></dt>
+<dd>Determines the maximum number of communities to predict.</dd>
+<dt><strong><code>opt_K</code></strong> :&ensp;<code>string</code>, default=<code>'empirical'</code></dt>
+<dd>Chooses the technique to estimate k, i.e., number of communities.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>z_pred</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n)</code></dt>
+<dd>Predicted community membership labels of each vertex.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit_predict(self, adj, max_K=None, opt_K=&#34;empirical&#34;):
+    &#34;&#34;&#34;
+    Predicts community memberships of vertices given the adjacency matrix
+    of the network.
+
+    Parameters
+    ----------
+    adj : `np.ndarray` of shape (n, n)
+        Adjacency matrices of size (n, n), n is the number of vertices.
+
+    max_K : `int`, default=n/10
+        Determines the maximum number of communities to predict.
+
+    opt_K : `string`, default=&#39;empirical&#39;
+        Chooses the technique to estimate k, i.e., number of communities.
+
+    Returns
+    -------
+    z_pred : np.ndarray of shape (n)
+        Predicted community membership labels of each vertex.
+
+    &#34;&#34;&#34;
+    self.fit(adj, max_K=max_K, opt_K=opt_K)
+    return self.predict()</code></pre>
+</details>
+</dd>
+<dt id="mudcod.community_detection.StaticSpectralCoD.predict"><code class="name flex">
+<span>def <span class="ident">predict</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts community memberships of vertices.</p>
+<h2 id="parameters">Parameters</h2>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>z_pred</code></strong> :&ensp;<code>np.ndarray</code> of <code>shape (n)</code></dt>
+<dd>Predicted community membership labels of each vertex.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def predict(self):
+    &#34;&#34;&#34;
+    Predicts community memberships of vertices.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    z_pred : np.ndarray of shape (n)
+        Predicted community membership labels of each vertex.
+
+    &#34;&#34;&#34;
+    kmeans = KMeans(n_clusters=self.model_order_K)
+    z_pred = kmeans.fit_predict(self.embeddings[:, : self.model_order_K])
+    return z_pred</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mudcod.community_detection.CommunityDetectionMixin" href="#mudcod.community_detection.CommunityDetectionMixin">CommunityDetectionMixin</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.choose_model_order_K" href="#mudcod.community_detection.CommunityDetectionMixin.choose_model_order_K">choose_model_order_K</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.loglikelihood" href="#mudcod.community_detection.CommunityDetectionMixin.loglikelihood">loglikelihood</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.modularity" href="#mudcod.community_detection.CommunityDetectionMixin.modularity">modularity</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="mudcod" href="index.html">mudcod</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="mudcod.community_detection.CommunityDetectionMixin" href="#mudcod.community_detection.CommunityDetectionMixin">CommunityDetectionMixin</a></code></h4>
+<ul class="">
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.choose_model_order_K" href="#mudcod.community_detection.CommunityDetectionMixin.choose_model_order_K">choose_model_order_K</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.eigen_complete" href="#mudcod.community_detection.CommunityDetectionMixin.eigen_complete">eigen_complete</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.embeddings" href="#mudcod.community_detection.CommunityDetectionMixin.embeddings">embeddings</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.loglikelihood" href="#mudcod.community_detection.CommunityDetectionMixin.loglikelihood">loglikelihood</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.model_order_K" href="#mudcod.community_detection.CommunityDetectionMixin.model_order_K">model_order_K</a></code></li>
+<li><code><a title="mudcod.community_detection.CommunityDetectionMixin.modularity" href="#mudcod.community_detection.CommunityDetectionMixin.modularity">modularity</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mudcod.community_detection.MuDCoD" href="#mudcod.community_detection.MuDCoD">MuDCoD</a></code></h4>
+<ul class="">
+<li><code><a title="mudcod.community_detection.MuDCoD.cross_validation" href="#mudcod.community_detection.MuDCoD.cross_validation">cross_validation</a></code></li>
+<li><code><a title="mudcod.community_detection.MuDCoD.fit" href="#mudcod.community_detection.MuDCoD.fit">fit</a></code></li>
+<li><code><a title="mudcod.community_detection.MuDCoD.fit_predict" href="#mudcod.community_detection.MuDCoD.fit_predict">fit_predict</a></code></li>
+<li><code><a title="mudcod.community_detection.MuDCoD.predict" href="#mudcod.community_detection.MuDCoD.predict">predict</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mudcod.community_detection.PisCES" href="#mudcod.community_detection.PisCES">PisCES</a></code></h4>
+<ul class="">
+<li><code><a title="mudcod.community_detection.PisCES.cross_validation" href="#mudcod.community_detection.PisCES.cross_validation">cross_validation</a></code></li>
+<li><code><a title="mudcod.community_detection.PisCES.fit" href="#mudcod.community_detection.PisCES.fit">fit</a></code></li>
+<li><code><a title="mudcod.community_detection.PisCES.fit_predict" href="#mudcod.community_detection.PisCES.fit_predict">fit_predict</a></code></li>
+<li><code><a title="mudcod.community_detection.PisCES.predict" href="#mudcod.community_detection.PisCES.predict">predict</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mudcod.community_detection.StaticSpectralCoD" href="#mudcod.community_detection.StaticSpectralCoD">StaticSpectralCoD</a></code></h4>
+<ul class="">
+<li><code><a title="mudcod.community_detection.StaticSpectralCoD.fit" href="#mudcod.community_detection.StaticSpectralCoD.fit">fit</a></code></li>
+<li><code><a title="mudcod.community_detection.StaticSpectralCoD.fit_predict" href="#mudcod.community_detection.StaticSpectralCoD.fit_predict">fit_predict</a></code></li>
+<li><code><a title="mudcod.community_detection.StaticSpectralCoD.predict" href="#mudcod.community_detection.StaticSpectralCoD.predict">predict</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
