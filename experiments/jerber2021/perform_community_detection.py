@@ -1,7 +1,7 @@
 import argparse
-import numpy as np
 
 import expt_utils
+import numpy as np
 
 parser = argparse.ArgumentParser(
     description="Cell-type-specific subject split experiments."
