@@ -1,14 +1,14 @@
 # MuDCoD: Multi-subject Dynamic Community Detection
 MuDCoD (Multi-subject Dynamic Community Detection) provides robust community detection in time-varying personalized networks modules.
 It allow signal sharing between time-steps and subjects by applying eigenvector smoothing.
-When available, MuDCoD leverages common signals among networks of the subjects and performs robustly when subjects do not share any apparent information.
+When available, MuDCoD leverages common signals among networks of the subjects and performs robustly when subjects do not share any apparent information. Documentation can be found [here](https://bo1929.github.io/documentations/MuDCoD/community_detection.html).
 
 ![Alt text](docs/toy-ms-dyn-nw.png?raw=true "Multi-subject Dynamic Networks")
 
 ## Installation
 
 ## Running
-See the examples directory for simple examples of Multi-subject Dynamic DCBM, community detection with MuDCoD and cross-validation to choose alpha and beta ($\alpha$ and $\beta$).
+See the examples directory for simple examples of Multi-subject Dynamic DCBM, community detection with MuDCoD and cross-validation to choose alpha and beta, $\alpha$ and $\beta$.
 
 For a Python interpreter to be able to import `mudcod`, it should be on your Python path.
 The current working directory is (usually) included in the Python path.
