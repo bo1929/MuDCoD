@@ -389,7 +389,7 @@ class PisCES(CommunityDetectionMixin):
 
         monitor_convergence : `bool`, default='False'
             Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
-            obj_{t-1}> at each iteration to monitor convergence.
+            obj_{t-1}| at each iteration to monitor convergence.
 
         Returns
         -------
@@ -574,7 +574,7 @@ class PisCES(CommunityDetectionMixin):
 
         monitor_convergence : `bool`, default='False'
             Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
-            obj_{t-1}> at each iteration to monitor convergence.
+            obj_{t-1}| at each iteration to monitor convergence.
 
         Returns
         -------
@@ -802,7 +802,7 @@ class MuDCoD(CommunityDetectionMixin):
 
         monitor_convergence : `bool`, default='False'
             Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
-            obj_{t-1}> at each iteration to monitor convergence.
+            obj_{t-1}| at each iteration to monitor convergence.
 
         Returns
         -------
