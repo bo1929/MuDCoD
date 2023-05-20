@@ -20,7 +20,9 @@ model_dcbm = MuSDynamicDCBM(
 )
 
 # setting 2 (SSoS): strong signal sharing among subjects.
-print("Setting SSoT: signal sharing over time, subjects evolve independently.")
+print(
+    "Setting SSoS: signal sharing over time, subjects evolve conditioned on a common ancestor."
+)
 adj_mus_dynamic, z_mus_dynamic_true = model_dcbm.simulate_mus_dynamic_dcbm(setting=2)
 
 # Some reasonable hyper-parameters.
