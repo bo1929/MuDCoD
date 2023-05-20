@@ -73,7 +73,7 @@ class CommunityDetectionMixin:
         return m
 
     @staticmethod
-    def choose_model_order_K(reprs, degrees, max_K, opt="empirical"):
+    def choose_model_order_K(reprs, degrees, max_K, min_K=5, opt="empirical"):
         """
         Predicts number of communities/modules in a network.
 
@@ -121,14 +121,14 @@ class CommunityDetectionMixin:
                     idx = -2
                 else:
                     idx = -1
-                model_order_pred = np.argsort(gaprw, axis=0)[idx] + 1
+                model_order_pred = np.argsort(gaprw, axis=0)[idx] + 2
             else:
                 raise ValueError(
                     f"Unkown option {opt} is given for predicting number of communities.\n"
                     f"Use one of {opt_list}."
                 )
 
-        return int(model_order_pred) + 1
+        return max(int(model_order_pred) + 1, min_K)
 
     @staticmethod
     def modularity(adj_test, adj_train, z_pred, cv_idx, resolution=1):
@@ -389,7 +389,7 @@ class PisCES(CommunityDetectionMixin):
 
         monitor_convergence : `bool`, default='False'
             Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
-            obj_{t-1}| at each iteration to monitor convergence.
+            obj_{t-1}> at each iteration to monitor convergence.
 
         Returns
         -------
@@ -574,7 +574,7 @@ class PisCES(CommunityDetectionMixin):
 
         monitor_convergence : `bool`, default='False'
             Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
-            obj_{t-1}| at each iteration to monitor convergence.
+            obj_{t-1}> at each iteration to monitor convergence.
 
         Returns
         -------
@@ -802,7 +802,7 @@ class MuDCoD(CommunityDetectionMixin):
 
         monitor_convergence : `bool`, default='False'
             Controls if method saves ||U_{t} - U_{t-1}|| values and |obj_t -
-            obj_{t-1}| at each iteration to monitor convergence.
+            obj_{t-1}> at each iteration to monitor convergence.
 
         Returns
         -------
