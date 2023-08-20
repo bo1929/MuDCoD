@@ -100,12 +100,14 @@ We suggest to use Dozer [3] to filter genes and construct robust networks that w
 
 1. Follow the instructions and use the code snippets provided [here](https://htmlpreview.github.io/?https://github.com/shanlu01/Dozer/blob/main/vignettes/introduction.html) to filter genes and construct gene co-expression networks using Dozer.
 It is sufficient to follow until "Section 4: Gene Centrality Analysis" (not included) for our purposes.
-Successfully running given code snippets will results in outputting networks (weighted, i.e., co-expression values) in files with `.rda` extension.
+Successfully running given code snippets will results in outputting networks (weighted, i.e., co-expression values) and other relevant information in a R data file with `.rda` extension.
 
-2. Use `experiments/construct_adjacency_matrix.py` with desired threshold (in terms of percentile, in our experiments 5%) to output binarized networks in `.npy` format to a given path: `/path/to/adj`.
+3. First, output networks separately for each subject at each time point as `.csv` files using `experiments/output_networks.R` script.
+
+2. Use `experiments/construct_adjacency_matrix.py` with desired threshold (in terms of percentile, in our experiments 5%) to generate binarized networks in `.npy` format to a given path: `/path/to/adj`.
 
 3. Read networks from disk with `numpy.load`, and use MuDCoD as below.
-3. Run MuDCoD iterative algorithm to find smoothed spectral representations of nodes, and then predict by clustering them to communities.
+3. Run MuDCoD's iterative algorithm to find smoothed spectral representations of nodes, and then predict by clustering them to communities.
 ```python
 adj = numpy.load("/path/to/adj")
 pred_comm = MuDCoD(verbose=False).fit_predict(
