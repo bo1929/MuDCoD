@@ -102,12 +102,13 @@ We suggest to use Dozer [3] to filter genes and construct robust networks that w
 It is sufficient to follow until "Section 4: Gene Centrality Analysis" (not included) for our purposes.
 Successfully running given code snippets will results in outputting networks (weighted, i.e., co-expression values) and other relevant information in a R data file with `.rda` extension.
 
-3. First, output networks separately for each subject at each time point as `.csv` files using `experiments/output_networks.R` script.
+3. First, output networks separately for each subject at each time point. If you have $n$ many nodes, $T$ time points and $S$ subjects; you should have $T \times S$ many $n$ by $n$ adjacency matrices.
 
-2. Use `experiments/construct_adjacency_matrix.py` with desired threshold (in terms of percentile, in our experiments 5%) to generate binarized networks in `.npy` format to a given path: `/path/to/adj`.
+2. Collect $T \times S$ adjacency matrices in a multi-dimensional `numpy.array` so that the first dimension indexes subjects and the second dimension indexes time points. Save this multi-dimensional array to disk.
 
 3. Read networks from disk with `numpy.load`, and use MuDCoD as below.
-3. Run MuDCoD's iterative algorithm to find smoothed spectral representations of nodes, and then predict by clustering them to communities.
+   
+4. Run MuDCoD's iterative algorithm to find smoothed spectral representations of nodes, and then predict by clustering them to communities.
 ```python
 adj = numpy.load("/path/to/adj")
 pred_comm = MuDCoD(verbose=False).fit_predict(
