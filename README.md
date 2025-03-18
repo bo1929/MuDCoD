@@ -1,7 +1,24 @@
 # MuDCoD: Multi-subject Dynamic Community Detection
 MuDCoD (Multi-subject Dynamic Community Detection) provides robust community detection in time-varying personalized networks modules.
 It allow signal sharing between time-steps and subjects by applying eigenvector smoothing.
-When available, MuDCoD leverages common signals among networks of the subjects and performs robustly when subjects do not share any apparent information. Documentation can be found [here](https://bo1929.github.io/documentations/MuDCoD/community_detection.html).
+When available, MuDCoD leverages common signals among networks of the subjects and performs robustly when subjects do not share any apparent information.
+Documentation can be found [here](https://bo1929.github.io/documentations/MuDCoD/community_detection.html).
+Please, see [the manuscript](https://academic.oup.com/bioinformatics/article/39/10/btad592/7281355) for the details of the algorithm. If you use MuDCoD, please cite:
+```bib
+@article{sapci_mudcod_2023,
+	title = {{MuDCoD}: multi-subject community detection in personalized dynamic gene networks from single-cell {RNA} sequencing},
+	volume = {39},
+	issn = {1367-4811},
+	doi = {10.1093/bioinformatics/btad592},
+	number = {10},
+	urldate = {2023-10-13},
+	journal = {Bioinformatics},
+	author = {Şapcı, Ali Osman Berk and Lu, Shan and Yan, Shuchen and Ay, Ferhat and Tastan, Oznur and Keleş, Sündüz},
+	month = oct,
+	year = {2023},
+	pages = {btad592},
+}
+```
 
 ![Alt text](docs/toy-ms-dyn-nw.png?raw=true "Multi-subject Dynamic Networks")
 
